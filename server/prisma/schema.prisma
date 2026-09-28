@@ -1,0 +1,172 @@
+// Skema Prisma untuk Site Server POS Parkir.
+// Nama model/field memakai camelCase; kolom database tetap snake_case via @map.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String           @id
+  username     String           @unique
+  passwordHash String           @map("password_hash")
+  name         String
+  role         String
+  active       Boolean          @default(true)
+  createdAt    DateTime         @default(now()) @map("created_at")
+  permissions  UserPermission[]
+
+  @@map("users")
+}
+
+model Permission {
+  name  String           @id
+  users UserPermission[]
+
+  @@map("permissions")
+}
+
+model UserPermission {
+  userId     String     @map("user_id")
+  permission String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  permissionRef Permission @relation(fields: [permission], references: [name], onDelete: Cascade)
+
+  @@id([userId, permission])
+  @@map("user_permissions")
+}
+
+model Device {
+  id        String   @id
+  name      String
+  laneName  String   @map("lane_name")
+  gateName  String   @map("gate_name")
+  mode      String   @default("operator")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("devices")
+}
+
+model ParkingSession {
+  id            String    @id
+  ticketNumber  String    @unique @map("ticket_number")
+  plateNumber   String    @map("plate_number")
+  vehicleType   String    @map("vehicle_type")
+  entryTime     DateTime  @map("entry_time")
+  sessionStatus String    @default("ACTIVE") @map("session_status")
+  paymentStatus String    @default("UNPAID") @map("payment_status")
+  laneIn        String    @map("lane_in")
+  amount        Int?
+  paidAt        DateTime? @map("paid_at")
+  closedAt      DateTime? @map("closed_at")
+
+  @@index([paymentStatus], map: "idx_sessions_payment_status")
+  @@map("parking_sessions")
+}
+
+model Shift {
+  id           String                @id
+  deviceId     String                @map("device_id")
+  laneName     String                @map("lane_name")
+  openedById   String                @map("opened_by_id")
+  openedByName String                @map("opened_by_name")
+  openedAt     DateTime              @default(now()) @map("opened_at")
+  closedAt     DateTime?             @map("closed_at")
+  status       String                @default("OPEN")
+  openingCash  Int                   @default(0) @map("opening_cash")
+  transactions PaymentTransaction[]
+
+  @@index([status], map: "idx_shifts_status")
+  @@map("shifts")
+}
+
+model PaymentTransaction {
+  id           String    @id
+  shiftId      String?   @map("shift_id")
+  shift        Shift?    @relation(fields: [shiftId], references: [id], onDelete: SetNull)
+  sessionId    String    @map("session_id")
+  ticketNumber String    @map("ticket_number")
+  plateNumber  String    @map("plate_number")
+  vehicleType  String    @map("vehicle_type")
+  method       String
+  amount       Int
+  status       String
+  reference    String
+  operatorId   String    @map("operator_id")
+  operatorName String    @map("operator_name")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  paidAt       DateTime? @map("paid_at")
+  cancelReason String?   @map("cancel_reason")
+
+  @@index([shiftId], map: "idx_transactions_shift")
+  @@index([sessionId], map: "idx_transactions_session")
+  @@index([createdAt(sort: Desc)], map: "idx_transactions_created_at")
+  @@map("transactions")
+}
+
+model QrIntent {
+  id           String    @id
+  sessionId    String    @map("session_id")
+  ticketNumber String    @map("ticket_number")
+  amount       Int
+  qrString     String    @map("qr_string")
+  status       String    @default("PENDING_QR")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  expiresAt    DateTime  @map("expires_at")
+  paidAt       DateTime? @map("paid_at")
+  failReason   String?   @map("fail_reason")
+
+  @@index([sessionId], map: "idx_qr_intents_session")
+  @@index([status], map: "idx_qr_intents_status")
+  @@map("qr_intents")
+}
+
+model EmoneyIntent {
+  id           String    @id
+  sessionId    String    @map("session_id")
+  ticketNumber String    @map("ticket_number")
+  amount       Int
+  status       String    @default("PENDING_EMONEY")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  expiresAt    DateTime  @map("expires_at")
+  paidAt       DateTime? @map("paid_at")
+  resultCode   String?   @map("result_code")
+  message      String?
+  cardMasked   String?   @map("card_masked")
+
+  @@index([sessionId], map: "idx_emoney_intents_session")
+  @@index([status], map: "idx_emoney_intents_status")
+  @@map("emoney_intents")
+}
+
+model IdempotencyKey {
+  key       String   @id
+  scope     String
+  response  Json
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("idempotency_keys")
+}
+
+model AuditLog {
+  id            String   @id
+  correlationId String   @map("correlation_id")
+  actorId       String?  @map("actor_id")
+  actorName     String?  @map("actor_name")
+  action        String
+  entityType    String?  @map("entity_type")
+  entityId      String?  @map("entity_id")
+  reason        String?
+  deviceId      String?  @map("device_id")
+  metadata      Json?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt(sort: Desc)], map: "idx_audit_created_at")
+  @@index([action], map: "idx_audit_action")
+  @@index([correlationId], map: "idx_audit_correlation")
+  @@map("audit_logs")
+}

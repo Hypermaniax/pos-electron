@@ -11,7 +11,25 @@ Dokumen ini menurunkan `requirements.md` menjadi phase implementasi yang bisa di
 - Styling: Tailwind CSS v4.
 - Testing: vitest dipasang sejak Phase 0.
 - Packaging: electron-builder disiapkan sejak Phase 0.
-- Mode saat ini: **frontend-only**. Backend/Site Server belum dihubungkan; UI memakai data contoh lokal in-memory.
+- Mode saat ini: **frontend-only di aplikasi Electron**. Backend Site Server dibuat terpisah di `server/` (Express + PostgreSQL via Prisma) dan **belum dihubungkan** ke frontend; UI tetap memakai data contoh lokal in-memory.
+- Backend test: Express + TypeScript + PostgreSQL via Prisma ORM, kontrak mengikuti `requirements.md` bagian 7.1.
+
+## Pembagian Track (Frontend vs Backend)
+
+Pekerjaan dipisah menjadi dua track yang **independen** agar tidak bertabrakan:
+
+| Track | Kode phase | Lokasi kode | Isi |
+|---|---|---|---|
+| Frontend (Electron POS) | `F0`–`F14` | `src/` | UI renderer, main/preload, IPC, mock data |
+| Backend (Site Server) | `B0`–`B4` | `server/` | REST API, PostgreSQL (Prisma), auth, transaksi, audit |
+
+Aturan batas track:
+
+- Track backend **hanya** menulis di `server/`. Tidak boleh mengubah `src/` (renderer/main/preload) selama fase backend.
+- Track frontend **hanya** menulis di `src/`. Tidak boleh mengubah `server/`.
+- Kontrak bersama (`src/shared/types.ts`) adalah referensi, bukan jalur impor runtime. Backend menyalin kontrak secara lokal di `server/src/domain/types.ts` agar kedua track bisa dikerjakan paralel tanpa konflik file.
+- Integrasi FE↔BE dilakukan pada phase terpisah di masa depan (belum masuk scope track saat ini). Sampai saat itu, frontend tetap memakai mock in-memory dan backend diuji lewat REST langsung.
+- Nomor phase lama (`Phase 0`–`Phase 14`) tetap dipakai sebagai `F0`–`F14` hanya untuk penamaan track; tidak mengubah isinya.
 
 ## Status implementasi
 
@@ -24,9 +42,16 @@ Fase yang sudah dikerjakan sebagai frontend-only:
 - Data contoh lokal + service layer di `src/renderer/src/mock` sebagai pengganti sementara Site Server.
 - Pengujian unit untuk permission dan service data contoh.
 
-Belum dikerjakan (menunggu backend/phase lanjut):
+Backend Site Server (test, belum terhubung ke frontend) — lihat Phase 15:
 
-- Koneksi nyata ke Site Server, autentikasi server, health/status koneksi.
+- REST API Express + TypeScript di `server/`.
+- PostgreSQL via Prisma: pengguna, permission, device, parking session, shift, transaksi, QR/e-money intent, idempotency, audit.
+- Auth JWT, validasi transisi status, idempotency key, correlation id.
+- Endpoint health, session/tagihan, cash, QR, e-money, gate, receipt, shift, history, audit.
+
+Belum dikerjakan (menunggu integrasi frontend/phase lanjut):
+
+- Koneksi nyata frontend ke Site Server, health/status koneksi di UI.
 - Mode manless dan pembayaran e-money (Phase 9-10).
 - Cetak thermal sebenarnya, audit ke backend, auto-update.
 
@@ -47,7 +72,7 @@ Belum dikerjakan (menunggu backend/phase lanjut):
 - Penyimpanan token: secure storage OS (`safeStorage`).
 - Idempotency: setiap aksi pembayaran dan buka palang memakai idempotency key.
 
-## Iterasi 1 — MVP Operator Loket
+## Track Frontend — Iterasi 1: MVP Operator Loket (F0–F8)
 
 ### Phase 0 — Foundation dan Keputusan Teknis
 
@@ -191,7 +216,7 @@ Kriteria selesai:
 - Riwayat shift aktif tampil benar.
 - Filter rentang waktu berjalan untuk supervisor.
 
-## Iterasi 2 — Manless dan Ketahanan
+## Track Frontend — Iterasi 2: Manless dan Ketahanan (F9–F11)
 
 ### Phase 9 — Mode Manless di Exit Lane
 
@@ -244,7 +269,7 @@ Kriteria selesai:
 - Aplikasi menampilkan error koneksi dengan jelas tanpa crash.
 - Tidak ada status final dibuat saat offline.
 
-## Iterasi 3 — Hardening dan Rilis
+## Track Frontend — Iterasi 3: Hardening dan Rilis (F12–F14)
 
 ### Phase 12 — Audit, Logging, dan Observability
 
@@ -292,15 +317,96 @@ Kriteria selesai:
 - Installer dapat dipasang di Windows 10/11.
 - Seluruh kriteria penerimaan awal terverifikasi.
 
+## Track Backend — Site Server (B0–B4)
+
+Catatan track: seluruh phase di bawah ini **hanya** menyentuh folder `server/`. Kontrak, data contoh, dan perilaku mengikuti `src/shared/types.ts` serta mock di `src/renderer/src/mock` agar integrasi berikutnya konsisten. Backend **belum dihubungkan** ke frontend Electron.
+
+### B0 — Fondasi Backend
+
+Ruang lingkup:
+- Scaffold Express + TypeScript di `server/` (package, tsconfig, env, script dev/typecheck/test).
+- Konfigurasi environment: `DATABASE_URL`, `JWT_SECRET`, port, TTL QR/e-money, CORS.
+- Koneksi PostgreSQL via Prisma Client (driver adapter `@prisma/adapter-pg`), skema Prisma, `db push`, dan seed.
+- Skema tabel: users, permissions, user_permissions, devices, parking_sessions, shifts, transactions, qr_intents, emoney_intents, idempotency_keys, audit_logs.
+- Lapisan error terstruktur dan middleware correlation id.
+- Endpoint health.
+
+Kriteria selesai:
+- `npm run setup` (generate + db push + seed) berhasil pada PostgreSQL kosong.
+- `npm run typecheck` lulus.
+- `GET /api/v1/health` mengembalikan status dan versi.
+
+### B1 — Auth dan Otorisasi
+
+Referensi: 6.1, 9.
+
+Ruang lingkup:
+- Login operator (verifikasi password hash) yang mengembalikan token JWT + profil + permission.
+- `GET /me`, logout.
+- Middleware auth dan `requirePermission`.
+- Sinkronisasi permission dari tabel, bukan hardcoded role.
+
+Kriteria selesai:
+- Login valid mengembalikan token; login salah mengembalikan `INVALID_CREDENTIALS`.
+- Endpoint terproteksi menolak tanpa token atau tanpa permission.
+
+### B2 — Sesi Parkir, Tagihan, dan Shift
+
+Referensi: 6.2, 6.3, 6.4.
+
+Ruang lingkup:
+- Pencarian parking session: manual (tiket/plat) dan scan payload, termasuk multi-hasil.
+- Detail sesi + perhitungan tagihan (tarif domain backend, bukan frontend).
+- Deteksi sesi tidak ditemukan, sesi sudah lunas.
+- Shift: buka, shift aktif, ringkasan, tutup (blokir bila ada transaksi menggantung).
+- Audit mulai/tutup shift.
+
+Kriteria selesai:
+- Pencarian dan detail tagihan dapat diuji lewat REST.
+- Tutup shift diblokir saat ada transaksi menggantung.
+
+### B3 — Pembayaran Cash, QR, dan E-money
+
+Referensi: 6.5, 6.6, 6.7, 6.9.
+
+Ruang lingkup:
+- Cash: validasi jumlah, idempotency key, pembuatan transaksi `PAID`.
+- QR: pembuatan payment intent, polling status, kedaluwarsa otomatis, pembatalan, simulasi gateway untuk test.
+- E-money: pembuatan intent, event tap/debit simulasi, status (saldo tidak cukup, kartu tidak terbaca, gagal, timeout), pembatalan.
+- Validasi transisi status oleh backend; mencegah pembayaran ganda.
+- Audit tiap aksi pembayaran dengan correlation id.
+
+Kriteria selesai:
+- Cash, QR, dan e-money dapat diselesaikan sampai `PAID` lewat REST.
+- Submit ganda dengan idempotency key yang sama tidak membuat transaksi ganda.
+
+### B4 — Gate, Riwayat, Bukti, dan Audit
+
+Referensi: 6.10, 6.11, 6.12, 11.
+
+Ruang lingkup:
+- Izin keluar dan perintah buka palang (hanya saat `PAID`, idempotent, hasil SUCCESS/FAILED/TIMEOUT).
+- Override buka palang supervisor dengan alasan + audit.
+- Bukti pembayaran dan data cetak ulang.
+- Riwayat transaksi per shift dan rentang waktu (permission supervisor).
+- Query audit operasional.
+- Penanganan error terstruktur dengan kode yang bisa dilaporkan.
+
+Kriteria selesai:
+- Buka palang nonaktif/ditolak bila belum lunas; klik ganda tidak menggandakan perintah.
+- Riwayat shift dan rentang waktu dapat difilter.
+- Semua aksi kritis tercatat di tabel audit dengan correlation id.
+- Tidak ada perubahan apa pun pada folder `src/`.
+
 ## Keputusan Terbuka
 
 Perlu dikonfirmasi sebelum phase terkait dimulai:
 
-- Provider pembayaran QR — Phase 5.
-- Provider/acquirer e-money dan protokol reader — Phase 10.
-- Apakah pembayaran cash offline diizinkan — Phase 11.
-- Jalur teknis buka palang: Site Server, Lane Controller API, atau mekanisme lain — Phase 6.
-- Authentication POS langsung ke Site Server atau lewat Central — Phase 1.
-- Mekanisme sinkronisasi permission dari Central ke Site Server — Phase 1.
-- Format bukti pembayaran dan kebutuhan printer thermal — Phase 7.
-- Skema auto-update dan distribusi installer — Phase 13.
+- Provider pembayaran QR — F5, B3 (simulasi dipakai dulu).
+- Provider/acquirer e-money dan protokol reader — F10, B3 (simulasi dipakai dulu).
+- Apakah pembayaran cash offline diizinkan — F11.
+- Jalur teknis buka palang: Site Server, Lane Controller API, atau mekanisme lain — F6, B4 (default lewat backend).
+- Authentication POS langsung ke Site Server atau lewat Central — F1, B1.
+- Mekanisme sinkronisasi permission dari Central ke Site Server — F1, B1.
+- Format bukti pembayaran dan kebutuhan printer thermal — F7, B4.
+- Skema auto-update dan distribusi installer — F13.
