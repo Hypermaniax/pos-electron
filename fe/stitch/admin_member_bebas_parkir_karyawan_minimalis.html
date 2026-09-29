@@ -1,0 +1,570 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"><style>body, input, select, button, textarea, table, th, td { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; letter-spacing: -0.01em; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-secondary":"#111111","surface-dim":"#131316","status-warning":"#f59e0b","surface-container-high":"#2a2a2d","on-error":"#690005","surface-container-lowest":"#0e0e11","status-error":"#ef4444","secondary":"#7bd0ff","tertiary":"#a3caf9","on-surface-variant":"#e0c0b1","surface-border":"#27272a","primary":"#ffb690","text-high-contrast":"#ffffff","accent-cyan":"#4fc1ff","status-info":"#38bdf8","on-primary-container":"#582200","surface-base":"#18181b","surface-container-highest":"#353438","text-main":"#d4d4d4","accent-blue-soft":"#60a5fa","on-tertiary-fixed-variant":"#1f4972","on-surface":"#e4e1e6","inverse-on-surface":"#303033","secondary-fixed-dim":"#7bd0ff","surface-container":"#1f1f22","surface-tertiary":"#0a0a0a","error-container":"#93000a","cta-primary":"#f97316","on-primary-fixed":"#341100","tertiary-container":"#779dcb","surface":"#131316","inverse-primary":"#9d4300","on-secondary-container":"#00374d","surface-primary":"#1e1e1e","on-tertiary-container":"#00345b","primary-container":"#f97316","secondary-container":"#00a6e0","on-secondary":"#00354a","selection-blue-alpha":"#075985b3","tertiary-fixed":"#d1e4ff","primary-fixed-dim":"#ffb690","surface-container-low":"#1b1b1e","inverse-surface":"#e4e1e6","error":"#ffb4ab","on-tertiary-fixed":"#001d36","on-background":"#e4e1e6","secondary-fixed":"#c4e7ff","surface-tint":"#ffb690","surface-border-subtle":"#1f1f23","selection-blue-tint":"#1e3a8acc","cta-hover":"#ea580c","background":"#131316","on-secondary-fixed":"#001e2c","text-muted":"#a1a1aa","outline":"#a78b7d","selection-blue":"#264f78","on-primary-fixed-variant":"#783200","surface-variant":"#353438","status-success":"#22c55e","surface-bright":"#39393c","on-secondary-fixed-variant":"#004c69","tertiary-fixed-dim":"#a3caf9","primary-fixed":"#ffdbca","on-primary":"#552100","on-error-container":"#ffdad6","outline-variant":"#584237","accent-blue":"#569cd6","on-tertiary":"#003258"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","gutter":"1rem","space-md":"0.75rem","margin":"1rem","space-lg":"1rem","space-sm":"0.5rem"},fontFamily:{"label-md":["JetBrains Mono"],"display-currency":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"label-sm":["JetBrains Mono"],"headline-xl":["Space Grotesk"],"body-sm":["Geist"],"display-plate":["JetBrains Mono"],"body-lg":["Geist"],"label-lg":["JetBrains Mono"],"headline-md":["Space Grotesk"],"body-md":["Geist"],"headline-sm":["Space Grotesk"]},fontSize:{"label-md":["0.75rem",{"lineHeight":"1.2","letterSpacing":"0.04em","fontWeight":"500"}],"display-currency":["2.75rem",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["2rem",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],"label-sm":["0.6875rem",{"lineHeight":"1.1","letterSpacing":"0.06em","fontWeight":"500"}],"headline-xl":["3rem",{"lineHeight":"1.1","letterSpacing":"-0.03em","fontWeight":"700"}],"body-sm":["0.8125rem",{"lineHeight":"1.4","fontWeight":"400"}],"display-plate":["2rem",{"lineHeight":"1.15","letterSpacing":"0.08em","fontWeight":"700"}],"body-lg":["1.125rem",{"lineHeight":"1.5","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.2","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"1.25","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["0.9375rem",{"lineHeight":"1.45","fontWeight":"400"}],"headline-sm":["1.25rem",{"lineHeight":"1.3","fontWeight":"600"}]}}}}</script></head><body class="bg-surface-base font-body-md text-text-main antialiased selection:bg-selection-blue"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-secondary z-50 flex flex-col justify-between border-r border-surface-border"><div class="flex flex-col"><div class="h-14 px-space-lg flex items-center gap-space-sm border-b border-surface-border bg-surface-tertiary"><span class="material-symbols-outlined text-accent-cyan text-[20px]">local_parking</span><div class="flex flex-col"><span class="font-label-lg text-label-lg tracking-wider text-text-high-contrast">PARK-OS</span><span class="font-label-sm text-label-sm text-accent-blue">v2.4.1 WORKSTATION</span></div></div><div class="px-space-md py-space-sm bg-surface-container-lowest border-b border-surface-border flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-muted">LOKASI OPERASI</span><span class="font-label-sm text-label-sm text-accent-cyan font-bold bg-surface-dim px-space-xs py-0.5 rounded border border-surface-border">BARAT-TERMINAL</span></div><nav class="flex flex-col py-space-xs" data-active-classes="bg-selection-blue text-text-high-contrast border-l-2 border-status-info"><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="ringkasan-status-perangkat" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">monitoring</span><span>1. Ringkasan &amp; Status</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-perangkat-konfigurasi" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">router</span><span>2. Manajemen Perangkat</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-tarif-parkir" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">price_change</span><span>3. Pengaturan Tarif</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="aktivasi-fitur-pembayaran" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">payments</span><span>4. Fitur Pembayaran</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 transition-colors font-body-sm bg-selection-blue text-text-high-contrast border-l-2 border-status-info" data-path="kartu-keanggotaan-member" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">badge</span><span>5. Keanggotaan / Member</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-karyawan-operator" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">group</span><span>6. Karyawan &amp; Operator</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-sistem-tema" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">tune</span><span>7. Pengaturan Sistem</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="bantuan-f1-manual-sop" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">help</span><span>8. Bantuan (F1)</span></a></nav></div><div class="p-space-md border-t border-surface-border bg-surface-tertiary"><div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm"><span>CORE DAEMON</span><span class="text-status-success font-bold">RUNNING</span></div><div class="mt-1 text-text-muted font-label-sm text-label-sm flex justify-between"><span>PORT 8443</span><span>SSL SECURE</span></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-primary border-b border-surface-border z-40 flex items-center justify-between px-space-lg select-none"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast"><span class="material-symbols-outlined text-cta-primary text-[18px]">terminal</span><span>PARK-OS ADMIN CENTRAL</span></div><div class="h-4 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>CENTRAL SYNC OK</span></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>SITE SERVER ONLINE</span></div></div><div class="flex items-center gap-space-lg"><div class="font-label-md text-label-md text-accent-cyan flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">schedule</span><span>14:38:09 WIB</span></div><div class="flex items-center gap-space-xs px-space-xs py-0.5 bg-surface-container border border-surface-border rounded font-label-sm text-label-sm text-text-muted"><span class="material-symbols-outlined text-[14px] text-status-warning">brightness_auto</span><span>AUTO 06:00-18:00</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-surface-border"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-text-high-contrast leading-none">ADITYA P.</span><span class="font-label-sm text-label-sm text-cta-primary leading-none">SUPER ADMIN</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div><div class="flex items-center pl-space-sm border-l border-surface-border"><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Minimize"><span class="material-symbols-outlined text-[14px]">remove</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Maximize"><span class="material-symbols-outlined text-[14px]">check_box_outline_blank</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-status-error text-text-muted hover:text-text-high-contrast" title="Close"><span class="material-symbols-outlined text-[14px]">close</span></button></div></div></header><main class="relative pt-14 pb-8 w-full bg-surface-base px-space-lg flex-1"><div class="flex flex-col w-full">
+<div class="flex items-center justify-between py-space-sm bg-surface-base"><div class="flex flex-col gap-1"><div class="flex items-center gap-2 text-xs text-text-muted"><span>Workstation</span><span>/</span><span>Otoritas &amp; Akses</span><span>/</span><span class="text-status-success flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Terminal Barat Online</span></div><div class="flex items-center gap-3"><h1 class="text-xl font-semibold text-text-high-contrast tracking-tight">Otoritas Keanggotaan &amp; Personel POS</h1><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-text-muted border border-surface-border">Sync Aktif</span></div></div><div class="flex items-center gap-1 bg-surface-secondary p-1 rounded-lg border border-surface-border"><button class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-selection-blue text-text-high-contrast text-xs font-medium transition-all shadow-sm" id="tabBtnMember" onclick="switchDashboardTab('member')"><span class="material-symbols-outlined text-[15px]">badge</span><span>Member Bebas Parkir</span><span class="bg-accent-cyan/20 text-accent-cyan px-1.5 py-0.5 rounded text-[10px] font-semibold">1,284</span></button><button class="flex items-center gap-2 px-3 py-1.5 rounded-md text-text-muted hover:text-text-high-contrast text-xs font-medium transition-all" id="tabBtnOperator" onclick="switchDashboardTab('operator')"><span class="material-symbols-outlined text-[15px]">badge</span><span>Karyawan &amp; Operator</span><span class="bg-surface-container text-text-muted px-1.5 py-0.5 rounded text-[10px]">14</span></button></div></div>
+<div class="grid grid-cols-4 gap-space-md my-space-md"><div class="bg-surface-primary border border-surface-border p-4 rounded-lg flex items-center justify-between"><div class="flex flex-col gap-1"><span class="text-xs text-text-muted font-medium">Total Member Non-Pungutan</span><div class="text-2xl font-bold text-text-high-contrast">1,492</div><span class="text-[11px] text-status-success flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">check_circle</span> 100% Subsidi Operasional</span></div><div class="w-10 h-10 rounded-lg bg-surface-secondary border border-surface-border flex items-center justify-center text-status-info"><span class="material-symbols-outlined text-[20px]">verified_user</span></div></div><div class="bg-surface-primary border border-surface-border p-4 rounded-lg flex items-center justify-between"><div class="flex flex-col gap-1"><span class="text-xs text-text-muted font-medium">Tap-in Hari Ini (Bebas Biaya)</span><div class="text-2xl font-bold text-accent-cyan">648</div><span class="text-[11px] text-text-muted">Valuasi: <span class="line-through">Rp 3.240.000</span></span></div><div class="w-10 h-10 rounded-lg bg-surface-secondary border border-surface-border flex items-center justify-center text-accent-cyan"><span class="material-symbols-outlined text-[20px]">contactless</span></div></div><div class="bg-surface-primary border border-surface-border p-4 rounded-lg flex items-center justify-between"><div class="flex flex-col gap-1"><span class="text-xs text-text-muted font-medium">Operator Aktif (Shift Siang)</span><div class="text-2xl font-bold text-text-high-contrast">08<span class="text-xs text-text-muted font-normal"> / 10 Booth</span></div><span class="text-[11px] text-status-success flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Semua Jalur Normal</span></div><div class="w-10 h-10 rounded-lg bg-surface-secondary border border-surface-border flex items-center justify-center text-status-warning"><span class="material-symbols-outlined text-[20px]">person_pin_circle</span></div></div><div class="bg-surface-primary border border-surface-border p-4 rounded-lg flex items-center justify-between"><div class="flex flex-col gap-1"><span class="text-xs text-text-muted font-medium">Transaksi Cashier Hari Ini</span><div class="text-2xl font-bold text-primary">Rp 48.9M</div><span class="text-[11px] text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">speed</span> Rerata 6.2s / Kendaraan</span></div><div class="w-10 h-10 rounded-lg bg-surface-secondary border border-surface-border flex items-center justify-center text-cta-primary"><span class="material-symbols-outlined text-[20px]">point_of_sale</span></div></div></div>
+<div class="flex flex-col gap-space-lg" id="sectionMember">
+<div class="grid grid-cols-12 gap-space-md">
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-space-md"><div class="bg-surface-primary border border-surface-border p-5 rounded-lg flex flex-col gap-4"><div class="flex items-center justify-between pb-3 border-b border-surface-border"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-accent-cyan text-[18px]">credit_card</span><h2 class="text-sm font-semibold text-text-high-contrast">Registrasi Kartu Member</h2></div><span class="bg-status-success/15 text-status-success text-[11px] font-semibold px-2 py-0.5 rounded">Free 100%</span></div><div class="bg-surface-secondary border border-surface-border p-3 rounded-md flex items-start gap-2.5"><span class="material-symbols-outlined text-status-success text-[18px] mt-0.5">check_circle</span><div class="flex flex-col gap-0.5"><div class="text-xs font-semibold text-text-high-contrast">Bebas Parkir Otomatis (Rp 0)</div><div class="text-[11px] text-text-muted leading-relaxed">Palang pintu terbuka langsung tanpa kalkulasi tarif komersial saat tap-in/out.</div></div></div><form class="flex flex-col gap-3.5" id="formMemberReg" onsubmit="event.preventDefault(); addNewMemberCard();"><div class="flex flex-col gap-1.5"><div class="flex items-center justify-between text-xs text-text-muted"><label class="font-medium" for="inputRfidUid">Nomor UID RFID / Kartu</label><span class="text-[11px] text-accent-cyan flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse"></span> Sensor Siap</span></div><div class="relative flex items-center"><input class="w-full bg-surface-secondary border border-surface-border text-text-high-contrast text-xs px-3 py-2 rounded-md focus:outline-none focus:border-accent-cyan transition-colors" id="inputRfidUid" placeholder="Ketik UID atau tap scanner..." required="" type="text" value="RFID-984210394"><button class="absolute right-1.5 px-2.5 py-1 rounded bg-surface-container hover:bg-surface-bright text-accent-cyan text-xs font-medium flex items-center gap-1 transition-colors" onclick="randomizeRfid()" title="Simulate Tap Scanner" type="button"><span class="material-symbols-outlined text-[13px]">nfc</span><span>Tap</span></button></div></div><div class="flex flex-col gap-1.5"><label class="text-xs font-medium text-text-muted" for="inputOwnerName">Nama Pemilik / Tenant / Unit</label><input class="w-full bg-surface-secondary border border-surface-border text-text-high-contrast text-xs px-3 py-2 rounded-md focus:outline-none focus:border-accent-cyan transition-colors" id="inputOwnerName" placeholder="Contoh: Dr. Adrian Pratama (Penthouse)" required="" type="text"></div><div class="grid grid-cols-2 gap-3"><div class="flex flex-col gap-1.5"><label class="text-xs font-medium text-text-muted" for="selectMemberTier">Kategori Member</label><select class="bg-surface-secondary border border-surface-border text-text-high-contrast text-xs px-2.5 py-2 rounded-md focus:outline-none focus:border-accent-cyan" id="selectMemberTier"><option value="VIP Eksekutif">VIP Eksekutif</option><option value="Karyawan Tenant">Karyawan Tenant</option><option value="Residen Apartemen">Residen Apartemen</option><option value="Dinas / Khusus">Dinas / Khusus</option></select></div><div class="flex flex-col gap-1.5"><label class="text-xs font-medium text-text-muted" for="selectVehicleClass">Golongan Kendaraan</label><select class="bg-surface-secondary border border-surface-border text-text-high-contrast text-xs px-2.5 py-2 rounded-md focus:outline-none focus:border-accent-cyan" id="selectVehicleClass"><option value="Mobil (Golongan I)">Mobil (Golongan I)</option><option value="Motor (Golongan II)">Motor (Golongan II)</option><option value="Truk / Box (Golongan III)">Truk / Box (Gol. III)</option></select></div></div><div class="grid grid-cols-2 gap-3"><div class="flex flex-col gap-1.5"><label class="text-xs font-medium text-text-muted" for="inputPlatePrimary">Plat Utama</label><input class="bg-surface-secondary border border-surface-border text-text-high-contrast text-xs uppercase px-3 py-2 rounded-md focus:outline-none focus:border-accent-cyan text-center font-bold tracking-wider" id="inputPlatePrimary" placeholder="B 1234 CD" required="" type="text"></div><div class="flex flex-col gap-1.5"><label class="text-xs font-medium text-text-muted" for="inputPlateSecondary">Plat Cadangan</label><input class="bg-surface-secondary border border-surface-border text-text-muted text-xs uppercase px-3 py-2 rounded-md focus:outline-none focus:border-accent-cyan text-center tracking-wider" id="inputPlateSecondary" placeholder="Opsional" type="text"></div></div><div class="flex flex-col gap-1.5"><label class="text-xs font-medium text-text-muted">Masa Berlaku Kartu</label><div class="grid grid-cols-2 gap-2"><input class="bg-surface-secondary border border-surface-border text-text-high-contrast text-xs px-2.5 py-2 rounded-md focus:outline-none focus:border-accent-cyan" id="inputValidUntil" type="date" value="2026-12-31"><button class="bg-surface-container hover:bg-surface-bright text-accent-cyan text-xs font-medium py-2 rounded-md flex items-center justify-center gap-1 border border-surface-border transition-colors" onclick="setPerpetualValidity()" type="button"><span class="material-symbols-outlined text-[14px]">all_inclusive</span><span>Seumur Hidup</span></button></div></div><div class="flex items-center gap-2 pt-2"><button class="flex-1 h-10 bg-cta-primary hover:bg-cta-hover text-white text-xs font-medium rounded-md flex items-center justify-center gap-1.5 transition-colors shadow-sm" type="submit"><span class="material-symbols-outlined text-[16px]">save</span><span>Daftarkan Kartu</span></button><button class="h-10 px-3 bg-surface-secondary hover:bg-surface-container text-text-main text-xs font-medium rounded-md flex items-center justify-center gap-1 border border-surface-border transition-colors" onclick="triggerImportMock()" type="button"><span class="material-symbols-outlined text-[16px] text-text-muted">upload_file</span><span>Impor</span></button></div></form></div><div class="bg-surface-primary border border-surface-border p-4 rounded-lg flex flex-col gap-3"><div class="flex items-center justify-between"><span class="text-xs font-semibold text-text-high-contrast">Antena Desktop Reader</span><span class="text-[11px] text-status-success font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span> USB COM-4 Online</span></div><div class="grid grid-cols-3 gap-2 text-xs"><div class="flex flex-col bg-surface-secondary p-2 rounded border border-surface-border"><span class="text-[10px] text-text-muted">Device</span><span class="text-text-high-contrast font-medium truncate">ACR122U</span></div><div class="flex flex-col bg-surface-secondary p-2 rounded border border-surface-border"><span class="text-[10px] text-text-muted">Baud Rate</span><span class="text-text-high-contrast font-medium">115200</span></div><div class="flex flex-col bg-surface-secondary p-2 rounded border border-surface-border"><span class="text-[10px] text-text-muted">Auth Key</span><span class="text-status-success font-medium">Decrypted</span></div></div></div></div>
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-space-md"><div class="bg-surface-primary border border-surface-border p-5 rounded-lg flex flex-col h-full"><div class="flex items-center justify-between pb-4 border-b border-surface-border"><div class="flex items-center gap-3"><h2 class="text-sm font-semibold text-text-high-contrast">Daftar Member Aktif (Bebas Biaya)</h2><span class="text-xs text-text-muted bg-surface-secondary px-2 py-0.5 rounded border border-surface-border">1,284 kartu</span></div><div class="flex items-center gap-2"><div class="relative"><input class="bg-surface-secondary border border-surface-border text-text-high-contrast text-xs pl-8 pr-3 py-1.5 rounded-md focus:outline-none focus:border-accent-cyan w-64 transition-colors" id="searchMemberInput" onkeyup="filterMemberTable()" placeholder="Cari RFID, Plat, Pemilik..." type="text"><span class="material-symbols-outlined absolute left-2.5 top-2 text-[15px] text-text-muted">search</span></div><button class="p-1.5 rounded-md bg-surface-secondary border border-surface-border hover:bg-surface-container text-text-muted hover:text-text-high-contrast transition-colors" onclick="refreshMemberList()" title="Refresh data"><span class="material-symbols-outlined text-[16px]">refresh</span></button></div></div><div class="overflow-x-auto flex-1 mt-2"><table class="w-full text-left text-xs" id="tableMemberList"><thead><tr class="text-text-muted font-medium border-b border-surface-border"><th class="py-3 px-3">UID RFID</th><th class="py-3 px-3">Pemilik / Unit</th><th class="py-3 px-3">Plat Nomor</th><th class="py-3 px-3">Kategori</th><th class="py-3 px-3">Masa Berlaku</th><th class="py-3 px-3 text-center">Tap In/Out</th><th class="py-3 px-3 text-right">Aksi</th></tr></thead><tbody class="divide-y-0 text-text-main" id="memberTableBody"><tr class="border-b border-surface-border/50 hover:bg-surface-container/50 transition-colors"><td class="py-3.5 px-3 text-accent-cyan font-medium">RFID-984210394</td><td class="py-3.5 px-3"><div class="font-medium text-text-high-contrast">Dr. Adrian Pratama</div><div class="text-[11px] text-text-muted">Executive Floor 24 #PH01</div></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded bg-surface-secondary border border-surface-border font-semibold text-text-high-contrast">B 1234 CD</span><span class="text-[10px] text-text-muted block mt-0.5">Cadangan: B 8899 VIP</span></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-status-success/15 text-status-success">VIP Eksekutif</span><div class="text-[11px] text-text-muted mt-0.5">Mobil (Gol I)</div></td><td class="py-3.5 px-3"><span class="text-status-success font-medium">Seumur Hidup</span><div class="text-[11px] text-text-muted">Non-Expired</div></td><td class="py-3.5 px-3 text-center text-text-high-contrast font-medium">412x</td><td class="py-3.5 px-3 text-right"><div class="flex items-center justify-end gap-1"><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-accent-cyan transition-colors" onclick="extendCard(this)" title="Perpanjang Masa"><span class="material-symbols-outlined text-[15px]">event_repeat</span></button><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-status-error transition-colors" onclick="blockCard(this)" title="Blokir Kartu"><span class="material-symbols-outlined text-[15px]">block</span></button></div></td></tr><tr class="border-b border-surface-border/50 hover:bg-surface-container/50 transition-colors"><td class="py-3.5 px-3 text-accent-cyan font-medium">RFID-110293841</td><td class="py-3.5 px-3"><div class="font-medium text-text-high-contrast">PT Danendra Logistik</div><div class="text-[11px] text-text-muted">Karyawan Tenant L-3</div></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded bg-surface-secondary border border-surface-border font-semibold text-text-high-contrast">B 9021 TGA</span></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-selection-blue text-accent-cyan">Tenant Gedung</span><div class="text-[11px] text-text-muted mt-0.5">Mobil (Gol I)</div></td><td class="py-3.5 px-3"><span class="text-text-high-contrast font-medium">31 Des 2025</span><div class="text-[11px] text-status-warning">Sisa 298 Hari</div></td><td class="py-3.5 px-3 text-center text-text-high-contrast font-medium">188x</td><td class="py-3.5 px-3 text-right"><div class="flex items-center justify-end gap-1"><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-accent-cyan transition-colors" onclick="extendCard(this)" title="Perpanjang Masa"><span class="material-symbols-outlined text-[15px]">event_repeat</span></button><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-status-error transition-colors" onclick="blockCard(this)" title="Blokir Kartu"><span class="material-symbols-outlined text-[15px]">block</span></button></div></td></tr><tr class="border-b border-surface-border/50 hover:bg-surface-container/50 transition-colors"><td class="py-3.5 px-3 text-accent-cyan font-medium">RFID-771239904</td><td class="py-3.5 px-3"><div class="font-medium text-text-high-contrast">Kolonel Suryo W.</div><div class="text-[11px] text-text-muted">Tamu Protokoler</div></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded bg-surface-secondary border border-surface-border font-semibold text-status-warning">B 1984 RFS</span></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-status-warning/15 text-status-warning">Dinas Khusus</span><div class="text-[11px] text-text-muted mt-0.5">Mobil (Gol I)</div></td><td class="py-3.5 px-3"><span class="text-status-success font-medium">Seumur Hidup</span><div class="text-[11px] text-text-muted">Non-Expired</div></td><td class="py-3.5 px-3 text-center text-text-high-contrast font-medium">92x</td><td class="py-3.5 px-3 text-right"><div class="flex items-center justify-end gap-1"><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-accent-cyan transition-colors" onclick="extendCard(this)" title="Perpanjang Masa"><span class="material-symbols-outlined text-[15px]">event_repeat</span></button><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-status-error transition-colors" onclick="blockCard(this)" title="Blokir Kartu"><span class="material-symbols-outlined text-[15px]">block</span></button></div></td></tr><tr class="hover:bg-surface-container/50 transition-colors"><td class="py-3.5 px-3 text-accent-cyan font-medium">RFID-552199042</td><td class="py-3.5 px-3"><div class="font-medium text-text-high-contrast">Maya Handayani</div><div class="text-[11px] text-text-muted">Residen Tower B #12A</div></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded bg-surface-secondary border border-surface-border font-semibold text-text-high-contrast">B 4102 KLZ</span></td><td class="py-3.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-text-muted">Residen</span><div class="text-[11px] text-text-muted mt-0.5">Motor (Gol II)</div></td><td class="py-3.5 px-3"><span class="text-text-high-contrast font-medium">15 Agu 2025</span><div class="text-[11px] text-status-warning">Sisa 160 Hari</div></td><td class="py-3.5 px-3 text-center text-text-high-contrast font-medium">634x</td><td class="py-3.5 px-3 text-right"><div class="flex items-center justify-end gap-1"><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-accent-cyan transition-colors" onclick="extendCard(this)" title="Perpanjang Masa"><span class="material-symbols-outlined text-[15px]">event_repeat</span></button><button class="p-1.5 rounded hover:bg-surface-container text-text-muted hover:text-status-error transition-colors" onclick="blockCard(this)" title="Blokir Kartu"><span class="material-symbols-outlined text-[15px]">block</span></button></div></td></tr></tbody></table></div><div class="mt-auto pt-3 border-t border-surface-border flex items-center justify-between text-xs text-text-muted"><span>Menampilkan 4 dari 1,284 kartu terdaftar</span><div class="flex items-center gap-1.5"><button class="px-2.5 py-1 rounded bg-surface-secondary border border-surface-border hover:bg-surface-container text-text-muted hover:text-text-high-contrast transition-colors">Prev</button><button class="px-2.5 py-1 rounded bg-selection-blue text-text-high-contrast font-semibold">1</button><button class="px-2.5 py-1 rounded bg-surface-secondary border border-surface-border hover:bg-surface-container text-text-muted hover:text-text-high-contrast transition-colors">2</button><button class="px-2.5 py-1 rounded bg-surface-secondary border border-surface-border hover:bg-surface-container text-text-muted hover:text-text-high-contrast transition-colors">3</button><button class="px-2.5 py-1 rounded bg-surface-secondary border border-surface-border hover:bg-surface-container text-text-muted hover:text-text-high-contrast transition-colors">Next</button></div></div></div></div>
+</div>
+</div>
+<div class="hidden flex flex-col gap-space-lg" id="sectionOperator">
+<div class="grid grid-cols-12 gap-space-md">
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-space-md">
+<div class="bg-surface-primary p-space-md rounded-lg shadow-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast">
+<span class="material-symbols-outlined text-status-warning text-[18px]">badge</span>
+<span>TAMBAH KARYAWAN / AKUN POS</span>
+</div>
+<span class="bg-selection-blue text-accent-cyan font-label-sm text-label-sm px-space-xs py-0.5 rounded">HAK AKSES BOOTH</span>
+</div>
+<form class="flex flex-col gap-space-sm mt-space-xs" id="formOperatorReg" onsubmit="event.preventDefault(); addNewOperator();">
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">NIP / ID KARYAWAN</label>
+<input class="bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-space-sm py-2 rounded focus:outline-none" id="inputNip" placeholder="NIP-202409" required="" type="text" value="NIP-99210">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">PIN OVERRIDE CEPAT</label>
+<input class="bg-surface-secondary text-accent-cyan font-label-md text-label-md px-space-sm py-2 rounded focus:outline-none tracking-widest text-center" id="inputPinOverride" maxlength="6" placeholder="6 Angka" required="" type="password" value="772910">
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">NAMA LENGKAP OPERATOR</label>
+<input class="bg-surface-secondary text-text-high-contrast font-body-md text-body-md px-space-sm py-2 rounded focus:outline-none" id="inputOpName" placeholder="Contoh: Budi Santoso / Siti Aminah" required="" type="text">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">ROLE &amp; HAK AKSES SISTEM</label>
+<select class="bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm px-space-sm py-2 rounded focus:outline-none" id="selectOpRole">
+<option value="Operator Loket">Operator Loket (Cashier &amp; Buka Palang)</option>
+<option value="Supervisor Lapangan">Supervisor Lapangan (Override &amp; Void Tiket)</option>
+<option value="Teknisi Hardware">Teknisi Hardware (Gate Barrier &amp; Loop Sensor)</option>
+<option value="Super Admin">Super Admin (Akses Penuh Audit &amp; Settlement)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">PENUGASAN SHIFT DEFAULT</label>
+<select class="bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm px-space-sm py-2 rounded focus:outline-none" id="selectOpShift">
+<option value="Shift Pagi (06:00 - 14:00)">Shift Pagi (06:00 - 14:00 WIB)</option>
+<option value="Shift Siang (14:00 - 22:00)">Shift Siang (14:00 - 22:00 WIB)</option>
+<option value="Shift Malam (22:00 - 06:00)">Shift Malam (22:00 - 06:00 WIB)</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">LOKASI PENUGASAN GATE</label>
+<select class="bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm px-space-sm py-2 rounded focus:outline-none" id="selectOpLane">
+<option value="Gate Barat 01">Gate Barat 01 (Utama)</option>
+<option value="Gate Barat 02">Gate Barat 02 (Motor)</option>
+<option value="Gate Timur 01">Gate Timur 01 (Mobil)</option>
+<option value="All Gates">All Gates (Mobile Floater)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">STATUS REKENING/AKUN</label>
+<select class="bg-surface-secondary text-status-success font-body-sm text-body-sm px-space-sm py-2 rounded focus:outline-none" id="selectOpStatus">
+<option value="Aktif">Aktif (Dapat Login)</option>
+<option value="Ditangguhkan">Ditangguhkan (Kunci)</option>
+</select>
+</div>
+</div>
+<div class="pt-space-xs">
+<button class="w-full h-12 bg-cta-primary hover:bg-cta-hover text-text-high-contrast font-label-md text-label-md tracking-wider rounded uppercase flex items-center justify-center gap-space-xs shadow-md transition-all" type="submit">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>SIMPAN AKUN OPERATOR [+]</span>
+</button>
+</div>
+</form>
+</div>
+<div class="bg-surface-primary p-space-md rounded-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-high-contrast">KEBIJAKAN SECURITY LOKET</span>
+<span class="font-label-sm text-label-sm text-status-warning font-mono">AUTH v2.1</span>
+</div>
+<ul class="text-text-muted font-body-sm text-body-sm flex flex-col gap-1.5 list-disc pl-4">
+<li>Auto-logout saat idle selama 15 menit tanpa aktivitas scanner.</li>
+<li>Override pembukaan gerbang manual memerlukan input PIN supervisor.</li>
+<li>Settlement kasir (setoran tunai) otomatis terkunci di akhir jam shift.</li>
+</ul>
+</div>
+</div>
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-space-md">
+<div class="bg-surface-primary p-space-md rounded-lg shadow-md flex flex-col h-full">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="font-headline-sm text-headline-sm text-text-high-contrast">Daftar Operator &amp; Status Shift Berjalan</div>
+<span class="bg-status-success/20 text-status-success px-space-xs py-0.5 rounded font-label-sm text-label-sm">8 ONLINE SEKARANG</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<input class="bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm pl-8 pr-3 py-1.5 rounded focus:outline-none w-56" id="searchOpInput" onkeyup="filterOpTable()" placeholder="Cari NIP, nama operator..." type="text">
+<span class="material-symbols-outlined absolute left-2 top-2 text-[16px] text-text-muted">search</span>
+</div>
+<button class="p-1.5 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast" onclick="refreshOpList()">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto rounded">
+<table class="w-full text-left" id="tableOpList">
+<thead>
+<tr class="bg-surface-container text-text-muted font-label-sm text-label-sm uppercase">
+<th class="py-2.5 px-3">OPERATOR / NIP</th>
+<th class="py-2.5 px-3">ROLE &amp; PENUGASAN</th>
+<th class="py-2.5 px-3">STATUS LOKET</th>
+<th class="py-2.5 px-3">SHIFT SAAT INI</th>
+<th class="py-2.5 px-3 text-right">TOTAL TRANSAKSI</th>
+<th class="py-2.5 px-3 text-right">AKSI CEPAT</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body-sm text-body-sm" id="opTableBody">
+<tr class="bg-surface-primary hover:bg-surface-container transition-colors">
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-selection-blue text-accent-cyan flex items-center justify-center font-bold text-xs">BS</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-high-contrast">Budi Santoso</span>
+<span class="font-label-sm text-label-sm text-text-muted">NIP-10928</span>
+</div>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="bg-selection-blue text-accent-cyan font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">OPERATOR LOKET</span>
+<span class="text-[11px] text-text-muted block mt-0.5">Gate Barat 01 (Keluar Mobil)</span>
+</td>
+<td class="py-2.5 px-3">
+<span class="text-status-success font-label-sm text-label-sm flex items-center gap-1 font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success"></span> ONLINE (BOOTH #01)
+                    </span>
+<span class="text-[11px] text-text-muted block">Login sejak 13:58 WIB</span>
+</td>
+<td class="py-2.5 px-3 font-label-sm text-label-sm">
+<span class="text-text-high-contrast">Shift Siang</span>
+<span class="text-[11px] text-text-muted block">14:00 - 22:00</span>
+</td>
+<td class="py-2.5 px-3 text-right font-label-md text-label-md text-status-success font-bold">
+<div>184 Trx</div>
+<div class="text-[11px] text-text-muted">Rp 920.000 (Tunai)</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm" onclick="resetPinPrompt('Budi Santoso')" title="Reset PIN Override">
+                        Reset PIN
+                      </button>
+<button class="p-1 rounded bg-surface-container hover:bg-surface-bright text-accent-cyan" onclick="viewAuditLog('Budi Santoso')" title="Lihat Audit Log">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-secondary hover:bg-surface-container transition-colors">
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-surface-container text-primary flex items-center justify-center font-bold text-xs">SA</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-high-contrast">Siti Aminah</span>
+<span class="font-label-sm text-label-sm text-text-muted">NIP-10931</span>
+</div>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="bg-selection-blue text-accent-cyan font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">OPERATOR LOKET</span>
+<span class="text-[11px] text-text-muted block mt-0.5">Gate Barat 02 (Motor)</span>
+</td>
+<td class="py-2.5 px-3">
+<span class="text-status-success font-label-sm text-label-sm flex items-center gap-1 font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success"></span> ONLINE (BOOTH #02)
+                    </span>
+<span class="text-[11px] text-text-muted block">Login sejak 14:02 WIB</span>
+</td>
+<td class="py-2.5 px-3 font-label-sm text-label-sm">
+<span class="text-text-high-contrast">Shift Siang</span>
+<span class="text-[11px] text-text-muted block">14:00 - 22:00</span>
+</td>
+<td class="py-2.5 px-3 text-right font-label-md text-label-md text-status-success font-bold">
+<div>312 Trx</div>
+<div class="text-[11px] text-text-muted">Rp 624.000 (Tunai)</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm" onclick="resetPinPrompt('Siti Aminah')" title="Reset PIN Override">
+                        Reset PIN
+                      </button>
+<button class="p-1 rounded bg-surface-container hover:bg-surface-bright text-accent-cyan" onclick="viewAuditLog('Siti Aminah')" title="Lihat Audit Log">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-primary hover:bg-surface-container transition-colors">
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-surface-container text-status-warning flex items-center justify-center font-bold text-xs">HW</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-high-contrast">Hendra Wijaya</span>
+<span class="font-label-sm text-label-sm text-text-muted">NIP-10804</span>
+</div>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="bg-status-warning/20 text-status-warning font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">SUPERVISOR LAPANGAN</span>
+<span class="text-[11px] text-text-muted block mt-0.5">All Gates (Mobile Key)</span>
+</td>
+<td class="py-2.5 px-3">
+<span class="text-status-warning font-label-sm text-label-sm flex items-center gap-1 font-bold">
+<span class="w-2 h-2 rounded-full bg-status-warning"></span> ROAMING SUPERVISION
+                    </span>
+<span class="text-[11px] text-text-muted block">Handheld Terminal #H-02</span>
+</td>
+<td class="py-2.5 px-3 font-label-sm text-label-sm">
+<span class="text-text-high-contrast">Shift Siang</span>
+<span class="text-[11px] text-text-muted block">14:00 - 22:00</span>
+</td>
+<td class="py-2.5 px-3 text-right font-label-md text-label-md text-accent-cyan font-bold">
+<div>14 Override</div>
+<div class="text-[11px] text-text-muted">3 Tiket Hilang Terverifikasi</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm" onclick="resetPinPrompt('Hendra Wijaya')" title="Reset PIN Override">
+                        Reset PIN
+                      </button>
+<button class="p-1 rounded bg-surface-container hover:bg-surface-bright text-accent-cyan" onclick="viewAuditLog('Hendra Wijaya')" title="Lihat Audit Log">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-secondary hover:bg-surface-container transition-colors">
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-surface-container text-text-muted flex items-center justify-center font-bold text-xs">RK</div>
+<div class="flex flex-col">
+<span class="font-medium text-text-muted">Rian Kusuma</span>
+<span class="font-label-sm text-label-sm text-text-muted">NIP-10755</span>
+</div>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="bg-surface-bright text-text-muted font-label-sm text-label-sm px-1.5 py-0.5 rounded">OPERATOR LOKET</span>
+<span class="text-[11px] text-text-muted block mt-0.5">Gate Timur 01</span>
+</td>
+<td class="py-2.5 px-3">
+<span class="text-text-muted font-label-sm text-label-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-text-muted"></span> OFFLINE (LOGGED OFF)
+                    </span>
+<span class="text-[11px] text-text-muted block">Shift Berakhir 14:00 WIB</span>
+</td>
+<td class="py-2.5 px-3 font-label-sm text-label-sm">
+<span class="text-text-muted">Shift Pagi</span>
+<span class="text-[11px] text-text-muted block">Settlement Selesai</span>
+</td>
+<td class="py-2.5 px-3 text-right font-label-md text-label-md text-text-muted">
+<div>482 Trx</div>
+<div class="text-[11px] text-text-muted">Settled Rp 2.410.000</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm" onclick="resetPinPrompt('Rian Kusuma')" title="Reset PIN Override">
+                        Reset PIN
+                      </button>
+<button class="p-1 rounded bg-surface-container hover:bg-surface-bright text-accent-cyan" onclick="viewAuditLog('Rian Kusuma')" title="Lihat Audit Log">
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-auto pt-space-md flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<span>Daftar Total: 28 Tenaga Operator Terdaftar</span>
+<div class="flex items-center gap-2">
+<span class="text-accent-cyan">Auto-sync dengan Mesin Absensi Fingerprint/RFID</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="hidden fixed inset-0 z-50 bg-surface-tertiary/80 backdrop-blur-sm flex items-center justify-center p-space-lg" id="modalAudit">
+<div class="bg-surface-primary w-full max-w-2xl rounded-lg shadow-xl p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs font-headline-sm text-headline-sm text-text-high-contrast">
+<span class="material-symbols-outlined text-accent-cyan">fact_check</span>
+<span id="modalAuditTitle">Audit Log Operator: Budi Santoso</span>
+</div>
+<button class="text-text-muted hover:text-text-high-contrast" onclick="closeAuditModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="bg-surface-secondary p-space-sm rounded font-label-sm text-label-sm text-text-muted flex flex-col gap-2 max-h-80 overflow-y-auto" id="auditLogContent">
+<div class="flex justify-between py-1 bg-surface-dim px-2 rounded">
+<span class="text-accent-cyan">14:38:02 WIB</span>
+<span class="text-text-high-contrast">Penerimaan Tunai Rp 5.000 [Plat: B 8172 KY]</span>
+<span class="text-status-success">SUKSES - PALANG BUKA</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-dim px-2 rounded">
+<span class="text-accent-cyan">14:35:19 WIB</span>
+<span class="text-text-high-contrast">Tap Member RFID-984210394 [Dr. Adrian Pratama]</span>
+<span class="text-status-info">FREE 100% DISKOR</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-dim px-2 rounded">
+<span class="text-accent-cyan">14:22:45 WIB</span>
+<span class="text-text-high-contrast">Buka Palang Darurat (Manual Input Plat Motor)</span>
+<span class="text-status-warning">OVERRIDE PIN OK</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-dim px-2 rounded">
+<span class="text-accent-cyan">14:00:00 WIB</span>
+<span class="text-text-high-contrast">Kasir Login Shift Siang di POS Booth #01</span>
+<span class="text-status-success">START SHIFT</span>
+</div>
+</div>
+<div class="flex justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-2 bg-surface-container hover:bg-surface-bright text-text-high-contrast font-label-sm text-label-sm rounded" onclick="closeAuditModal()">
+          Tutup Jendela
+        </button>
+<button class="px-space-md py-2 bg-selection-blue hover:bg-accent-cyan hover:text-surface-dim text-text-high-contrast font-label-sm text-label-sm rounded flex items-center gap-1 transition-colors" onclick="exportAuditMock()">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Unduh Log (CSV/PDF)</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-12 right-12 bg-surface-secondary text-text-high-contrast px-space-md py-space-sm rounded-lg shadow-xl font-label-md text-label-md flex items-center gap-space-sm transition-all transform translate-y-12 opacity-0 pointer-events-none z-50" id="toastNotification">
+<span class="material-symbols-outlined text-status-success text-[20px]" id="toastIcon">check_circle</span>
+<span id="toastMessage">Operasi berhasil disimpan ke database.</span>
+</div>
+</div>
+<script>
+  function switchDashboardTab(tab) {
+    const secMember = document.getElementById('sectionMember');
+    const secOperator = document.getElementById('sectionOperator');
+    const tabMember = document.getElementById('tabBtnMember');
+    const tabOperator = document.getElementById('tabBtnOperator');
+
+    if (tab === 'member') {
+      secMember.classList.remove('hidden');
+      secOperator.classList.add('hidden');
+      tabMember.className = "flex items-center gap-space-xs px-space-md py-1.5 rounded bg-selection-blue text-text-high-contrast font-label-md text-label-md transition-all";
+      tabOperator.className = "flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-label-md text-label-md transition-all";
+    } else {
+      secMember.classList.add('hidden');
+      secOperator.classList.remove('hidden');
+      tabOperator.className = "flex items-center gap-space-xs px-space-md py-1.5 rounded bg-selection-blue text-text-high-contrast font-label-md text-label-md transition-all";
+      tabMember.className = "flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-label-md text-label-md transition-all";
+    }
+  }
+
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('toastNotification');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIcon = document.getElementById('toastIcon');
+
+    toastMsg.innerText = message;
+    if (isError) {
+      toastIcon.innerText = 'error';
+      toastIcon.className = 'material-symbols-outlined text-status-error text-[20px]';
+    } else {
+      toastIcon.innerText = 'check_circle';
+      toastIcon.className = 'material-symbols-outlined text-status-success text-[20px]';
+    }
+
+    toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+    }, 2800);
+  }
+
+  function randomizeRfid() {
+    const rand = 'RFID-' + Math.floor(100000000 + Math.random() * 900000000);
+    document.getElementById('inputRfidUid').value = rand;
+    showToast('Kartu terdeteksi di scanner: ' + rand);
+  }
+
+  function setPerpetualValidity() {
+    document.getElementById('inputValidUntil').value = '2099-12-31';
+    showToast('Masa berlaku diatur Seumur Hidup (Perpetual)');
+  }
+
+  function addNewMemberCard() {
+    const rfid = document.getElementById('inputRfidUid').value;
+    const name = document.getElementById('inputOwnerName').value;
+    const tier = document.getElementById('selectMemberTier').value;
+    const vehicleClass = document.getElementById('selectVehicleClass').value;
+    const plate1 = document.getElementById('inputPlatePrimary').value.toUpperCase();
+    const plate2 = document.getElementById('inputPlateSecondary').value.toUpperCase();
+    const valid = document.getElementById('inputValidUntil').value;
+
+    if (!rfid || !name || !plate1) {
+      showToast('Harap lengkapi nomor RFID, Nama, dan Plat Nomor', true);
+      return;
+    }
+
+    const tbody = document.getElementById('memberTableBody');
+    const newRow = document.createElement('tr');
+    newRow.className = "bg-surface-primary hover:bg-surface-container transition-colors";
+    newRow.innerHTML = `
+      <td class="py-2.5 px-3 font-label-md text-label-md text-accent-cyan">${rfid}</td>
+      <td class="py-2.5 px-3">
+        <div class="font-medium text-text-high-contrast">${name}</div>
+        <div class="text-[11px] text-text-muted">Baru Didaftarkan</div>
+      </td>
+      <td class="py-2.5 px-3">
+        <div class="font-display-plate text-[14px] text-primary bg-surface-secondary px-1.5 py-0.5 rounded inline-block font-bold">${plate1}</div>
+        ${plate2 ? `<span class="text-[10px] text-text-muted block mt-0.5">${plate2}</span>` : ''}
+      </td>
+      <td class="py-2.5 px-3">
+        <span class="bg-status-success/20 text-status-success font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">${tier.toUpperCase()}</span>
+        <span class="text-[11px] text-text-muted block mt-0.5">${vehicleClass}</span>
+      </td>
+      <td class="py-2.5 px-3 font-label-sm text-label-sm">
+        <span class="text-status-success font-bold">${valid.includes('2099') ? 'SEUMUR HIDUP' : valid}</span>
+        <span class="text-[11px] text-text-muted block">Aktif Bebas Parkir</span>
+      </td>
+      <td class="py-2.5 px-3 text-center font-label-md text-label-md text-text-high-contrast">0 x</td>
+      <td class="py-2.5 px-3 text-right">
+        <div class="flex items-center justify-end gap-1">
+          <button onclick="extendCard(this)" title="Perpanjang Masa" class="p-1 rounded bg-surface-container hover:bg-status-info text-text-main hover:text-surface-dim transition-colors">
+            <span class="material-symbols-outlined text-[16px]">event_repeat</span>
+          </button>
+          <button onclick="blockCard(this)" title="Blokir Kartu RFID" class="p-1 rounded bg-surface-container hover:bg-status-error text-status-error hover:text-text-high-contrast transition-colors">
+            <span class="material-symbols-outlined text-[16px]">block</span>
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.prepend(newRow);
+    showToast('Member Bebas Parkir ' + name + ' (' + plate1 + ') Berhasil Didaftarkan!');
+    randomizeRfid();
+    document.getElementById('inputOwnerName').value = '';
+    document.getElementById('inputPlatePrimary').value = '';
+    document.getElementById('inputPlateSecondary').value = '';
+  }
+
+  function addNewOperator() {
+    const nip = document.getElementById('inputNip').value;
+    const name = document.getElementById('inputOpName').value;
+    const role = document.getElementById('selectOpRole').value;
+    const shift = document.getElementById('selectOpShift').value;
+    const lane = document.getElementById('selectOpLane').value;
+
+    if (!nip || !name) {
+      showToast('Lengkapi NIP dan Nama Operator', true);
+      return;
+    }
+
+    const tbody = document.getElementById('opTableBody');
+    const newRow = document.createElement('tr');
+    newRow.className = "bg-surface-primary hover:bg-surface-container transition-colors";
+    newRow.innerHTML = `
+      <td class="py-2.5 px-3">
+        <div class="flex items-center gap-space-sm">
+          <div class="w-7 h-7 rounded-full bg-selection-blue text-accent-cyan flex items-center justify-center font-bold text-xs">${name.substring(0, 2).toUpperCase()}</div>
+          <div class="flex flex-col">
+            <span class="font-medium text-text-high-contrast">${name}</span>
+            <span class="font-label-sm text-label-sm text-text-muted">${nip}</span>
+          </div>
+        </div>
+      </td>
+      <td class="py-2.5 px-3">
+        <span class="bg-selection-blue text-accent-cyan font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">${role.toUpperCase()}</span>
+        <span class="text-[11px] text-text-muted block mt-0.5">${lane}</span>
+      </td>
+      <td class="py-2.5 px-3">
+        <span class="text-status-warning font-label-sm text-label-sm flex items-center gap-1 font-bold">
+          <span class="w-2 h-2 rounded-full bg-status-warning"></span> TERJADWAL
+        </span>
+        <span class="text-[11px] text-text-muted block">Akun Siap Digunakan</span>
+      </td>
+      <td class="py-2.5 px-3 font-label-sm text-label-sm">
+        <span class="text-text-high-contrast">${shift.split('(')[0]}</span>
+        <span class="text-[11px] text-text-muted block">${shift.split('(')[1] ? shift.split('(')[1].replace(')', '') : ''}</span>
+      </td>
+      <td class="py-2.5 px-3 text-right font-label-md text-label-md text-text-muted">
+        <div>0 Trx</div>
+        <div class="text-[11px] text-text-muted">Shift Baru</div>
+      </td>
+      <td class="py-2.5 px-3 text-right">
+        <div class="flex items-center justify-end gap-1">
+          <button onclick="resetPinPrompt('${name}')" title="Reset PIN Override" class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm">
+            Reset PIN
+          </button>
+          <button onclick="viewAuditLog('${name}')" title="Lihat Audit Log" class="p-1 rounded bg-surface-container hover:bg-surface-bright text-accent-cyan">
+            <span class="material-symbols-outlined text-[16px]">history</span>
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.prepend(newRow);
+    showToast('Operator ' + name + ' (' + nip + ') Berhasil Disimpan!');
+    document.getElementById('inputOpName').value = '';
+    document.getElementById('inputNip').value = 'NIP-' + Math.floor(10000 + Math.random() * 90000);
+  }
+
+  function blockCard(btn) {
+    const row = btn.closest('tr');
+    const rfidCell = row.querySelector('td:first-child');
+    if (confirm('Konfirmasi: Blokir kartu RFID ' + rfidCell.innerText + ' dari akses gerbang otomatis?')) {
+      row.style.opacity = '0.35';
+      showToast('Kartu ' + rfidCell.innerText + ' dinonaktifkan (BLACKLISTED)', true);
+    }
+  }
+
+  function extendCard(btn) {
+    const row = btn.closest('tr');
+    const rfidCell = row.querySelector('td:first-child');
+    showToast('Masa aktif ' + rfidCell.innerText + ' diperpanjang +1 Tahun');
+  }
+
+  function resetPinPrompt(name) {
+    const newPin = prompt('Masukkan 6 Digit PIN Override Baru untuk ' + name + ':', '123456');
+    if (newPin) {
+      showToast('PIN Operator ' + name + ' berhasil diperbarui');
+    }
+  }
+
+  function viewAuditLog(name) {
+    document.getElementById('modalAuditTitle').innerText = 'Audit Log Operator: ' + name;
+    document.getElementById('modalAudit').classList.remove('hidden');
+  }
+
+  function closeAuditModal() {
+    document.getElementById('modalAudit').classList.add('hidden');
+  }
+
+  function exportAuditMock() {
+    showToast('Log audit berhasil di-export ke format CSV');
+    closeAuditModal();
+  }
+
+  function triggerImportMock() {
+    showToast('Memuat dialog impor file CSV/Excel RFID Master Data...');
+  }
+
+  function refreshMemberList() {
+    showToast('Daftar member telah disinkronkan dengan Core DB');
+  }
+
+  function refreshOpList() {
+    showToast('Status loket kasir & transaksi shift diperbarui');
+  }
+
+  function filterMemberTable() {
+    const filter = document.getElementById('searchMemberInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#memberTableBody tr');
+    rows.forEach(r => {
+      r.style.display = r.innerText.toLowerCase().includes(filter) ? '' : 'none';
+    });
+  }
+
+  function filterOpTable() {
+    const filter = document.getElementById('searchOpInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#opTableBody tr');
+    rows.forEach(r => {
+      r.style.display = r.innerText.toLowerCase().includes(filter) ? '' : 'none';
+    });
+  }
+</script></main><footer class="fixed bottom-0 left-72 right-0 h-8 bg-surface-tertiary border-t border-surface-border z-40 flex items-center justify-between px-space-lg font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs"><span>SYS HEALTH:</span><span class="text-status-success font-bold">100% OPERATIONAL</span></div><div class="h-3 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs"><span>LATENCY:</span><span class="text-accent-cyan font-bold">12ms</span></div><div class="h-3 w-px bg-surface-border"></div><div>ELECTRON RUNTIME v28.1.0</div></div><div class="flex items-center gap-space-md"><div class="bg-surface-container px-space-xs py-0.5 rounded border border-surface-border text-text-high-contrast"><span>SHORTCUT [F1] : PUSAT BANTUAN</span></div><div class="text-accent-blue">POS BOOTH #01</div></div></footer></div></body></html>

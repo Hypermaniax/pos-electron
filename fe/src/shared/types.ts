@@ -31,13 +31,7 @@ export interface ApiError {
 export type Result<T> = { ok: true; data: T } | { ok: false; error: ApiError }
 
 export type PaymentStatus =
-  | 'UNPAID'
-  | 'PENDING_QR'
-  | 'PENDING_EMONEY'
-  | 'PAID'
-  | 'FAILED'
-  | 'EXPIRED'
-  | 'CANCELLED'
+  'UNPAID' | 'PENDING_QR' | 'PENDING_EMONEY' | 'PAID' | 'FAILED' | 'EXPIRED' | 'CANCELLED'
 
 export type PaymentMethod = 'cash' | 'qr' | 'emoney'
 

@@ -4,7 +4,7 @@ const STORAGE_KEY = 'pos.demo.config'
 
 function defaultConfig(): AppConfig {
   return {
-    siteServerUrl: 'http://127.0.0.1:4311',
+    siteServerUrl: 'http://127.0.0.1:4000',
     deviceId: 'demo-device-0001',
     laneName: 'Loket 1',
     gateName: 'Gerbang 1',
@@ -16,12 +16,25 @@ function defaultConfig(): AppConfig {
 
 let cached: AppConfig | null = null
 
+// URL default lama yang tidak pernah dipakai; dimigrasi agar konfigurasi tersimpan tetap mengarah ke server.
+const STALE_DEFAULT_URLS = ['http://127.0.0.1:4311']
+
+function migrateStoredConfig(stored: Partial<AppConfig>): Partial<AppConfig> {
+  if (
+    typeof stored.siteServerUrl === 'string' &&
+    STALE_DEFAULT_URLS.includes(stored.siteServerUrl.replace(/\/+$/, ''))
+  ) {
+    return { ...stored, siteServerUrl: defaultConfig().siteServerUrl }
+  }
+  return stored
+}
+
 function browserConfig(): AppConfig {
   if (cached) return cached
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     cached = raw
-      ? { ...defaultConfig(), ...(JSON.parse(raw) as Partial<AppConfig>) }
+      ? { ...defaultConfig(), ...migrateStoredConfig(JSON.parse(raw) as Partial<AppConfig>) }
       : defaultConfig()
   } catch {
     cached = defaultConfig()

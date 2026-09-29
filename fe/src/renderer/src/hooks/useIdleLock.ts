@@ -2,11 +2,7 @@ import { useEffect, useRef } from 'react'
 
 const ACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'wheel', 'focus']
 
-export function useIdleLock(
-  enabled: boolean,
-  timeoutSeconds: number,
-  onIdle: () => void
-): void {
+export function useIdleLock(enabled: boolean, timeoutSeconds: number, onIdle: () => void): void {
   const callbackRef = useRef(onIdle)
 
   useEffect(() => {

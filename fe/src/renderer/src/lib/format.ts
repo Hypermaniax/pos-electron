@@ -19,7 +19,7 @@ export function formatDateTime(value: string | null): string {
   })
 }
 
-export function formatTime(value: string | null): string {
+export function formatTime(value: string | number | Date | null): string {
   if (!value) return '-'
   return new Date(value).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
 }

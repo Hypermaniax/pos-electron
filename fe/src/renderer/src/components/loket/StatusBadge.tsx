@@ -2,7 +2,7 @@ import type React from 'react'
 import type { PaymentStatus } from '@shared/types'
 import { Badge } from '@renderer/components/ui/badge'
 import { cn } from '@renderer/lib/utils'
-import { statusLabel } from '../../mock/api'
+import { statusLabel } from '../../lib/server-api'
 
 const STYLE: Record<PaymentStatus, string> = {
   UNPAID: 'bg-muted text-muted-foreground',

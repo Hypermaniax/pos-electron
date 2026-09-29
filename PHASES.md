@@ -51,7 +51,7 @@ Backend Site Server (test, belum terhubung ke frontend) — lihat Phase 15:
 
 Belum dikerjakan (menunggu integrasi frontend/phase lanjut):
 
-- Koneksi nyata frontend ke Site Server, health/status koneksi di UI.
+- Health/status koneksi Site Server di UI (koneksi nyata sudah dihubungkan via `src/renderer/src/lib/server-api.ts`).
 - Mode manless dan pembayaran e-money (Phase 9-10).
 - Cetak thermal sebenarnya, audit ke backend, auto-update.
 

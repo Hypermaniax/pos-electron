@@ -1,5 +1,11 @@
 import type React from 'react'
-import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@renderer/components/ui/empty'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle
+} from '@renderer/components/ui/empty'
 
 export function NotFoundScreen(): React.JSX.Element {
   return (

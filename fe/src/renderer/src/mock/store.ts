@@ -182,7 +182,10 @@ export function resolveAmount(session: RawSession): number {
 }
 
 export function toParkingSession(session: RawSession): ParkingSession {
-  const minutes = Math.max(1, Math.ceil((Date.now() - new Date(session.entryTime).getTime()) / 60_000))
+  const minutes = Math.max(
+    1,
+    Math.ceil((Date.now() - new Date(session.entryTime).getTime()) / 60_000)
+  )
   return {
     id: session.id,
     ticketNumber: session.ticketNumber,

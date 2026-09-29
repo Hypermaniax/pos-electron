@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"error":"#ffb4ab","surface-container":"#1f1f22","inverse-primary":"#9d4300","surface-container-highest":"#353438","selection-blue":"#264f78","surface-variant":"#353438","tertiary-fixed":"#d1e4ff","surface-tertiary":"#0a0a0a","tertiary-container":"#779dcb","on-primary-fixed":"#341100","inverse-surface":"#e4e1e6","outline-variant":"#584237","on-surface":"#e4e1e6","cta-primary":"#f97316","on-tertiary":"#003258","secondary":"#7bd0ff","surface-tint":"#ffb690","text-high-contrast":"#ffffff","background":"#131316","on-tertiary-fixed":"#001d36","accent-cyan":"#4fc1ff","surface-primary":"#1e1e1e","on-primary-container":"#582200","on-error-container":"#ffdad6","surface-container-high":"#2a2a2d","surface-border-subtle":"#1f1f23","on-secondary-fixed-variant":"#004c69","on-secondary-fixed":"#001e2c","secondary-fixed-dim":"#7bd0ff","surface-bright":"#39393c","surface-dim":"#131316","outline":"#a78b7d","on-primary-fixed-variant":"#783200","status-success":"#22c55e","accent-blue":"#569cd6","status-warning":"#f59e0b","secondary-fixed":"#c4e7ff","surface-container-lowest":"#0e0e11","primary":"#ffb690","tertiary-fixed-dim":"#a3caf9","on-secondary":"#00354a","primary-container":"#f97316","on-background":"#e4e1e6","text-muted":"#a1a1aa","surface-container-low":"#1b1b1e","tertiary":"#a3caf9","on-secondary-container":"#00374d","on-surface-variant":"#e0c0b1","selection-blue-tint":"#1e3a8acc","on-primary":"#552100","surface":"#131316","accent-blue-soft":"#60a5fa","primary-fixed-dim":"#ffb690","text-main":"#d4d4d4","selection-blue-alpha":"#075985b3","cta-hover":"#ea580c","status-error":"#ef4444","status-info":"#38bdf8","error-container":"#93000a","inverse-on-surface":"#303033","surface-base":"#18181b","primary-fixed":"#ffdbca","on-tertiary-fixed-variant":"#1f4972","on-error":"#690005","surface-border":"#27272a","surface-secondary":"#111111","secondary-container":"#00a6e0","on-tertiary-container":"#00345b"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-lg":"1rem","space-md":"0.75rem","space-sm":"0.5rem","gutter":"1rem","space-xs":"0.25rem","space-xl":"1.5rem","margin":"1rem"},"fontFamily":{"headline-lg":["Space Grotesk"],"headline-sm":["Space Grotesk"],"display-currency":["JetBrains Mono"],"label-sm":["JetBrains Mono"],"headline-xl":["Space Grotesk"],"body-md":["Geist"],"label-lg":["JetBrains Mono"],"headline-md":["Space Grotesk"],"display-plate":["JetBrains Mono"],"body-lg":["Geist"],"label-md":["JetBrains Mono"],"body-sm":["Geist"]},"fontSize":{"headline-lg":["2rem",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["1.25rem",{"lineHeight":"1.3","fontWeight":"600"}],"display-currency":["2.75rem",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"label-sm":["0.6875rem",{"lineHeight":"1.1","letterSpacing":"0.06em","fontWeight":"500"}],"headline-xl":["3rem",{"lineHeight":"1.1","letterSpacing":"-0.03em","fontWeight":"700"}],"body-md":["0.9375rem",{"lineHeight":"1.45","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.2","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"1.25","letterSpacing":"-0.01em","fontWeight":"600"}],"display-plate":["2rem",{"lineHeight":"1.15","letterSpacing":"0.08em","fontWeight":"700"}],"body-lg":["1.125rem",{"lineHeight":"1.5","fontWeight":"400"}],"label-md":["0.75rem",{"lineHeight":"1.2","letterSpacing":"0.04em","fontWeight":"500"}],"body-sm":["0.8125rem",{"lineHeight":"1.4","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased select-none"><header class="fixed top-0 left-0 right-0 h-10 bg-surface-tertiary border-b border-surface-border z-50 flex items-center justify-between px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast"><span class="flex items-center justify-center w-5 h-5 bg-cta-primary text-text-high-contrast rounded font-bold text-[11px]">P</span><span class="tracking-wider text-text-high-contrast font-headline-sm text-label-md">PARK-OS v2.4.1 WORKSTATION</span></div><div class="h-4 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span class="font-label-sm text-label-sm text-status-success uppercase tracking-wider">Central Sync OK</span></div><div class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-accent-blue"></span><span class="font-label-sm text-label-sm text-text-muted">Site Server Online</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 bg-surface-container-high rounded text-accent-cyan font-label-md text-label-md border border-surface-border"><span class="material-symbols-outlined text-[14px]">schedule</span><span>14:32:09 WIB</span></div><div class="flex items-center gap-space-xs px-space-sm py-0.5 bg-surface-container rounded text-text-muted font-label-sm text-label-sm"><span class="text-status-warning font-bold">[AUTO]</span><span>06:00 - 18:00</span></div><!-- Supervisor Enhanced Profile Badge --><div class="flex items-center gap-space-xs pl-space-sm border-l border-surface-border"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center relative"><span class="material-symbols-outlined text-on-primary text-[18px]">verified_user</span><span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-status-success border border-surface-tertiary"></span></div><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-text-high-contrast leading-none font-bold">ADITYA P. (SUPER ADMIN / SPV)</span><span class="font-label-sm text-[10px] text-cta-primary leading-none mt-0.5 font-mono">Hak Akses: Global + Booth Override</span></div></div><div class="flex items-center gap-space-xs ml-space-sm"><button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[16px]">remove</span></button><button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[16px]">crop_square</span></button><button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:bg-status-error hover:text-text-high-contrast" type="button"><span class="material-symbols-outlined text-[16px]">close</span></button></div></div></header><aside class="fixed left-0 top-10 bottom-8 w-64 bg-surface-container-low border-r border-surface-border z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="p-space-md border-b border-surface-border bg-surface-container-lowest"><div class="font-label-sm text-label-sm text-text-muted uppercase tracking-widest">LOKASI OPERASIONAL</div><div class="font-headline-sm text-headline-sm text-text-high-contrast tracking-wide flex items-center justify-between mt-space-xs"><span>BARAT-TERMINAL</span><span class="w-2 h-2 rounded-full bg-status-success"></span></div><!-- Role Switcher Selector --><div class="mt-space-sm pt-space-xs border-t border-surface-border/60"><div class="flex items-center justify-between mb-1.5"><span class="font-label-sm text-[10px] uppercase tracking-wider text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[12px] text-accent-cyan">badge</span>Role Aktif:</span><span class="font-label-sm text-[9px] px-1.5 py-0.2 rounded bg-selection-blue text-accent-cyan font-bold" id="role-status-badge">SUPERVISOR</span></div><div class="grid grid-cols-2 gap-1 bg-surface-container p-0.5 rounded border border-surface-border"><button class="px-2 py-1 rounded text-[11px] font-label-md font-bold transition-all bg-cta-primary text-text-high-contrast shadow-sm text-center truncate" id="role-btn-spv" onclick="switchRole('spv')" title="Supervisor (Akses Penuh + Loket)" type="button">SPV / ADMIN</button><button class="px-2 py-1 rounded text-[11px] font-label-md font-medium text-text-muted hover:text-text-high-contrast transition-all text-center truncate" id="role-btn-tech" onclick="switchRole('tech')" title="Teknisi (Hardware &amp; Network Only)" type="button">TEKNISI</button></div></div></div><!-- Prominent Supervisor Action: Buka Loket Kasir Operator --><div class="p-space-xs border-b border-surface-border bg-surface-container-lowest/80" id="sidebar-loket-section"><button class="w-full flex items-center justify-between px-3 py-2.5 rounded bg-gradient-to-r from-cta-primary/20 via-cta-primary/10 to-transparent border border-cta-primary/40 hover:border-cta-primary hover:bg-cta-primary/30 text-text-high-contrast font-label-md text-label-md transition-all duration-150 group shadow-sm active:scale-[0.98]" onclick="openCashierBoothModal()" type="button"><div class="flex items-center gap-2 text-left"><span class="w-7 h-7 rounded bg-cta-primary text-text-high-contrast flex items-center justify-center shrink-0 shadow"><span class="material-symbols-outlined text-[16px]">directions_car</span></span><div class="flex flex-col"><span class="font-bold text-text-high-contrast leading-tight flex items-center gap-1">BUKA LOKET KASIR<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-ping"></span></span><span class="font-label-sm text-[10px] text-cta-primary leading-none">Exit Lane Booth #01</span></div></div><span class="px-1.5 py-0.5 bg-cta-primary/20 border border-cta-primary/40 rounded text-[10px] font-label-sm font-bold text-cta-primary group-hover:bg-cta-primary group-hover:text-text-high-contrast transition-colors">[F12]</span></button></div><nav class="flex flex-col py-space-xs px-space-xs gap-0.5" data-active-classes="bg-selection-blue text-text-high-contrast border-l-2 border-accent-cyan font-bold" id="sidebar-nav-container"><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="ringkasan" data-path="ringkasan-status" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">01</span><span>Ringkasan &amp; Status</span></span><span class="material-symbols-outlined text-[14px]">dashboard</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="hardware" data-path="manajemen-perangkat" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">02</span><span>Manajemen Perangkat</span></span><span class="material-symbols-outlined text-[14px]">hardware</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="tarif" data-path="pengaturan-tarif" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">03</span><span>Pengaturan Tarif</span></span><span class="flex items-center gap-1"><span class="hidden locked-indicator material-symbols-outlined text-[12px] text-status-warning">lock</span><span class="material-symbols-outlined text-[14px]">payments</span></span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="pembayaran" data-path="fitur-pembayaran" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">04</span><span>Fitur Pembayaran</span></span><span class="flex items-center gap-1"><span class="hidden locked-indicator material-symbols-outlined text-[12px] text-status-warning">lock</span><span class="material-symbols-outlined text-[14px]">point_of_sale</span></span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="member" data-path="keanggotaan-member" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">05</span><span>Keanggotaan / Member</span></span><span class="flex items-center gap-1"><span class="hidden locked-indicator material-symbols-outlined text-[12px] text-status-warning">lock</span><span class="material-symbols-outlined text-[14px]">badge</span></span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="karyawan" data-path="karyawan-operator" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">06</span><span>Karyawan &amp; Operator</span></span><span class="flex items-center gap-1"><span class="hidden locked-indicator material-symbols-outlined text-[12px] text-status-warning">lock</span><span class="material-symbols-outlined text-[14px]">group</span></span></a><a aria-current="page" class="flex items-center justify-between px-space-md py-2 rounded transition-colors bg-selection-blue text-text-high-contrast border-l-2 border-accent-cyan font-bold nav-item-menu" data-menu-id="sistem" data-path="pengaturan-sistem" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">07</span><span>Pengaturan Sistem</span></span><span class="material-symbols-outlined text-[14px]">settings</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors nav-item-menu" data-menu-id="bantuan" data-path="bantuan" href="#"><span class="flex items-center gap-space-sm"><span class="text-cta-primary font-bold">08</span><span>Bantuan</span></span><span class="px-1.5 py-0.5 bg-surface-container-high rounded text-[10px] font-label-sm text-text-muted">F1</span></a></nav></div><div class="p-space-sm border-t border-surface-border bg-surface-container-lowest"><div class="flex items-center gap-space-xs text-status-success font-label-sm text-label-sm mb-1"><span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span><span>CORE DAEMON RUNNING</span></div><div class="font-label-sm text-label-sm text-text-muted flex justify-between"><span>PORT: 8443</span><span class="text-accent-cyan">SSL SECURE</span></div></div></aside><div class="pl-64"><main class="w-full pt-10 pb-8 min-h-screen bg-background"><div class="flex flex-col w-full px-space-xl py-space-lg gap-space-xl">
+<!-- Page Header -->
+<header class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-space-sm mb-1.5">
+<span class="w-2 h-2 rounded-full bg-accent-cyan shadow-[0_0_8px_rgba(79,193,255,0.6)]"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-accent-cyan font-bold">
+          GLOBAL SYSTEM CONFIGURATION &amp; NODE ORCHESTRATION
+        </span>
+<span class="text-surface-container-highest">•</span>
+<span class="font-label-sm text-label-sm text-text-muted">REVISION v2.4.19</span>
+<span class="text-surface-container-highest">•</span>
+<span class="px-2 py-0.5 rounded bg-cta-primary/20 text-cta-primary border border-cta-primary/30 font-label-sm text-[10px] font-bold uppercase tracking-wider">SPV ELEVATED</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-high-contrast tracking-tight mb-2">
+        Pengaturan Sistem &amp; Integrasi Terminal
+      </h1>
+<p class="font-body-md text-body-md text-text-muted leading-relaxed">
+        Konfigurasi endpoint Site Server lokal, sinkronisasi Central Backend, jadwal auto-backup database transaksi, manajemen printer thermal, serta aturan tema otomatis.
+      </p>
+</div>
+<div class="flex items-center gap-space-md shrink-0 flex-wrap">
+<!-- Quick Action Button: Buka Loket Operator (Shift) [F12] -->
+<button class="flex items-center gap-space-sm px-space-md py-2.5 rounded bg-gradient-to-r from-cta-primary to-cta-hover hover:brightness-110 text-text-high-contrast transition-all duration-150 font-label-md text-label-md font-bold tracking-wide shadow-md active:scale-95 border border-cta-primary/40" id="btn-quick-loket" onclick="openCashierBoothModal()" title="Buka Sesi Loket Operator Exit Lane Langsung [F12]" type="button">
+<span class="material-symbols-outlined text-[18px]">directions_car</span>
+<span>Buka Loket Operator (Shift) <span class="bg-black/25 px-1.5 py-0.5 rounded text-[11px] font-mono tracking-wider font-semibold ml-0.5">[F12]</span></span>
+</button>
+<button class="flex items-center gap-space-sm px-space-md py-2.5 rounded bg-surface-container-high hover:bg-selection-blue text-on-surface hover:text-text-high-contrast transition-all duration-150 font-label-md text-label-md shadow-sm active:scale-95" id="btn-test-connection" type="button">
+<span class="material-symbols-outlined text-[18px] text-accent-cyan">network_check</span>
+<span>Tes Koneksi Semua Endpoint</span>
+</button>
+<button class="flex items-center gap-space-sm px-space-lg py-2.5 rounded bg-cta-primary hover:bg-cta-hover text-text-high-contrast transition-all duration-150 font-label-lg text-label-lg tracking-wide uppercase shadow-md active:scale-95" id="btn-save-settings" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Simpan Semua Perubahan <span class="opacity-70 text-[11px] font-normal">[Ctrl+S]</span></span>
+</button>
+</div>
+</header>
+<!-- Metric / Telemetry Overview Band -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<div class="flex flex-col p-space-md bg-surface-container-low rounded shadow-sm">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-text-muted uppercase">
+<span>Konektivitas Node</span>
+<span class="material-symbols-outlined text-[16px] text-status-success">hub</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-sm text-headline-sm text-text-high-contrast font-bold">SYMETRIC DUAL</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold">ONLINE</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted mt-1">2/2 Nodes terotorisasi &amp; tersinkron</span>
+</div>
+<div class="flex flex-col p-space-md bg-surface-container-low rounded shadow-sm">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-text-muted uppercase">
+<span>Status Database</span>
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">database</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-sm text-headline-sm text-text-high-contrast font-bold">148.6 MB</span>
+<span class="font-label-sm text-label-sm text-text-muted">SQLite WAL</span>
+</div>
+<span class="font-label-sm text-label-sm text-status-success mt-1">Integritas 100% (CRC32 Checked)</span>
+</div>
+<div class="flex flex-col p-space-md bg-surface-container-low rounded shadow-sm">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-text-muted uppercase">
+<span>Hardware POS Bus</span>
+<span class="material-symbols-outlined text-[16px] text-status-warning">print</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-sm text-headline-sm text-text-high-contrast font-bold">TM-T82X</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold">READY</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted mt-1">Kertas 80mm • Auto-Cut Aktif</span>
+</div>
+<div class="flex flex-col p-space-md bg-surface-container-low rounded shadow-sm">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-text-muted uppercase">
+<span>Active Workstation Mode</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">nights_stay</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-sm text-headline-sm text-text-high-contrast font-bold">DARK ENGINE</span>
+<span class="font-label-sm text-label-sm text-status-info font-semibold">NIGHT</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted mt-1">Peralihan berikut: 06:00 WIB</span>
+</div>
+</div>
+<!-- Section 1: Konfigurasi Jaringan & Endpoint Backend -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-selection-blue text-accent-cyan font-label-sm text-label-sm font-bold">01</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Konfigurasi Jaringan &amp; Endpoint Backend</h2>
+</div>
+<span class="font-label-sm text-label-sm text-status-info">AUTONOMOUS CLUSTER TOPOLOGY</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Card A: Site Server Lokal -->
+<div class="flex flex-col p-space-lg bg-surface-container-low rounded shadow-sm gap-space-md justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-accent-cyan">dns</span>
+<div>
+<h3 class="font-label-lg text-label-lg text-text-high-contrast">Site Server Lokal (Authority Parkir Aktif)</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Pusat transaksi lokal berkecepatan tinggi di booth Barat-Terminal</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high text-status-success font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+<span>Terhubung (Latency 4ms)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">IP / Host Endpoint Gateway</label>
+<div class="relative">
+<input class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint transition-all" type="text" value="https://site-gw.internal.terminal:8443/api/v1"/>
+<span class="absolute right-3 top-2.5 material-symbols-outlined text-[16px] text-text-muted">lock</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Port API Gateway</label>
+<input class="bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint" type="text" value="8443"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Timeout Jaringan</label>
+<div class="flex items-center bg-surface-secondary rounded px-3 py-2">
+<input class="w-full bg-transparent text-text-high-contrast font-label-md text-label-md focus:outline-none" type="number" value="3000"/>
+<span class="font-label-sm text-label-sm text-text-muted ml-2">ms</span>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-xs bg-surface-container-lowest p-space-md rounded flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Aktifkan Fallback Offline Cache</span>
+<span class="font-body-sm text-body-sm text-text-muted">Simpan tiket lokal jika server site terputus mendadak</span>
+</div>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-status-success transition-colors duration-200 ease-in-out focus:outline-none" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); this.classList.toggle('bg-status-success'); this.classList.toggle('bg-surface-container-highest');" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-text-high-contrast shadow ring-0 transition duration-200 ease-in-out translate-x-5 mt-0.5 ml-0.5"></span>
+</button>
+</div>
+</div>
+<!-- Card B: Central Cloud Backend -->
+<div class="flex flex-col p-space-lg bg-surface-container-low rounded shadow-sm gap-space-md justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-accent-blue">cloud_sync</span>
+<div>
+<h3 class="font-label-lg text-label-lg text-text-high-contrast">Central Cloud Backend (Master Data &amp; Permission)</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Master database tarif pusat, membership nasional, dan e-wallet aggregator</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high text-status-success font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span>Sync Validated CRC32: 0x9AF41B</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">URL Central Aggregator</label>
+<input class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint transition-all" type="text" value="https://central-api.parkos.corp/nodes/site-west"/>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Node Cluster Token</label>
+<div class="relative">
+<input class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint tracking-widest" type="password" value="sk_live_cluster_98f24a1b0def990234a"/>
+<button class="absolute right-2 top-2 text-text-muted hover:text-text-high-contrast" onclick="const i = this.previousElementSibling; i.type = i.type === 'password' ? 'text' : 'password';" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Frekuensi Polling Sync</label>
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint cursor-pointer">
+<option value="15">Setiap 15 Detik (Ultra Realtime)</option>
+<option selected="" value="30">Setiap 30 Detik (Rekomendasi)</option>
+<option value="60">Setiap 60 Detik</option>
+<option value="300">Setiap 5 Menit (Hemat Bandwidth)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-xs bg-surface-container-lowest p-space-md rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-text-muted">
+<span class="material-symbols-outlined text-[18px] text-accent-cyan">swap_vertical_circle</span>
+<span>Handshake terakhir berhasil: <strong class="text-text-high-contrast font-label-md">14:31:58 WIB</strong></span>
+</div>
+<button class="font-label-sm text-label-sm text-accent-cyan hover:underline uppercase font-bold tracking-wider" type="button">
+            Re-sync Paksa
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Hardware Loket & Printer Thermal Default -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-selection-blue text-accent-cyan font-label-sm text-label-sm font-bold">02</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Hardware Loket &amp; Printer Thermal Default</h2>
+</div>
+<span class="font-label-sm text-label-sm text-status-success font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+        DRIVER ESC/POS READY
+      </span>
+</div>
+<div class="bg-surface-container-low rounded p-space-lg shadow-sm flex flex-col gap-space-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Thermal Printer Dropdown -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Default Thermal Printer Driver</label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2.5 rounded focus:outline-none focus:bg-selection-blue-tint cursor-pointer appearance-none">
+<option selected="" value="epson-tm82x">EPSON TM-T82X (COM1 / USB 9100 RAW)</option>
+<option value="epson-tm20">EPSON TM-T20III Serial High-Speed (COM3)</option>
+<option value="custom-vkp80">Custom VKP80 III Kiosk Heavy Duty (TCP 9100)</option>
+<option value="generic-escpos">Generic ESC/POS Virtual Spooler</option>
+</select>
+<span class="pointer-events-none absolute right-3 top-3 material-symbols-outlined text-[18px] text-text-muted">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-accent-cyan mt-1">Status Port: Terbuka, Baud Rate 115200 bps, Buffer 4KB Ready</span>
+</div>
+<!-- Barcode / QR Scanner Mode -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Barcode / QR Scanner Input Mode</label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2.5 rounded focus:outline-none focus:bg-selection-blue-tint cursor-pointer appearance-none">
+<option selected="" value="hid-auto">USB-HID Keyboard Wedge (Auto-Enter / Suffix CR)</option>
+<option value="com-serial">Virtual COM Port Serial Direct Polling</option>
+<option value="omni-laser">Omnidirectional Industrial Imager (Zebra DS9308)</option>
+</select>
+<span class="pointer-events-none absolute right-3 top-3 material-symbols-outlined text-[18px] text-text-muted">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted mt-1">Prefix/Suffix: [STX] None | [ETX] Enter (\r\n)</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<!-- Lebar Kertas Struk -->
+<div class="p-space-md bg-surface-container rounded flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted uppercase font-bold">Lebar Kertas Struk</span>
+<div class="flex flex-col gap-2 mt-1">
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input checked="" class="accent-cta-primary w-4 h-4 cursor-pointer" name="paper-width" type="radio" value="80"/>
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">80mm (Standar POS &amp; Parkir)</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer opacity-80 hover:opacity-100">
+<input class="accent-cta-primary w-4 h-4 cursor-pointer" name="paper-width" type="radio" value="58"/>
+<span class="font-label-md text-label-md text-text-muted">58mm (Kompak Kiosk)</span>
+</label>
+</div>
+</div>
+<!-- Auto-Cut Kertas -->
+<div class="p-space-md bg-surface-container rounded flex flex-col justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted uppercase font-bold">Opsi Auto-Cut Kertas</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Kirim instruksi GS V 66 0 pemotong otomatis pasca struk tercetak</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-2">
+<span class="font-label-md text-label-md text-status-success font-semibold">Aktif (Potong Penuh)</span>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-status-success transition-colors duration-200" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); this.classList.toggle('bg-status-success'); this.classList.toggle('bg-surface-container-highest');" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-text-high-contrast shadow translate-x-5 mt-0.5 ml-0.5 transition duration-200"></span>
+</button>
+</div>
+</div>
+<!-- Auto Print Pembayaran -->
+<div class="p-space-md bg-surface-container rounded flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted uppercase font-bold">Kebijakan Cetak Struk</span>
+<div class="flex flex-col gap-2 mt-1">
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input checked="" class="accent-cta-primary w-4 h-4 cursor-pointer" name="print-policy" type="radio" value="auto"/>
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Cetak Otomatis Setiap Transaksi</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer opacity-80 hover:opacity-100">
+<input class="accent-cta-primary w-4 h-4 cursor-pointer" name="print-policy" type="radio" value="demand"/>
+<span class="font-label-md text-label-md text-text-muted">Hanya Atas Permintaan Kasir</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Test Print Trigger Strip -->
+<div class="flex items-center justify-between px-space-md py-space-sm bg-surface-secondary rounded">
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-text-muted">
+<span class="material-symbols-outlined text-[18px] text-cta-primary">receipt_long</span>
+<span>Verifikasi fisik pemotong dan density font struk thermal</span>
+</div>
+<button class="px-space-md py-1 bg-surface-container-high hover:bg-selection-blue text-text-high-contrast rounded font-label-sm text-label-sm transition-colors" type="button">
+          Kirim Sampel Cetak Uji Coba (ESC/POS Feed)
+        </button>
+</div>
+</div>
+</section>
+<!-- Section: Master Kode Otorisasi & Override Darurat (Supervisor / Super Admin) -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-selection-blue text-accent-cyan font-label-sm text-label-sm font-bold">03</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-cta-primary">verified_user</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Master Kode Otorisasi &amp; Override Darurat (Supervisor / Super Admin)</h2>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded bg-cta-primary/10 border border-cta-primary/30 text-cta-primary font-label-sm text-label-sm font-bold tracking-wide uppercase flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-cta-primary animate-ping"></span>
+        RESTRICTED LEVEL 0: SPV ELEVATION
+      </span>
+</div>
+<div class="bg-surface-container-low border border-cta-primary/20 rounded p-space-lg shadow-md flex flex-col gap-space-lg">
+<!-- Form Config Top Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Master PIN SPV Input -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-text-muted uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-cta-primary">key</span>
+            Master PIN Otorisasi SPV
+          </label>
+<span class="font-label-sm text-[10px] text-status-success font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+            Aktif &amp; Terenkripsi SHA-256
+          </span>
+</div>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-secondary text-text-high-contrast font-label-lg text-headline-sm tracking-[0.35em] px-3.5 py-2.5 rounded border border-surface-border focus:border-cta-primary focus:outline-none focus:bg-selection-blue-tint transition-all" id="spv-pin-input" maxlength="6" type="password" value="882914"/>
+<button class="absolute right-3 text-text-muted hover:text-text-high-contrast focus:outline-none flex items-center justify-center p-1 rounded" id="btn-toggle-pin" onclick="const p = document.getElementById('spv-pin-input'); const icon = this.querySelector('span'); if (p.type === 'password') { p.type = 'text'; icon.innerText = 'visibility_off'; } else { p.type = 'password'; icon.innerText = 'visibility'; }" title="Tampilkan / Sembunyikan PIN" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+<span class="font-body-sm text-[11px] text-text-muted">Digunakan loket kasir saat menekan shortcut <strong class="text-accent-cyan">[F11] Override</strong></span>
+</div>
+<!-- Kebijakan Masa Berlaku PIN -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-text-muted uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-accent-cyan">update</span>
+          Kebijakan Masa Berlaku PIN
+        </label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3.5 py-3 rounded border border-surface-border focus:border-cta-primary focus:outline-none focus:bg-selection-blue-tint cursor-pointer appearance-none">
+<option value="daily">Setiap Hari (Pukul 00:00 Auto-Generate)</option>
+<option selected="" value="shift">Setiap Pergantian Shift Operator (3x Sehari)</option>
+<option value="static">Statis (Hanya Berubah Manual oleh Super Admin)</option>
+</select>
+<span class="pointer-events-none absolute right-3 top-3.5 material-symbols-outlined text-[18px] text-text-muted">expand_more</span>
+</div>
+<span class="font-body-sm text-[11px] text-text-muted">Sinkronisasi instan ke seluruh lane gate terminal via socket internal</span>
+</div>
+<!-- Batas Override Tanpa Tiket -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-text-muted uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-status-warning">security</span>
+          Batas Override Tanpa Tiket
+        </label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3.5 py-3 rounded border border-surface-border focus:border-cta-primary focus:outline-none focus:bg-selection-blue-tint cursor-pointer appearance-none">
+<option value="1">Maksimum 1 Kali per Shift (Ketat)</option>
+<option selected="" value="3">Maksimum 3 Kali per Operator per Shift</option>
+<option value="5">Maksimum 5 Kali per Operator per Shift</option>
+<option value="unlimited">Tidak Terbatas (Mode Darurat Audit Manual)</option>
+</select>
+<span class="pointer-events-none absolute right-3 top-3.5 material-symbols-outlined text-[18px] text-text-muted">expand_more</span>
+</div>
+<span class="font-body-sm text-[11px] text-status-warning flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+          Mengunci loket &amp; minta verifikasi fisik SPV jika batas terlampaui
+        </span>
+</div>
+</div>
+<!-- Kategori Izin Override yang Diizinkan -->
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-secondary rounded border border-surface-border">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted uppercase font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">tune</span>
+          Kategori Izin Override yang Diizinkan dengan PIN SPV
+        </span>
+<span class="font-label-sm text-[11px] text-text-muted">Loket gate memverifikasi hak akses ini secara real-time</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm mt-1">
+<label class="flex items-start gap-2.5 p-space-sm bg-surface-container rounded cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="accent-cta-primary w-4 h-4 mt-0.5 rounded cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-status-error">emergency</span>
+              Buka Palang Darurat [F11]
+            </span>
+<span class="font-body-sm text-[11px] text-text-muted">Trigger open barrier motor loop</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-space-sm bg-surface-container rounded cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="accent-cta-primary w-4 h-4 mt-0.5 rounded cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-status-warning">percent</span>
+              Diskon Denda Tiket Hilang
+            </span>
+<span class="font-body-sm text-[11px] text-text-muted">Wewenang potong/hapus charge</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-space-sm bg-surface-container rounded cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="accent-cta-primary w-4 h-4 mt-0.5 rounded cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-accent-cyan">minor_crash</span>
+              Bypass Gate Kendaraan Rusak
+            </span>
+<span class="font-body-sm text-[11px] text-text-muted">Towing / mogok tanpa scan keluar</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-space-sm bg-surface-container rounded cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="accent-cta-primary w-4 h-4 mt-0.5 rounded cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-status-info">cloud_off</span>
+              Transaksi Darurat Offline
+            </span>
+<span class="font-body-sm text-[11px] text-text-muted">Cetak manual saat server down</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Tombol Simpan & Rotasi PIN Baru [CTRL+K] -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-status-success">lock_clock</span>
+<span>Terakhir dirotasi: <strong>Hari ini 06:00:12 WIB</strong> oleh Super Admin (Aditya P.)</span>
+</div>
+<button class="flex items-center gap-space-sm px-space-lg py-2 bg-cta-primary hover:bg-cta-hover text-text-high-contrast rounded font-label-md text-label-md font-bold tracking-wide uppercase transition-all shadow-md active:scale-95" id="btn-rotate-pin" type="button">
+<span class="material-symbols-outlined text-[18px]">sync_lock</span>
+<span>Simpan &amp; Rotasi PIN Baru <span class="opacity-80 text-[11px] font-normal">[CTRL+K]</span></span>
+</button>
+</div>
+<!-- Log Riwayat Audit Override Terakhir -->
+<div class="flex flex-col gap-2 pt-space-xs border-t border-surface-border">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">history</span>
+<span class="font-label-sm text-label-sm text-text-high-contrast font-bold uppercase tracking-wider">Log Riwayat Audit Override Terakhir (Live Feed)</span>
+</div>
+<span class="font-label-sm text-[11px] text-text-muted">3 Aktivitas Override Supervisor Terkini</span>
+</div>
+<div class="overflow-x-auto bg-surface-container-lowest rounded border border-surface-border">
+<table class="w-full text-left font-label-sm text-label-sm">
+<thead class="bg-surface-container text-text-muted uppercase text-[10px] tracking-wider border-b border-surface-border">
+<tr>
+<th class="py-2 px-space-md font-bold">Waktu</th>
+<th class="py-2 px-space-md font-bold">Supervisor Penyetuju</th>
+<th class="py-2 px-space-md font-bold">Jenis Tindakan Override</th>
+<th class="py-2 px-space-md font-bold">Lokasi / Gate</th>
+<th class="py-2 px-space-md font-bold">Identitas / Plat No.</th>
+<th class="py-2 px-space-md font-bold text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border/50 text-text-main">
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 px-space-md font-bold text-accent-cyan">14:35:45 WIB</td>
+<td class="py-2.5 px-space-md text-text-high-contrast font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+              Hendra Wijaya (SPV-01)
+            </td>
+<td class="py-2.5 px-space-md">
+<span class="px-2 py-0.5 rounded bg-status-warning/15 text-status-warning border border-status-warning/30 font-semibold text-[11px]">
+                Approve Override Tiket Hilang (Denda waived 50%)
+              </span>
+</td>
+<td class="py-2.5 px-space-md font-semibold text-text-high-contrast">Gate Exit 02</td>
+<td class="py-2.5 px-space-md font-bold tracking-wider text-text-high-contrast font-mono">B 1984 RFS</td>
+<td class="py-2.5 px-space-md text-right">
+<span class="px-2 py-0.5 rounded bg-status-success/15 text-status-success font-bold text-[10px]">AUTHORIZED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 px-space-md font-bold text-accent-cyan">13:12:08 WIB</td>
+<td class="py-2.5 px-space-md text-text-high-contrast font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+              Aditya Pratama (Super Admin)
+            </td>
+<td class="py-2.5 px-space-md">
+<span class="px-2 py-0.5 rounded bg-status-error/15 text-status-error border border-status-error/30 font-semibold text-[11px]">
+                Buka Palang Darurat [F11] - Ambulans Lewat
+              </span>
+</td>
+<td class="py-2.5 px-space-md font-semibold text-text-high-contrast">Gate Exit 01</td>
+<td class="py-2.5 px-space-md font-bold tracking-wider text-text-high-contrast font-mono">B 9112 ARS</td>
+<td class="py-2.5 px-space-md text-right">
+<span class="px-2 py-0.5 rounded bg-status-success/15 text-status-success font-bold text-[10px]">AUTHORIZED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 px-space-md font-bold text-accent-cyan">11:47:20 WIB</td>
+<td class="py-2.5 px-space-md text-text-high-contrast font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+              Hendra Wijaya (SPV-01)
+            </td>
+<td class="py-2.5 px-space-md">
+<span class="px-2 py-0.5 rounded bg-accent-blue/15 text-accent-cyan border border-accent-cyan/30 font-semibold text-[11px]">
+                Bypass Gate Kendaraan Rusak (Towing Truk Rekanan)
+              </span>
+</td>
+<td class="py-2.5 px-space-md font-semibold text-text-high-contrast">Gate Entry 03</td>
+<td class="py-2.5 px-space-md font-bold tracking-wider text-text-high-contrast font-mono">D 8023 YF</td>
+<td class="py-2.5 px-space-md text-right">
+<span class="px-2 py-0.5 rounded bg-status-success/15 text-status-success font-bold text-[10px]">AUTHORIZED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4 & 5: Tema Otomatis & Database Policy Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Section 4: Sinkronisasi Waktu & Tema Tampilan Otomatis -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-selection-blue text-accent-cyan font-label-sm text-label-sm font-bold">04</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Sinkronisasi Waktu &amp; Tema Otomatis</h2>
+</div>
+<div class="flex flex-col p-space-lg bg-surface-container-low rounded shadow-sm gap-space-md h-full justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-text-high-contrast font-semibold">Tema Workstation Adaptif</span>
+<p class="font-body-sm text-body-sm text-text-muted">Pergantian visual gelap-terang otomatis untuk kenyamanan mata shift operator</p>
+</div>
+<div class="px-2.5 py-1 rounded bg-surface-container-high text-accent-cyan font-label-sm text-label-sm font-bold tracking-wide">
+              TEMA GELAP AKTIF
+            </div>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="flex flex-col p-space-sm bg-surface-secondary rounded">
+<span class="font-label-sm text-label-sm text-status-warning uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">light_mode</span>
+                Jadwal Siang (Terang)
+              </span>
+<span class="font-display-currency text-[1.4rem] text-text-high-contrast mt-1 font-bold">06:00 - 18:00</span>
+<span class="font-label-sm text-label-sm text-text-muted">WIB (Zona Waktu Barat)</span>
+</div>
+<div class="flex flex-col p-space-sm bg-surface-secondary rounded">
+<span class="font-label-sm text-label-sm text-tertiary uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">dark_mode</span>
+                Jadwal Malam (Gelap)
+              </span>
+<span class="font-display-currency text-[1.4rem] text-text-high-contrast mt-1 font-bold">18:00 - 06:00</span>
+<span class="font-label-sm text-label-sm text-status-info">Aktif Sekarang</span>
+</div>
+</div>
+<!-- Transition Slider -->
+<div class="flex flex-col gap-2 pt-space-xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted uppercase">Durasi Fade Transisi Gradual</span>
+<span class="text-accent-cyan font-bold" id="fade-val">45 Detik</span>
+</div>
+<input class="w-full accent-accent-cyan bg-surface-secondary h-2 rounded cursor-pointer" id="fade-slider" max="120" min="5" oninput="document.getElementById('fade-val').innerText = this.value + ' Detik';" type="range" value="45"/>
+<span class="font-body-sm text-body-sm text-text-muted">
+              Peralihan gamma kontras bertahap tanpa flash silau pada layar sentuh booth.
+            </span>
+</div>
+</div>
+<div class="flex items-center justify-between p-space-sm bg-surface-container rounded mt-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span class="font-label-sm text-label-sm text-text-high-contrast">NTP Server Sync: <strong>id.pool.ntp.org</strong></span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Offset: ±0.002s</span>
+</div>
+</div>
+</section>
+<!-- Section 5: Database, Backup Lokal, & Kebijakan Keamanan -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-selection-blue text-accent-cyan font-label-sm text-label-sm font-bold">05</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Database &amp; Kebijakan Keamanan</h2>
+</div>
+<div class="flex flex-col p-space-lg bg-surface-container-low rounded shadow-sm gap-space-md h-full justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-text-high-contrast font-semibold">Audit Trail &amp; Local Persistence</span>
+<p class="font-body-sm text-body-sm text-text-muted">Pengarsipan transaksi terenkripsi &amp; proteksi terminal tanpa pengawasan</p>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-status-success font-label-sm text-label-sm">
+              AES-256 ENCRYPTED
+            </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Retensi Audit -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Retensi Log Audit Transaksi</label>
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint cursor-pointer">
+<option value="30">30 Hari (Standar Minimal)</option>
+<option value="60">60 Hari</option>
+<option selected="" value="90">90 Hari (SOP Perparkiran)</option>
+<option value="365">365 Hari (Audit Tahunan Penuh)</option>
+</select>
+</div>
+<!-- Auto-Lock -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase">Auto-Lock Layar Kasir</label>
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3 py-2 rounded focus:outline-none focus:bg-selection-blue-tint cursor-pointer">
+<option value="5">5 Menit Idle</option>
+<option selected="" value="10">10 Menit Idle (Rekomendasi)</option>
+<option value="30">30 Menit Idle</option>
+<option value="0">Nonaktifkan (Kios Mandiri Saja)</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm bg-surface-secondary rounded">
+<span class="material-symbols-outlined text-[18px] text-accent-cyan">backup</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-high-contrast font-semibold">Auto Backup SQLite Database</span>
+<span class="font-label-sm text-label-sm text-text-muted">Dijadwalkan otomatis setiap hari pukul <strong>23:59:00 WIB</strong></span>
+</div>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex items-center gap-space-sm pt-space-xs mt-space-xs">
+<button class="flex-1 flex items-center justify-center gap-space-xs px-space-md py-2 bg-surface-container-high hover:bg-selection-blue text-text-high-contrast rounded font-label-sm text-label-sm transition-colors" id="btn-backup-download" type="button">
+<span class="material-symbols-outlined text-[16px] text-status-success">download</span>
+<span>Unduh Cadangan (.sql.gz)</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs px-space-md py-2 bg-surface-container hover:bg-status-error/20 hover:text-status-error text-text-muted rounded font-label-sm text-label-sm transition-colors" id="btn-clear-cache" type="button">
+<span class="material-symbols-outlined text-[16px]">cleaning_services</span>
+<span>Bersihkan Cache Sementara</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Modal: Buka Sesi Loket Operator (Shift Kasir) -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-200" id="loket-modal">
+<div class="bg-surface-container-low border border-cta-primary/40 rounded-lg shadow-2xl max-w-lg w-full flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="bg-surface-tertiary px-space-lg py-space-md border-b border-surface-border flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded bg-cta-primary text-text-high-contrast flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">directions_car</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-high-contrast leading-tight">Buka Sesi Loket Operator</h3>
+<span class="font-label-sm text-[11px] text-cta-primary font-semibold">MODE SUPERVISI &amp; OPERASI KASIR</span>
+</div>
+</div>
+<button class="text-text-muted hover:text-text-high-contrast p-1 rounded hover:bg-surface-container-high transition-colors" onclick="closeCashierBoothModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="p-space-md bg-surface-container rounded border border-surface-border flex flex-col gap-2">
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<span>Supervisor Bertugas:</span>
+<span class="text-text-high-contrast font-bold font-mono">Aditya P. / Hendra Wijaya</span>
+</div>
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<span>Terminal / Gate:</span>
+<span class="text-accent-cyan font-bold font-mono">BOOTH EXIT BARAT 01 [GATE-EX-01]</span>
+</div>
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<span>Shift Operasional:</span>
+<span class="text-status-warning font-bold font-mono">SHIFT 2 (14:00 - 22:00 WIB)</span>
+</div>
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<span>Hak Otorisasi Kasir:</span>
+<span class="text-status-success font-bold font-mono">FULL BYPASS + DISKON + REPRINT</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-text-muted uppercase font-bold">Pilih Posisi Booth Tujuan</label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-label-md text-label-md px-3.5 py-2.5 rounded border border-surface-border focus:border-cta-primary focus:outline-none cursor-pointer">
+<option selected="" value="exit-01">Booth Exit Barat 01 (Utama - High Traffic)</option>
+<option value="exit-02">Booth Exit Barat 02 (Mobil &amp; Bus Khusus)</option>
+<option value="entry-01">Booth Entry Barat 01 (Mode Manless Recovery)</option>
+</select>
+</div>
+</div>
+<div class="p-space-sm bg-cta-primary/10 border border-cta-primary/30 rounded flex items-start gap-2.5 text-text-main font-body-sm text-[12px]">
+<span class="material-symbols-outlined text-[18px] text-cta-primary shrink-0 mt-0.5">info</span>
+<span>Sesi dashboard Admin tetap aktif di background. Menekan <strong class="text-text-high-contrast">[F12]</strong> pada layar kasir nantinya akan mengembalikan tampilan ke konsol pengawasan SPV ini.</span>
+</div>
+</div>
+<!-- Modal Footer Actions -->
+<div class="bg-surface-secondary px-space-lg py-space-md border-t border-surface-border flex items-center justify-end gap-space-sm">
+<button class="px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-text-muted hover:text-text-high-contrast font-label-md text-label-md transition-colors" onclick="closeCashierBoothModal()" type="button">
+        Batal
+      </button>
+<button class="flex items-center gap-2 px-space-lg py-2 rounded bg-cta-primary hover:bg-cta-hover text-text-high-contrast font-label-md text-label-md font-bold tracking-wide transition-all shadow-md active:scale-95" onclick="confirmOpenCashierBooth()" type="button">
+<span class="material-symbols-outlined text-[18px]">login</span>
+<span>Masuk ke Loket Kasir [F12]</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Toast Notification Template for Micro-interactions -->
+<div class="fixed bottom-12 right-6 hidden transform transition-all duration-200 z-50 flex items-center gap-space-sm px-space-md py-space-sm rounded bg-surface-tertiary text-text-high-contrast shadow-2xl font-label-md text-label-md border border-surface-border" id="system-toast">
+<span class="material-symbols-outlined text-[20px] text-cta-primary" id="toast-icon">check_circle</span>
+<span id="toast-msg">Pengaturan berhasil diperbarui ke daemon server.</span>
+</div>
+</div>
+<script>
+  // State: Current active role ('spv' or 'tech')
+  let currentRole = 'spv';
+
+  // Role Switcher Implementation
+  function switchRole(role) {
+    currentRole = role;
+    const btnSpv = document.getElementById('role-btn-spv');
+    const btnTech = document.getElementById('role-btn-tech');
+    const roleBadge = document.getElementById('role-status-badge');
+    const loketSidebar = document.getElementById('sidebar-loket-section');
+    const quickLoketTop = document.getElementById('btn-quick-loket');
+    const navItems = document.querySelectorAll('.nav-item-menu');
+
+    if (role === 'spv') {
+      // Style active button
+      btnSpv.className = 'px-2 py-1 rounded text-[11px] font-label-md font-bold transition-all bg-cta-primary text-text-high-contrast shadow-sm text-center truncate';
+      btnTech.className = 'px-2 py-1 rounded text-[11px] font-label-md font-medium text-text-muted hover:text-text-high-contrast transition-all text-center truncate';
+      roleBadge.innerText = 'SUPERVISOR';
+      roleBadge.className = 'font-label-sm text-[9px] px-1.5 py-0.2 rounded bg-selection-blue text-accent-cyan font-bold';
+
+      // Show supervisor-exclusive cashier access
+      if (loketSidebar) loketSidebar.style.display = 'block';
+      if (quickLoketTop) quickLoketTop.style.display = 'inline-flex';
+
+      // Unlock all 8 menus
+      navItems.forEach(item => {
+        item.classList.remove('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+        const lock = item.querySelector('.locked-indicator');
+        if (lock) lock.classList.add('hidden');
+      });
+
+      showToast('Hak Akses: SUPERVISOR Aktif (Semua 8 Menu + Buka Loket Kasir Operator Tersedia)', 'verified_user');
+    } else {
+      // Role: TEKNISI
+      btnTech.className = 'px-2 py-1 rounded text-[11px] font-label-md font-bold transition-all bg-accent-blue text-text-high-contrast shadow-sm text-center truncate';
+      btnSpv.className = 'px-2 py-1 rounded text-[11px] font-label-md font-medium text-text-muted hover:text-text-high-contrast transition-all text-center truncate';
+      roleBadge.innerText = 'TEKNISI';
+      roleBadge.className = 'font-label-sm text-[9px] px-1.5 py-0.2 rounded bg-accent-blue/20 text-accent-cyan font-bold';
+
+      // Hide operator booth switch for hardware/network technician
+      if (loketSidebar) loketSidebar.style.display = 'none';
+      if (quickLoketTop) quickLoketTop.style.display = 'none';
+
+      // Lock business menus: 01, 03, 04, 05, 06 (Keep 02 Hardware & 07 Sistem accessible)
+      navItems.forEach(item => {
+        const menuId = item.getAttribute('data-menu-id');
+        const lock = item.querySelector('.locked-indicator');
+        if (menuId === 'hardware' || menuId === 'sistem' || menuId === 'bantuan') {
+          item.classList.remove('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+          if (lock) lock.classList.add('hidden');
+        } else {
+          item.classList.add('opacity-40', 'cursor-not-allowed');
+          if (lock) lock.classList.remove('hidden');
+        }
+      });
+
+      showToast('Hak Akses: TEKNISI (Hanya 02 Manajemen Perangkat & 07 Pengaturan Sistem yang Dapat Diakses)', 'engineering');
+    }
+  }
+
+  // Modal Handlers
+  function openCashierBoothModal() {
+    const modal = document.getElementById('loket-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  }
+
+  function closeCashierBoothModal() {
+    const modal = document.getElementById('loket-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function confirmOpenCashierBooth() {
+    closeCashierBoothModal();
+    showToast('Membuka Sesi Loket Operator - Booth Exit Barat 01 sebagai Supervisor Hendra Wijaya / Aditya P. (Mode Supervisi & Operasi Kasir)', 'directions_car');
+  }
+
+  // Active Sidebar Highlighting for Section 07
+  (function initNavigationHighlight() {
+    const navItems = document.querySelectorAll('aside nav a[data-path]');
+    const activeClasses = (document.querySelector('aside nav')?.getAttribute('data-active-classes') || 'bg-selection-blue text-text-high-contrast border-l-2 border-accent-cyan font-bold').split(' ');
+    
+    navItems.forEach(el => {
+      if (el.getAttribute('data-path') === 'pengaturan-sistem') {
+        el.classList.add(...activeClasses);
+        el.classList.remove('text-on-surface-variant');
+      } else {
+        el.classList.remove(...activeClasses);
+      }
+    });
+  })();
+
+  // Toast Feedback Helper
+  function showToast(message, iconName = 'check_circle', isError = false) {
+    const toast = document.getElementById('system-toast');
+    const msg = document.getElementById('toast-msg');
+    const icon = document.getElementById('toast-icon');
+    if (!toast || !msg || !icon) return;
+
+    msg.innerText = message;
+    icon.innerText = iconName;
+    icon.className = `material-symbols-outlined text-[20px] ${isError ? 'text-status-error' : 'text-cta-primary'}`;
+    
+    toast.classList.remove('hidden');
+    toast.classList.add('flex');
+
+    setTimeout(() => {
+      toast.classList.add('hidden');
+      toast.classList.remove('flex');
+    }, 3800);
+  }
+
+  // Save Settings Handlers
+  document.getElementById('btn-save-settings')?.addEventListener('click', () => {
+    showToast('Konfigurasi sistem berhasil disimpan & disinkronkan ke hardware loket!');
+  });
+
+  // Rotate PIN Handler
+  function rotatePinAction() {
+    const randomPin = Math.floor(100000 + Math.random() * 900000).toString();
+    const pinInput = document.getElementById('spv-pin-input');
+    if (pinInput) pinInput.value = randomPin;
+    showToast(`Master PIN Supervisor berhasil dirotasi ke: ${randomPin} & disinkronkan via socket!`, 'sync_lock');
+  }
+
+  document.getElementById('btn-rotate-pin')?.addEventListener('click', rotatePinAction);
+
+  // Keyboard Shortcuts: Ctrl+S, Ctrl+K, F12 (Open Loket Operator)
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      showToast('Konfigurasi tersimpan via pintasan [Ctrl+S]!');
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      rotatePinAction();
+    }
+    if (e.key === 'F12') {
+      e.preventDefault();
+      if (currentRole === 'spv') {
+        openCashierBoothModal();
+      } else {
+        showToast('Akses Loket Operator dibatasi: Memerlukan Role Supervisor!', 'block', true);
+      }
+    }
+  });
+
+  // Test Connections
+  document.getElementById('btn-test-connection')?.addEventListener('click', function() {
+    const originalText = this.innerHTML;
+    this.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin text-accent-cyan">progress_activity</span><span>Memindai Node...</span>';
+    setTimeout(() => {
+      this.innerHTML = originalText;
+      showToast('Seluruh endpoint respon normal: Site Server 4ms, Central 28ms.', 'network_check');
+    }, 1100);
+  });
+
+  // Backup Trigger
+  document.getElementById('btn-backup-download')?.addEventListener('click', () => {
+    showToast('Memaketkan SQLite WAL snapshot... Mengunduh parkos-dump-20250524.sql.gz', 'cloud_download');
+  });
+
+  // Cache Clear Trigger
+  document.getElementById('btn-clear-cache')?.addEventListener('click', () => {
+    showToast('Cache printer spool & token sementara telah dibersihkan (34.2 MB dibebaskan)', 'delete_sweep');
+  });
+</script></main></div><footer class="fixed bottom-0 left-0 right-0 h-8 bg-surface-tertiary border-t border-surface-border z-50 flex items-center justify-between px-space-md font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="text-text-muted">SYS HEALTH:</span><span class="text-status-success font-semibold">100% OPERATIONAL</span></div><span class="text-surface-border">|</span><div class="flex items-center gap-space-xs"><span class="text-text-muted">LATENCY:</span><span class="text-accent-cyan font-semibold">12ms</span></div><span class="text-surface-border">|</span><div class="flex items-center gap-space-xs"><span class="text-text-muted">ELECTRON RUNTIME:</span><span class="text-text-high-contrast">v28.1.0</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-cta-primary font-bold"><span class="px-1 bg-surface-container-high border border-surface-border rounded text-[10px]">F1</span><span>PUSAT BANTUAN</span></div><span class="text-surface-border">|</span><div class="px-2 py-0.5 bg-surface-container-high rounded text-text-high-contrast font-bold border border-surface-border">POS BOOTH #01</div></div></footer></body></html>

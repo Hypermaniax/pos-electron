@@ -15,6 +15,13 @@ export function findSessionById(db: Db, id: string) {
   return db.parkingSession.findUnique({ where: { id } })
 }
 
+export function listLatestSessions(db: Db, limit: number) {
+  return db.parkingSession.findMany({
+    orderBy: { entryTime: 'desc' },
+    take: limit
+  })
+}
+
 export function findFirstSession(db: Db, where: Prisma.ParkingSessionWhereInput) {
   return db.parkingSession.findFirst({ where })
 }

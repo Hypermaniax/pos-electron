@@ -1,6 +1,16 @@
 import type React from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { LogOutIcon } from 'lucide-react'
+import {
+  ArrowDownToLineIcon,
+  ClockIcon,
+  CreditCardIcon,
+  HistoryIcon,
+  HouseIcon,
+  LogOutIcon,
+  SettingsIcon,
+  TicketIcon,
+  UsersIcon
+} from 'lucide-react'
 import { can, Permissions } from '../lib/permissions'
 import { useAuth } from '../context/AuthContext'
 import { useConfig } from '../context/ConfigContext'
@@ -14,15 +24,28 @@ import { cn } from '@renderer/lib/utils'
 interface NavItem {
   to: string
   label: string
+  icon: React.ComponentType<{ className?: string }>
   permission?: string
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { to: '/', label: 'Beranda' },
-  { to: '/loket', label: 'Loket', permission: Permissions.SessionView },
-  { to: '/shift', label: 'Shift', permission: Permissions.ShiftManage },
-  { to: '/riwayat', label: 'Riwayat', permission: Permissions.HistoryView },
-  { to: '/pengaturan', label: 'Pengaturan', permission: Permissions.SettingsManage }
+  { to: '/', label: 'Beranda', icon: HouseIcon },
+  { to: '/loket', label: 'Loket Bayar', icon: CreditCardIcon, permission: Permissions.SessionView },
+  { to: '/masuk', label: 'Gate Masuk', icon: TicketIcon, permission: Permissions.SessionView },
+  { to: '/shift', label: 'Shift', icon: ArrowDownToLineIcon, permission: Permissions.ShiftManage },
+  { to: '/riwayat', label: 'Riwayat', icon: HistoryIcon, permission: Permissions.HistoryView },
+  {
+    to: '/pengaturan',
+    label: 'Pengaturan',
+    icon: SettingsIcon,
+    permission: Permissions.SettingsManage
+  },
+  {
+    to: '/personel',
+    label: 'Personel & Member',
+    icon: UsersIcon,
+    permission: Permissions.PersonelView
+  }
 ]
 
 export function AppShell(): React.JSX.Element {
@@ -44,75 +67,127 @@ export function AppShell(): React.JSX.Element {
     navigate('/login', { replace: true })
   }
 
-  return (
-    <div className="flex min-h-full flex-col bg-muted/40">
-      <header className="border-b bg-background">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-              P
-            </div>
-            <div>
-              <p className="text-sm font-semibold">POS Parkir</p>
-              <p className="text-xs text-muted-foreground">
-                {config ? `${config.laneName} · ${config.gateName}` : 'Memuat konfigurasi...'}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Badge variant={shift ? 'default' : 'secondary'}>
-              {shift ? 'Shift aktif' : 'Shift belum dibuka'}
-            </Badge>
-            <ModeBadge />
-            <div className="text-right">
-              <p className="text-sm font-semibold">{session?.operator.name ?? '-'}</p>
-              <p className="text-xs text-muted-foreground">{session?.operator.role ?? '-'}</p>
-            </div>
-            <Button variant="outline" onClick={() => void handleLogout()}>
-              <LogOutIcon data-icon="inline-start" />
-              Keluar
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <nav className="border-b bg-background">
-        <div className="mx-auto flex max-w-6xl gap-1 px-6 py-2">
-          {NAV_ITEMS.filter((item) => !item.permission || can(session, item.permission as never)).map(
-            (item) => (
+  const items2 = NAV_ITEMS.filter((item) => !item.permission || can(session, item.permission as never))
+  const isAdmin = session?.operator.role === 'Admin'
+  if (!isAdmin)
+    return (
+      <div className="flex min-h-full flex-col">
+        <header className="sticky top-0 z-40 flex h-14 flex-wrap items-center justify-between gap-2 border-b bg-park-secondary px-3 py-2 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {items2.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
+                    'flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-medium transition-all active:scale-95',
                     isActive
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      ? 'border-primary/40 bg-primary text-primary-foreground'
+                      : 'border-park-border bg-park-tertiary text-park-main hover:bg-park-card hover:text-white'
                   )
                 }
               >
+                <item.icon className="size-3.5" />
                 {item.label}
               </NavLink>
-            )
-          )}
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <ModeBadge />
+            <Button variant="outline" size="sm" onClick={() => void handleLogout()}>
+              <LogOutIcon data-icon="inline-start" className="size-3.5" />
+              Keluar
+            </Button>
+          </div>
+        </header>
+        <main className="min-h-0 flex-1 p-3">
+          <div className="w-full">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    )
+
+  return (
+    <div className="flex min-h-full">
+      <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col border-r bg-sidebar">
+        <div className="flex items-center gap-3 px-5 py-5">
+          <div className="flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
+            SP
+          </div>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-heading text-base font-bold tracking-tight">
+              Summit POS
+            </p>
+            <p className="truncate text-xs text-muted-foreground">POS Parkir Operator</p>
+          </div>
         </div>
-      </nav>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-6">
-        <Outlet />
-      </main>
+        <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
+          {items2.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive }) =>
+                cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
+                  isActive
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+                )
+              }
+            >
+              <item.icon className="size-4 shrink-0" />
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
 
-      <footer className="border-t bg-background py-3">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 text-xs text-muted-foreground">
+        <div className="flex flex-col gap-3 border-t px-5 py-4 text-xs text-muted-foreground">
           <span>
-            POS Parkir · mode {config?.operationalMode === 'manless' ? 'Manless' : 'Operator'}
+            Mode {config?.operationalMode === 'manless' ? 'Manless' : 'Operator'} · Device{' '}
+            {config?.deviceId.slice(0, 8) ?? '-'}
           </span>
-          <span>Device {config?.deviceId.slice(0, 8) ?? '-'}</span>
+          <Button variant="outline" size="sm" onClick={() => void handleLogout()}>
+            <LogOutIcon data-icon="inline-start" />
+            Keluar
+          </Button>
         </div>
-      </footer>
+      </aside>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="flex h-16 items-center justify-between gap-4 border-b px-6">
+          <div className="flex min-w-0 items-center gap-3">
+            <p className="truncate text-sm font-medium text-muted-foreground">
+              {config ? `${config.gateName} · ${config.laneName}` : 'Memuat konfigurasi...'}
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge
+              variant={shift ? 'default' : 'secondary'}
+              className={cn(!shift && 'text-muted-foreground')}
+            >
+              <ClockIcon className="size-3" />
+              {shift ? 'Shift aktif' : 'Shift belum dibuka'}
+            </Badge>
+            <ModeBadge />
+            <div className="text-right">
+              <p className="text-sm font-semibold leading-tight">{session?.operator.name ?? '-'}</p>
+              <p className="text-xs capitalize text-muted-foreground">
+                {session?.operator.role ?? '-'}
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <main className="flex-1 px-6 py-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

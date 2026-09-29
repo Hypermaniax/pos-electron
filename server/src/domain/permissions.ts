@@ -12,7 +12,8 @@ export const Permissions = {
   ShiftManage: 'shift.manage',
   HistoryView: 'history.view',
   HistoryViewRange: 'history.view_range',
-  SettingsManage: 'settings.manage'
+  SettingsManage: 'settings.manage',
+  PersonelView: 'personel.view'
 } as const
 
 export type Permission = (typeof Permissions)[keyof typeof Permissions]

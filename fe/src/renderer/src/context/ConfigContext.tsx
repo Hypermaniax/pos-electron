@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode } from 'react'
 import type { AppConfig } from '@shared/types'
 import { configApi } from '../lib/config-api'
+import { resetBaseCache } from '../lib/server-api'
 
 interface ConfigContextValue {
   config: AppConfig | null
@@ -53,6 +54,7 @@ export function ConfigProvider({ children }: { children: ReactNode }): React.JSX
       const result = await configApi.update(patch)
       if (result.ok) {
         setConfig(result.data)
+        resetBaseCache()
         return { ok: true }
       }
       return { ok: false, error: result.error.message }

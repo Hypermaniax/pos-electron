@@ -1,8 +1,13 @@
 import type React from 'react'
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { SessionState } from '@shared/types'
-import { login as loginRequest, logout as logoutRequest, restore } from '../mock/api'
+import {
+  login as loginRequest,
+  logout as logoutRequest,
+  restore,
+  verifySession
+} from '../lib/server-api'
 
 export type AuthStatus = 'guest' | 'authenticated'
 
@@ -25,6 +30,17 @@ export function AuthProvider({ children }: { children: ReactNode }): React.JSX.E
   const [endReason, setEndReason] = useState<string | null>(null)
 
   const status: AuthStatus = session ? 'authenticated' : 'guest'
+
+  useEffect(() => {
+    let active = true
+    void verifySession().then((verified) => {
+      if (!active) return
+      setSession(verified)
+    })
+    return () => {
+      active = false
+    }
+  }, [])
 
   const login = useCallback(
     async (username: string, password: string): Promise<{ ok: boolean; error?: string }> => {

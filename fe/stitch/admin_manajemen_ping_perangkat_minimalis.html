@@ -1,0 +1,732 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"><style>body, input, select, button, textarea { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .font-mono-code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }</style><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-secondary":"#111111","surface-dim":"#131316","status-warning":"#f59e0b","surface-container-high":"#2a2a2d","on-error":"#690005","surface-container-lowest":"#0e0e11","status-error":"#ef4444","secondary":"#7bd0ff","tertiary":"#a3caf9","on-surface-variant":"#e0c0b1","surface-border":"#27272a","primary":"#ffb690","text-high-contrast":"#ffffff","accent-cyan":"#4fc1ff","status-info":"#38bdf8","on-primary-container":"#582200","surface-base":"#18181b","surface-container-highest":"#353438","text-main":"#d4d4d4","accent-blue-soft":"#60a5fa","on-tertiary-fixed-variant":"#1f4972","on-surface":"#e4e1e6","inverse-on-surface":"#303033","secondary-fixed-dim":"#7bd0ff","surface-container":"#1f1f22","surface-tertiary":"#0a0a0a","error-container":"#93000a","cta-primary":"#f97316","on-primary-fixed":"#341100","tertiary-container":"#779dcb","surface":"#131316","inverse-primary":"#9d4300","on-secondary-container":"#00374d","surface-primary":"#1e1e1e","on-tertiary-container":"#00345b","primary-container":"#f97316","secondary-container":"#00a6e0","on-secondary":"#00354a","selection-blue-alpha":"#075985b3","tertiary-fixed":"#d1e4ff","primary-fixed-dim":"#ffb690","surface-container-low":"#1b1b1e","inverse-surface":"#e4e1e6","error":"#ffb4ab","on-tertiary-fixed":"#001d36","on-background":"#e4e1e6","secondary-fixed":"#c4e7ff","surface-tint":"#ffb690","surface-border-subtle":"#1f1f23","selection-blue-tint":"#1e3a8acc","cta-hover":"#ea580c","background":"#131316","on-secondary-fixed":"#001e2c","text-muted":"#a1a1aa","outline":"#a78b7d","selection-blue":"#264f78","on-primary-fixed-variant":"#783200","surface-variant":"#353438","status-success":"#22c55e","surface-bright":"#39393c","on-secondary-fixed-variant":"#004c69","tertiary-fixed-dim":"#a3caf9","primary-fixed":"#ffdbca","on-primary":"#552100","on-error-container":"#ffdad6","outline-variant":"#584237","accent-blue":"#569cd6","on-tertiary":"#003258"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","gutter":"1rem","space-md":"0.75rem","margin":"1rem","space-lg":"1rem","space-sm":"0.5rem"},fontFamily:{"label-md":["JetBrains Mono"],"display-currency":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"label-sm":["JetBrains Mono"],"headline-xl":["Space Grotesk"],"body-sm":["Geist"],"display-plate":["JetBrains Mono"],"body-lg":["Geist"],"label-lg":["JetBrains Mono"],"headline-md":["Space Grotesk"],"body-md":["Geist"],"headline-sm":["Space Grotesk"]},fontSize:{"label-md":["0.75rem",{"lineHeight":"1.2","letterSpacing":"0.04em","fontWeight":"500"}],"display-currency":["2.75rem",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["2rem",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],"label-sm":["0.6875rem",{"lineHeight":"1.1","letterSpacing":"0.06em","fontWeight":"500"}],"headline-xl":["3rem",{"lineHeight":"1.1","letterSpacing":"-0.03em","fontWeight":"700"}],"body-sm":["0.8125rem",{"lineHeight":"1.4","fontWeight":"400"}],"display-plate":["2rem",{"lineHeight":"1.15","letterSpacing":"0.08em","fontWeight":"700"}],"body-lg":["1.125rem",{"lineHeight":"1.5","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.2","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"1.25","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["0.9375rem",{"lineHeight":"1.45","fontWeight":"400"}],"headline-sm":["1.25rem",{"lineHeight":"1.3","fontWeight":"600"}]}}}}</script></head><body class="bg-surface-base font-body-md text-text-main antialiased selection:bg-selection-blue"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-secondary z-50 flex flex-col justify-between border-r border-surface-border"><div class="flex flex-col"><div class="h-14 px-space-lg flex items-center gap-space-sm border-b border-surface-border bg-surface-tertiary"><span class="material-symbols-outlined text-accent-cyan text-[20px]">local_parking</span><div class="flex flex-col"><span class="font-label-lg text-label-lg tracking-wider text-text-high-contrast">PARK-OS</span><span class="font-label-sm text-label-sm text-accent-blue">v2.4.1 WORKSTATION</span></div></div><div class="px-space-md py-space-sm bg-surface-container-lowest border-b border-surface-border flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-muted">LOKASI OPERASI</span><span class="font-label-sm text-label-sm text-accent-cyan font-bold bg-surface-dim px-space-xs py-0.5 rounded border border-surface-border">BARAT-TERMINAL</span></div><nav class="flex flex-col py-space-xs" data-active-classes="bg-selection-blue text-text-high-contrast border-l-2 border-status-info"><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="ringkasan-status-perangkat" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">monitoring</span><span>1. Ringkasan &amp; Status</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 transition-colors font-body-sm bg-selection-blue text-text-high-contrast border-l-2 border-status-info" data-path="manajemen-perangkat-konfigurasi" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">router</span><span>2. Manajemen Perangkat</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-tarif-parkir" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">price_change</span><span>3. Pengaturan Tarif</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="aktivasi-fitur-pembayaran" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">payments</span><span>4. Fitur Pembayaran</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="kartu-keanggotaan-member" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">badge</span><span>5. Keanggotaan / Member</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-karyawan-operator" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">group</span><span>6. Karyawan &amp; Operator</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-sistem-tema" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">tune</span><span>7. Pengaturan Sistem</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="bantuan-f1-manual-sop" href="#"><span class="material-symbols-outlined text-[18px] text-text-muted">help</span><span>8. Bantuan (F1)</span></a></nav></div><div class="p-space-md border-t border-surface-border bg-surface-tertiary"><div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm"><span>CORE DAEMON</span><span class="text-status-success font-bold">RUNNING</span></div><div class="mt-1 text-text-muted font-label-sm text-label-sm flex justify-between"><span>PORT 8443</span><span>SSL SECURE</span></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-primary border-b border-surface-border z-40 flex items-center justify-between px-space-lg select-none"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast"><span class="material-symbols-outlined text-cta-primary text-[18px]">terminal</span><span>PARK-OS ADMIN CENTRAL</span></div><div class="h-4 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>CENTRAL SYNC OK</span></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>SITE SERVER ONLINE</span></div></div><div class="flex items-center gap-space-lg"><div class="font-label-md text-label-md text-accent-cyan flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">schedule</span><span>14:38:09 WIB</span></div><div class="flex items-center gap-space-xs px-space-xs py-0.5 bg-surface-container border border-surface-border rounded font-label-sm text-label-sm text-text-muted"><span class="material-symbols-outlined text-[14px] text-status-warning">brightness_auto</span><span>AUTO 06:00-18:00</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-surface-border"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-text-high-contrast leading-none">ADITYA P.</span><span class="font-label-sm text-label-sm text-cta-primary leading-none">SUPER ADMIN</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div><div class="flex items-center pl-space-sm border-l border-surface-border"><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Minimize"><span class="material-symbols-outlined text-[14px]">remove</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Maximize"><span class="material-symbols-outlined text-[14px]">check_box_outline_blank</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-status-error text-text-muted hover:text-text-high-contrast" title="Close"><span class="material-symbols-outlined text-[14px]">close</span></button></div></div></header><main class="relative pt-14 pb-8 w-full bg-surface-base px-space-lg flex-1"><div class="flex flex-col w-full gap-space-lg text-text-main"><!-- Subheader / Action Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-surface-primary/70 p-6 rounded-xl border border-surface-border">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 font-mono-code text-[11px] tracking-wider text-accent-cyan uppercase">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+<span>TELEMETRY &amp; DEVICE ORCHESTRATION</span>
+</div>
+<h1 class="text-2xl font-semibold text-text-high-contrast tracking-tight">Manajemen Perangkat &amp; Konektivitas</h1>
+<p class="text-body-sm text-text-muted">Pemantauan port periferal booth terminal, palang gerbang otomatis, kamera LPR, dan sensor deteksi kendaraan secara real-time.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="px-4 py-2.5 bg-surface-secondary hover:bg-surface-container border border-surface-border text-text-main rounded-lg text-body-sm font-medium flex items-center gap-2 transition-colors" id="btn-export-cfg">
+<span class="material-symbols-outlined text-[18px] text-text-muted">file_download</span>
+<span>Ekspor JSON</span>
+</button>
+<button class="px-4 py-2.5 bg-surface-secondary hover:bg-selection-blue border border-surface-border text-accent-cyan hover:text-text-high-contrast rounded-lg text-body-sm font-medium flex items-center gap-2 transition-colors" id="btn-ping-all">
+<span class="material-symbols-outlined text-[18px] animate-spin" id="ping-spinner" style="display: none;">sync</span>
+<span class="material-symbols-outlined text-[18px]" id="ping-icon">radar</span>
+<span id="ping-all-text">Ping Semua (Sweep)</span>
+</button>
+<button class="px-5 py-2.5 bg-cta-primary hover:bg-cta-hover text-text-high-contrast rounded-lg text-body-sm font-medium flex items-center gap-2 shadow-sm transition-colors" id="btn-open-form">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Tambah Perangkat</span>
+</button>
+</div>
+</div>
+<!-- Metric Bento Cards - Spacious & Minimal -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Total -->
+<div class="bg-surface-secondary p-5 rounded-xl border border-surface-border flex flex-col justify-between hover:border-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-[12px] font-medium tracking-wide uppercase">Total Terdaftar</span>
+<span class="material-symbols-outlined text-[20px] text-text-muted">hub</span>
+</div>
+<div class="my-3 flex items-baseline gap-2">
+<span class="text-3xl font-semibold text-text-high-contrast font-mono-code">14</span>
+<span class="text-body-sm text-text-muted">Unit Hardware</span>
+</div>
+<div class="pt-2 border-t border-surface-border flex items-center justify-between text-[12px] text-text-muted">
+<span>Terminal Barat &amp; Timur</span>
+<span class="font-mono-code text-accent-blue font-medium">100% Terhubung</span>
+</div>
+</div>
+<!-- Online -->
+<div class="bg-surface-secondary p-5 rounded-xl border border-surface-border flex flex-col justify-between hover:border-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-[12px] font-medium tracking-wide uppercase">Online / Stabil</span>
+<span class="material-symbols-outlined text-[20px] text-status-success">check_circle</span>
+</div>
+<div class="my-3 flex items-baseline gap-2">
+<span class="text-3xl font-semibold text-status-success font-mono-code">12</span>
+<span class="text-body-sm text-text-muted">Unit (&lt;10ms)</span>
+</div>
+<div class="pt-2 border-t border-surface-border flex items-center justify-between text-[12px] text-text-muted">
+<span>Rata-rata Respon</span>
+<span class="font-mono-code text-status-success font-medium">4.2ms Jitter Free</span>
+</div>
+</div>
+<!-- Warning -->
+<div class="bg-surface-secondary p-5 rounded-xl border border-surface-border flex flex-col justify-between hover:border-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-[12px] font-medium tracking-wide uppercase">Latensi Tinggi</span>
+<span class="material-symbols-outlined text-[20px] text-status-warning">warning</span>
+</div>
+<div class="my-3 flex items-baseline gap-2">
+<span class="text-3xl font-semibold text-status-warning font-mono-code">1</span>
+<span class="text-body-sm text-text-muted">Unit Degradasi</span>
+</div>
+<div class="pt-2 border-t border-surface-border flex items-center justify-between text-[12px] text-text-muted">
+<span class="truncate max-w-[140px]">ANPR Timur Cam 01</span>
+<span class="font-mono-code text-status-warning font-medium">128ms</span>
+</div>
+</div>
+<!-- Offline -->
+<div class="bg-surface-secondary p-5 rounded-xl border border-surface-border flex flex-col justify-between hover:border-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-[12px] font-medium tracking-wide uppercase">Offline / Putus</span>
+<span class="material-symbols-outlined text-[20px] text-status-error">cloud_off</span>
+</div>
+<div class="my-3 flex items-baseline gap-2">
+<span class="text-3xl font-semibold text-status-error font-mono-code">1</span>
+<span class="text-body-sm text-text-muted">Unit Timeout</span>
+</div>
+<div class="pt-2 border-t border-surface-border flex items-center justify-between text-[12px] text-text-muted">
+<span class="truncate max-w-[140px]">Barrier Gate Timur 02</span>
+<span class="font-mono-code text-status-error font-medium">ERR_TIMEOUT</span>
+</div>
+</div>
+</div>
+<!-- 2-Column Work Area: Table on Left, Form on Right -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+<!-- Left Column (8 cols): Device Table & Socket Logs -->
+<div class="xl:col-span-8 flex flex-col gap-6">
+<!-- Table Container -->
+<div class="bg-surface-primary rounded-xl border border-surface-border shadow-sm flex flex-col overflow-hidden">
+<!-- Filter & Search Toolbar -->
+<div class="p-4 border-b border-surface-border flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-surface-primary">
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-text-muted text-[18px]">search</span>
+<input class="w-full bg-surface-secondary text-text-high-contrast pl-10 pr-3 py-2 rounded-lg text-body-sm placeholder:text-text-muted border border-surface-border focus:border-accent-blue outline-none transition-colors" id="device-search" placeholder="Cari ID, nama, IP endpoint (192.168.1.105)..." type="text">
+</div>
+<div class="flex items-center gap-1.5 flex-wrap">
+<button class="filter-tab active px-3.5 py-1.5 rounded-lg bg-surface-container-high text-text-high-contrast text-body-sm font-medium border border-surface-border transition-colors" data-filter="all">Semua (14)</button>
+<button class="filter-tab px-3.5 py-1.5 rounded-lg bg-surface-secondary text-text-muted hover:text-text-high-contrast text-body-sm transition-colors" data-filter="online">Online (12)</button>
+<button class="filter-tab px-3.5 py-1.5 rounded-lg bg-surface-secondary text-text-muted hover:text-text-high-contrast text-body-sm transition-colors" data-filter="warning">Warning (1)</button>
+<button class="filter-tab px-3.5 py-1.5 rounded-lg bg-surface-secondary text-text-muted hover:text-text-high-contrast text-body-sm transition-colors" data-filter="offline">Offline (1)</button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left text-body-sm">
+<thead class="bg-surface-secondary/80 text-text-muted text-[12px] uppercase tracking-wider border-b border-surface-border select-none">
+<tr>
+<th class="py-3.5 px-4 font-medium">ID</th>
+<th class="py-3.5 px-4 font-medium">Nama Perangkat</th>
+<th class="py-3.5 px-4 font-medium">Kategori</th>
+<th class="py-3.5 px-4 font-medium">IP Address</th>
+<th class="py-3.5 px-3 font-medium">Port</th>
+<th class="py-3.5 px-4 font-medium">Protokol</th>
+<th class="py-3.5 px-4 font-medium">Status &amp; Latensi</th>
+<th class="py-3.5 px-4 text-right font-medium">Terakhir</th>
+<th class="py-3.5 px-4 text-center font-medium">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border/60" id="device-table-body">
+<!-- LC-01 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="online">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">LC-01</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">Lane Controller Barat In</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Controller</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.1.101</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">8080</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">TCP/IP</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-status-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span class="font-mono-code">3ms</span>
+<span>Online</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-text-muted font-mono-code ping-timestamp" data-seconds="2">2 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="Lane Controller" data-id="LC-01" data-ip="192.168.1.101" data-lane="LANE_WEST_01" data-name="Lane Controller Barat In" data-port="8080" data-proto="TCP/IP" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- CAM-01 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="online">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">CAM-01</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">ANPR Hikvision Booth 01</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Kamera LPR</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.1.105</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">554</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">RTSP / TCP</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-status-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span class="font-mono-code">6ms</span>
+<span>Online</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-text-muted font-mono-code ping-timestamp" data-seconds="3">3 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="ANPR Camera" data-id="CAM-01" data-ip="192.168.1.105" data-lane="LANE_WEST_01" data-name="ANPR Hikvision Booth 01" data-port="554" data-proto="TCP/IP" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- CAM-02 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="warning">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">CAM-02</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">ANPR Timur Cam 01</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Kamera LPR</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.2.110</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">80</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">TCP/IP</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-warning/15 text-status-warning text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning animate-pulse"></span>
+<span class="font-mono-code">128ms</span>
+<span>Jitter</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-status-warning font-mono-code ping-timestamp" data-seconds="5">5 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="ANPR Camera" data-id="CAM-02" data-ip="192.168.2.110" data-lane="LANE_EAST_01" data-name="ANPR Timur Cam 01" data-port="80" data-proto="TCP/IP" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- GT-02 -->
+<tr class="bg-status-error/5 hover:bg-status-error/10 transition-colors" data-status="offline">
+<td class="py-4 px-4 font-mono-code text-[13px] text-status-error font-medium">GT-02</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium flex items-center gap-2">
+<span>Barrier Gate Timur 02</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] bg-status-error/20 text-status-error uppercase tracking-wider font-semibold">Kritis</span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Palang Relay</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.2.202</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">502</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">Modbus TCP</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-error/15 text-status-error text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-error"></span>
+<span>Timeout</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-status-error font-mono-code font-medium ping-timestamp" data-seconds="19">19 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-status-error rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="Barrier Gate Relay" data-id="GT-02" data-ip="192.168.2.202" data-lane="LANE_EAST_02" data-name="Barrier Gate Timur 02" data-port="502" data-proto="Modbus" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-status-error rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- PRN-01 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="online">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">PRN-01</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">Epson TM-T82X Barat</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Printer Tiket</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.1.180</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">9100</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">ESC-POS</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-status-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span class="font-mono-code">2ms</span>
+<span>Online</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-text-muted font-mono-code ping-timestamp" data-seconds="2">2 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="Thermal Printer" data-id="PRN-01" data-ip="192.168.1.180" data-lane="LANE_WEST_01" data-name="Epson TM-T82X Barat" data-port="9100" data-proto="TCP/IP" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- SCN-01 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="online">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">SCN-01</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">Newland FM430 Omnidirectional</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Scanner Barcode</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">127.0.0.1</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">COM3</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">USB-HID</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-status-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span class="font-mono-code">1ms</span>
+<span>Online</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-text-muted font-mono-code ping-timestamp" data-seconds="4">4 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="Barcode Scanner" data-id="SCN-01" data-ip="127.0.0.1" data-lane="LANE_WEST_01" data-name="Newland FM430 Omnidirectional" data-port="COM3" data-proto="USB-HID" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- EMV-01 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="online">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">EMV-01</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">Castles Contactless SAM</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Reader Kartu</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.1.140</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">3001</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">WebSocket SSL</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-status-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span class="font-mono-code">4ms</span>
+<span>Online</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-text-muted font-mono-code ping-timestamp" data-seconds="2">2 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="Reader E-Money" data-id="EMV-01" data-ip="192.168.1.140" data-lane="LANE_WEST_01" data-name="Castles Contactless SAM" data-port="3001" data-proto="TCP/IP" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+<!-- GT-01 -->
+<tr class="hover:bg-surface-container/50 transition-colors" data-status="online">
+<td class="py-4 px-4 font-mono-code text-[13px] text-accent-cyan font-medium">GT-01</td>
+<td class="py-4 px-4 text-text-high-contrast font-medium">Barrier Gate Barat 01 MX-50</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded text-[12px] bg-surface-container text-text-muted border border-surface-border">Palang Relay</span>
+</td>
+<td class="py-4 px-4 font-mono-code text-[13px] text-text-high-contrast">192.168.1.201</td>
+<td class="py-4 px-3 font-mono-code text-[13px] text-status-info">502</td>
+<td class="py-4 px-4 text-[12px] text-text-muted">Modbus TCP</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-status-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span class="font-mono-code">2ms</span>
+<span>Online</span>
+</span>
+</td>
+<td class="py-4 px-4 text-right text-[12px] text-text-muted font-mono-code ping-timestamp" data-seconds="3">3 dtk lalu</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="btn-action-ping p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" title="Ping Ulang"><span class="material-symbols-outlined text-[16px]">refresh</span></button>
+<button class="btn-action-edit p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" data-cat="Barrier Gate Relay" data-id="GT-01" data-ip="192.168.1.201" data-lane="LANE_WEST_01" data-name="Barrier Gate Barat 01 MX-50" data-port="502" data-proto="Modbus" title="Edit"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="btn-action-reboot p-1.5 hover:bg-surface-container text-text-muted hover:text-status-warning rounded-md transition-colors" title="Restart"><span class="material-symbols-outlined text-[16px]">restart_alt</span></button>
+<button class="btn-action-log p-1.5 hover:bg-surface-container text-text-muted hover:text-accent-cyan rounded-md transition-colors" title="Log"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-4 border-t border-surface-border flex flex-col sm:flex-row items-center justify-between text-[12px] text-text-muted bg-surface-secondary/40 gap-2">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 rounded-full bg-status-success"></span>
+<span>Daemon Poller: Aktif (Setiap 5.000 ms)</span>
+</div>
+<div class="flex items-center gap-3">
+<span>Menampilkan 8 dari 14 perangkat</span>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 flex items-center justify-center rounded bg-surface-container text-text-high-contrast border border-surface-border font-mono-code">1</button>
+<button class="w-7 h-7 flex items-center justify-center rounded bg-surface-secondary text-text-muted hover:text-text-high-contrast hover:bg-surface-container border border-surface-border font-mono-code transition-colors">2</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Socket Log Preview -->
+<div class="bg-surface-primary rounded-xl border border-surface-border shadow-sm p-4 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan text-[18px]">terminal</span>
+<span class="text-[13px] font-medium text-text-high-contrast tracking-wide">LIVE SOCKET STREAM &amp; PING PACKET LOGS</span>
+</div>
+<button class="text-[11px] font-mono-code text-text-muted hover:text-text-high-contrast transition-colors" id="clear-stream">BERSIHKAN LOG</button>
+</div>
+<div class="bg-surface-tertiary border border-surface-border/70 p-3 rounded-lg font-mono-code text-[12px] text-text-main h-28 overflow-y-auto space-y-1.5 select-none" id="socket-log-box">
+<div class="flex items-center gap-2"><span class="text-text-muted">[14:38:07]</span> <span class="text-status-success font-semibold">ECHO_REPLY</span> 192.168.1.101:8080 (3ms) TTL=64 proto=TCP</div>
+<div class="flex items-center gap-2"><span class="text-text-muted">[14:38:08]</span> <span class="text-status-success font-semibold">ECHO_REPLY</span> 192.168.1.105:554 (6ms) TTL=64 proto=RTSP</div>
+<div class="flex items-center gap-2"><span class="text-text-muted">[14:38:08]</span> <span class="text-status-warning font-semibold">HIGH_LATENCY</span> 192.168.2.110:80 (128ms) threshold exceeded &gt; 50ms</div>
+<div class="flex items-center gap-2"><span class="text-text-muted">[14:38:09]</span> <span class="text-status-error font-semibold">HOST_UNREACHABLE</span> 192.168.2.202:502 Modbus sync failed (ETIMEDOUT)</div>
+<div class="flex items-center gap-2"><span class="text-text-muted">[14:38:09]</span> <span class="text-status-success font-semibold">ECHO_REPLY</span> 192.168.1.180:9100 (2ms) raw-printer ready</div>
+</div>
+</div>
+</div>
+<!-- Right Column (4 cols): Quick Add/Edit Form -->
+<div class="xl:col-span-4 flex flex-col gap-4">
+<div class="bg-surface-primary rounded-xl border border-surface-border shadow-sm p-6 flex flex-col">
+<div class="flex items-center justify-between pb-4 border-b border-surface-border">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-cta-primary/10 border border-cta-primary/20 flex items-center justify-center text-cta-primary">
+<span class="material-symbols-outlined text-[20px]" id="form-icon">add_task</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-semibold text-text-high-contrast" id="form-title">Form Cepat Perangkat</span>
+<span class="text-[12px] text-text-muted">Konfigurasi endpoint IP &amp; Port periferal</span>
+</div>
+</div>
+<button class="p-1.5 hover:bg-surface-container text-text-muted hover:text-text-high-contrast rounded-md transition-colors" id="btn-reset-form" title="Reset Form">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+</div>
+<form class="flex flex-col gap-4 mt-5" id="device-form">
+<input id="input-device-id" type="hidden" value="">
+<!-- Nama Perangkat -->
+<div class="flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-name">NAMA PERANGKAT</label>
+<input class="bg-surface-secondary text-text-high-contrast px-3.5 py-2.5 rounded-lg text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors placeholder:text-text-muted" id="input-name" placeholder="Contoh: Barcode Reader Booth 02" required="" type="text">
+</div>
+<!-- Kategori -->
+<div class="flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-category">KATEGORI PERANGKAT</label>
+<select class="bg-surface-secondary text-text-high-contrast px-3.5 py-2.5 rounded-lg text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors" id="input-category">
+<option value="Lane Controller">Lane Controller (IPC/PLC)</option>
+<option value="ANPR Camera">ANPR Camera (Kamera Plat)</option>
+<option value="Barcode Scanner">Barcode Scanner (1D/2D QR)</option>
+<option value="Thermal Printer">Thermal Printer (Tiket/Struk)</option>
+<option value="Barrier Gate Relay">Barrier Gate Relay (Palang)</option>
+<option value="Reader E-Money">Reader E-Money / Tap Card</option>
+</select>
+</div>
+<!-- IP Address & Port Grid -->
+<div class="grid grid-cols-3 gap-3">
+<div class="col-span-2 flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-ip">IP ADDRESS</label>
+<input class="bg-surface-secondary text-text-high-contrast px-3.5 py-2.5 rounded-lg font-mono-code text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors placeholder:text-text-muted" id="input-ip" placeholder="192.168.1.100" required="" type="text">
+</div>
+<div class="col-span-1 flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-port">PORT</label>
+<input class="bg-surface-secondary text-text-high-contrast px-3 py-2.5 rounded-lg font-mono-code text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors placeholder:text-text-muted text-status-info" id="input-port" placeholder="8080" required="" type="text">
+</div>
+</div>
+<!-- Protokol & Timeout -->
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-proto">PROTOKOL</label>
+<select class="bg-surface-secondary text-text-high-contrast px-3 py-2.5 rounded-lg text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors" id="input-proto">
+<option value="TCP/IP">TCP/IP</option>
+<option value="Modbus">Modbus TCP</option>
+<option value="RS485">RS-485 Serial</option>
+<option value="USB-HID">USB-HID / VCP</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-timeout">TIMEOUT (MS)</label>
+<input class="bg-surface-secondary text-text-high-contrast px-3.5 py-2.5 rounded-lg font-mono-code text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors" id="input-timeout" min="200" step="100" type="number" value="1500">
+</div>
+</div>
+<!-- Lane Assignment -->
+<div class="flex flex-col gap-1.5">
+<label class="text-[12px] font-medium text-text-muted" for="input-lane">LANE ASSIGNMENT</label>
+<select class="bg-surface-secondary text-text-high-contrast px-3.5 py-2.5 rounded-lg text-body-sm border border-surface-border focus:border-accent-blue outline-none transition-colors" id="input-lane">
+<option value="LANE_WEST_01">LANE_WEST_01 (Pintu Masuk Barat 1)</option>
+<option value="LANE_WEST_02">LANE_WEST_02 (Pintu Keluar Barat 2)</option>
+<option value="LANE_EAST_01">LANE_EAST_01 (Pintu Masuk Timur 1)</option>
+<option value="LANE_EAST_02">LANE_EAST_02 (Pintu Keluar Timur 2)</option>
+<option value="CENTRAL_RACK">CENTRAL SERVER RACK (Core System)</option>
+</select>
+</div>
+<!-- Auto Ping Switcher -->
+<div class="p-3.5 bg-surface-secondary rounded-lg border border-surface-border flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[13px] font-medium text-text-high-contrast">Auto Ping Poller</span>
+<span class="text-[11px] text-text-muted">Polling background setiap 5 detik</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-autoping" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-high-contrast after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cta-primary"></div>
+</label>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-3 pt-2">
+<button class="flex-1 py-3 bg-cta-primary hover:bg-cta-hover text-text-high-contrast rounded-lg text-body-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm" id="btn-submit-device" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span id="btn-submit-text">SIMPAN PERANGKAT</span>
+</button>
+<button class="px-4 py-3 bg-surface-secondary hover:bg-surface-container border border-surface-border text-accent-cyan rounded-lg text-body-sm font-medium transition-colors flex items-center gap-1.5" id="btn-test-ping" title="Uji Koneksi Langsung" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>TEST</span>
+</button>
+</div>
+</form>
+<!-- Information Notice -->
+<div class="mt-5 p-3.5 rounded-lg bg-surface-secondary/70 border border-surface-border flex items-start gap-2.5 text-[12px] text-text-muted leading-relaxed">
+<span class="material-symbols-outlined text-accent-blue text-[18px] shrink-0 mt-0.5">info</span>
+<span>Port 502 Modbus digunakan untuk barrier relay IO module. Pastikan firewall switch mengizinkan traffic raw socket TCP SYN/ACK pada VLAN Booth.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Toast Container -->
+<div class="fixed bottom-12 right-6 bg-surface-container-high border border-surface-border text-text-high-contrast px-4 py-3 rounded-lg shadow-xl flex items-center gap-3 transition-all duration-300 translate-y-24 opacity-0 pointer-events-none z-50" id="toast-notify">
+<span class="material-symbols-outlined text-status-success text-[20px]" id="toast-icon">check_circle</span>
+<span class="text-body-sm font-medium" id="toast-msg">Perangkat berhasil diperbarui!</span>
+</div></div>
+<script>
+  (function () {
+    // Dynamic real-time timestamp counter simulator
+    const timestamps = document.querySelectorAll('.ping-timestamp');
+    setInterval(() => {
+      timestamps.forEach(el => {
+        let sec = parseInt(el.getAttribute('data-seconds') || '1', 10);
+        sec += 1;
+        el.setAttribute('data-seconds', sec);
+        el.textContent = sec + ' dtk lalu';
+      });
+    }, 1000);
+
+    // Toast helper
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast-notify');
+      const toastMsg = document.getElementById('toast-msg');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMsg.textContent = msg;
+      if (isError) {
+        toastIcon.textContent = 'error';
+        toastIcon.className = 'material-symbols-outlined text-status-error text-[20px]';
+      } else {
+        toastIcon.textContent = 'check_circle';
+        toastIcon.className = 'material-symbols-outlined text-status-success text-[20px]';
+      }
+
+      toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 3200);
+    }
+
+    // Ping All simulator
+    const btnPingAll = document.getElementById('btn-ping-all');
+    const pingSpinner = document.getElementById('ping-spinner');
+    const pingIcon = document.getElementById('ping-icon');
+    const pingAllText = document.getElementById('ping-all-text');
+    const logBox = document.getElementById('socket-log-box');
+
+    btnPingAll.addEventListener('click', () => {
+      pingSpinner.style.display = 'inline-block';
+      pingIcon.style.display = 'none';
+      pingAllText.textContent = 'PINGING SWEEP...';
+      btnPingAll.classList.add('opacity-80', 'pointer-events-none');
+
+      setTimeout(() => {
+        pingSpinner.style.display = 'none';
+        pingIcon.style.display = 'inline-block';
+        pingAllText.textContent = 'PING SEMUA PERANGKAT';
+        btnPingAll.classList.remove('opacity-80', 'pointer-events-none');
+
+        // Reset timestamps
+        timestamps.forEach(el => {
+          el.setAttribute('data-seconds', 0);
+          el.textContent = '0 dtk lalu';
+        });
+
+        // Add log entry
+        const now = new Date();
+        const timeStr = now.toTimeString().split(' ')[0];
+        const logLine = document.createElement('div');
+        logLine.className = 'flex items-center gap-2';
+        logLine.innerHTML = `<span class="text-text-muted">[${timeStr}]</span> <span class="text-accent-cyan">SWEEP_COMPLETE</span> 14 endpoints polled (12 OK, 1 WARN, 1 TIMEOUT)`;
+        logBox.prepend(logLine);
+
+        showToast('Ping sweep selesai untuk 14 perangkat.');
+      }, 1400);
+    });
+
+    // Filter Buttons logic
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const tableRows = document.querySelectorAll('#device-table-body tr');
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => {
+          t.classList.remove('bg-selection-blue', 'text-text-high-contrast', 'active');
+          t.classList.add('bg-surface-secondary', 'text-text-muted');
+        });
+        tab.classList.add('bg-selection-blue', 'text-text-high-contrast', 'active');
+        tab.classList.remove('bg-surface-secondary', 'text-text-muted');
+
+        const filter = tab.getAttribute('data-filter');
+        tableRows.forEach(row => {
+          if (filter === 'all' || row.getAttribute('data-status') === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Search filter logic
+    const searchInput = document.getElementById('device-search');
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+
+    // Form logic: Edit action handler
+    const formTitle = document.getElementById('form-title');
+    const formIcon = document.getElementById('form-icon');
+    const inputId = document.getElementById('input-device-id');
+    const inputName = document.getElementById('input-name');
+    const inputCategory = document.getElementById('input-category');
+    const inputIp = document.getElementById('input-ip');
+    const inputPort = document.getElementById('input-port');
+    const inputProto = document.getElementById('input-proto');
+    const inputLane = document.getElementById('input-lane');
+    const btnSubmitText = document.getElementById('btn-submit-text');
+    const btnResetForm = document.getElementById('btn-reset-form');
+
+    function resetForm() {
+      inputId.value = '';
+      inputName.value = '';
+      inputCategory.selectedIndex = 0;
+      inputIp.value = '';
+      inputPort.value = '';
+      inputProto.selectedIndex = 0;
+      inputLane.selectedIndex = 0;
+      formTitle.textContent = 'Form Cepat Perangkat';
+      formIcon.textContent = 'add_task';
+      btnSubmitText.textContent = 'SIMPAN PERANGKAT';
+    }
+
+    btnResetForm.addEventListener('click', resetForm);
+    document.getElementById('btn-open-form').addEventListener('click', () => {
+      resetForm();
+      inputName.focus();
+      showToast('Form siap untuk input perangkat baru.');
+    });
+
+    document.querySelectorAll('.btn-action-edit').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        const name = btn.getAttribute('data-name');
+        const cat = btn.getAttribute('data-cat');
+        const ip = btn.getAttribute('data-ip');
+        const port = btn.getAttribute('data-port');
+        const proto = btn.getAttribute('data-proto');
+        const lane = btn.getAttribute('data-lane');
+
+        inputId.value = id;
+        inputName.value = name;
+        inputIp.value = ip;
+        inputPort.value = port;
+
+        // Sync selects
+        for (let i = 0; i < inputCategory.options.length; i++) {
+          if (inputCategory.options[i].value === cat) inputCategory.selectedIndex = i;
+        }
+        for (let i = 0; i < inputProto.options.length; i++) {
+          if (inputProto.options[i].value === proto) inputProto.selectedIndex = i;
+        }
+        for (let i = 0; i < inputLane.options.length; i++) {
+          if (inputLane.options[i].value === lane) inputLane.selectedIndex = i;
+        }
+
+        formTitle.textContent = 'Ubah [' + id + ']';
+        formIcon.textContent = 'edit_note';
+        btnSubmitText.textContent = 'UPDATE PERANGKAT';
+        inputName.focus();
+        showToast('Mode ubah aktif untuk: ' + id);
+      });
+    });
+
+    // Form Submit
+    document.getElementById('device-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const isEdit = inputId.value !== '';
+      const name = inputName.value;
+      const ip = inputIp.value;
+      const port = inputPort.value;
+
+      showToast(isEdit ? `Perangkat [${inputId.value}] berhasil diupdate!` : `Perangkat "${name}" (${ip}:${port}) tersimpan!`);
+      resetForm();
+    });
+
+    // Test Ping Button
+    document.getElementById('btn-test-ping').addEventListener('click', () => {
+      const ip = inputIp.value || '127.0.0.1';
+      const port = inputPort.value || '80';
+      showToast(`Mengirim test socket ke ${ip}:${port}...`);
+      setTimeout(() => {
+        showToast(`Respon ${ip}:${port} didapatkan dalam 4.5ms!`);
+      }, 700);
+    });
+
+    // Export Config Button
+    document.getElementById('btn-export-cfg').addEventListener('click', () => {
+      showToast('Konfigurasi diekspor: parkos-devices-config.json');
+    });
+
+    // Table Row Action Buttons: Single Ping, Reboot, Log
+    document.querySelectorAll('.btn-action-ping').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const row = e.target.closest('tr');
+        const id = row.querySelector('td').textContent.trim();
+        showToast(`Melakukan manual ping ke [${id}]...`);
+        const timeCell = row.querySelector('.ping-timestamp');
+        setTimeout(() => {
+          if (timeCell) {
+            timeCell.setAttribute('data-seconds', '0');
+            timeCell.textContent = '0 dtk lalu';
+          }
+          showToast(`Ping respon [${id}] berhasil!`);
+        }, 500);
+      });
+    });
+
+    document.querySelectorAll('.btn-action-reboot').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const row = e.target.closest('tr');
+        const id = row.querySelector('td').textContent.trim();
+        const conf = confirm(`Kirim sinyal REBOOT REMOTE ke perangkat [${id}]?`);
+        if (conf) {
+          showToast(`Instruksi restart dikirimkan ke [${id}]`, true);
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-action-log').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const row = e.target.closest('tr');
+        const id = row.querySelector('td').textContent.trim();
+        showToast(`Membuka audit socket logs untuk [${id}]`);
+      });
+    });
+
+    // Clear Stream Log
+    document.getElementById('clear-stream').addEventListener('click', () => {
+      logBox.innerHTML = '<div class="text-text-muted italic">[Log visualizer dikosongkan. Menunggu paket...]</div>';
+    });
+  })();
+</script></main><footer class="fixed bottom-0 left-72 right-0 h-8 bg-surface-tertiary border-t border-surface-border z-40 flex items-center justify-between px-space-lg font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs"><span>SYS HEALTH:</span><span class="text-status-success font-bold">100% OPERATIONAL</span></div><div class="h-3 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs"><span>LATENCY:</span><span class="text-accent-cyan font-bold">12ms</span></div><div class="h-3 w-px bg-surface-border"></div><div>ELECTRON RUNTIME v28.1.0</div></div><div class="flex items-center gap-space-md"><div class="bg-surface-container px-space-xs py-0.5 rounded border border-surface-border text-text-high-contrast"><span>SHORTCUT [F1] : PUSAT BANTUAN</span></div><div class="text-accent-blue">POS BOOTH #01</div></div></footer></div></body></html>

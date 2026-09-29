@@ -10,7 +10,8 @@ export const Permissions = {
   ShiftManage: 'shift.manage',
   HistoryView: 'history.view',
   HistoryViewRange: 'history.view_range',
-  SettingsManage: 'settings.manage'
+  SettingsManage: 'settings.manage',
+  PersonelView: 'personel.view'
 } as const
 
 export type Permission = (typeof Permissions)[keyof typeof Permissions]
@@ -27,5 +28,6 @@ export const PermissionLabels: Record<Permission, string> = {
   [Permissions.ShiftManage]: 'Mengelola shift',
   [Permissions.HistoryView]: 'Melihat riwayat shift',
   [Permissions.HistoryViewRange]: 'Melihat riwayat rentang waktu',
-  [Permissions.SettingsManage]: 'Mengubah konfigurasi'
+  [Permissions.SettingsManage]: 'Mengubah konfigurasi',
+  [Permissions.PersonelView]: 'Melihat data personel & member'
 }

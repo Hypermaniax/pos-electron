@@ -1,0 +1,521 @@
+<!DOCTYPE html><html class="dark" lang="en"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>body, input, select, button, textarea { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .font-mono-code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }</style><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-secondary":"#111111","surface-dim":"#131316","status-warning":"#f59e0b","surface-container-high":"#2a2a2d","on-error":"#690005","surface-container-lowest":"#0e0e11","status-error":"#ef4444","secondary":"#7bd0ff","tertiary":"#a3caf9","on-surface-variant":"#e0c0b1","surface-border":"#27272a","primary":"#ffb690","text-high-contrast":"#ffffff","accent-cyan":"#4fc1ff","status-info":"#38bdf8","on-primary-container":"#582200","surface-base":"#18181b","surface-container-highest":"#353438","text-main":"#d4d4d4","accent-blue-soft":"#60a5fa","on-tertiary-fixed-variant":"#1f4972","on-surface":"#e4e1e6","inverse-on-surface":"#303033","secondary-fixed-dim":"#7bd0ff","surface-container":"#1f1f22","surface-tertiary":"#0a0a0a","error-container":"#93000a","cta-primary":"#f97316","on-primary-fixed":"#341100","tertiary-container":"#779dcb","surface":"#131316","inverse-primary":"#9d4300","on-secondary-container":"#00374d","surface-primary":"#1e1e1e","on-tertiary-container":"#00345b","primary-container":"#f97316","secondary-container":"#00a6e0","on-secondary":"#00354a","selection-blue-alpha":"#075985b3","tertiary-fixed":"#d1e4ff","primary-fixed-dim":"#ffb690","surface-container-low":"#1b1b1e","inverse-surface":"#e4e1e6","error":"#ffb4ab","on-tertiary-fixed":"#001d36","on-background":"#e4e1e6","secondary-fixed":"#c4e7ff","surface-tint":"#ffb690","surface-border-subtle":"#1f1f23","selection-blue-tint":"#1e3a8acc","cta-hover":"#ea580c","background":"#131316","on-secondary-fixed":"#001e2c","text-muted":"#a1a1aa","outline":"#a78b7d","selection-blue":"#264f78","on-primary-fixed-variant":"#783200","surface-variant":"#353438","status-success":"#22c55e","surface-bright":"#39393c","on-secondary-fixed-variant":"#004c69","tertiary-fixed-dim":"#a3caf9","primary-fixed":"#ffdbca","on-primary":"#552100","on-error-container":"#ffdad6","outline-variant":"#584237","accent-blue":"#569cd6","on-tertiary":"#003258"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","gutter":"1rem","space-md":"0.75rem","margin":"1rem","space-lg":"1rem","space-sm":"0.5rem"},fontFamily:{"label-md":["JetBrains Mono"],"display-currency":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"label-sm":["JetBrains Mono"],"headline-xl":["Space Grotesk"],"body-sm":["Geist"],"display-plate":["JetBrains Mono"],"body-lg":["Geist"],"label-lg":["JetBrains Mono"],"headline-md":["Space Grotesk"],"body-md":["Geist"],"headline-sm":["Space Grotesk"]},fontSize:{"label-md":["0.75rem",{"lineHeight":"1.2","letterSpacing":"0.04em","fontWeight":"500"}],"display-currency":["2.75rem",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["2rem",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],"label-sm":["0.6875rem",{"lineHeight":"1.1","letterSpacing":"0.06em","fontWeight":"500"}],"headline-xl":["3rem",{"lineHeight":"1.1","letterSpacing":"-0.03em","fontWeight":"700"}],"body-sm":["0.8125rem",{"lineHeight":"1.4","fontWeight":"400"}],"display-plate":["2rem",{"lineHeight":"1.15","letterSpacing":"0.08em","fontWeight":"700"}],"body-lg":["1.125rem",{"lineHeight":"1.5","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.2","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"1.25","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["0.9375rem",{"lineHeight":"1.45","fontWeight":"400"}],"headline-sm":["1.25rem",{"lineHeight":"1.3","fontWeight":"600"}]}}}}</script></head><body class="bg-surface-base font-body-md text-text-main antialiased selection:bg-selection-blue"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-secondary z-50 flex flex-col justify-between border-r border-surface-border"><div class="flex flex-col"><div class="h-14 px-space-lg flex items-center gap-space-sm border-b border-surface-border bg-surface-tertiary"><span class="material-symbols-outlined text-accent-cyan text-[20px]">local_parking</span><div class="flex flex-col"><span class="font-label-lg text-label-lg tracking-wider text-text-high-contrast">PARK-OS</span><span class="font-label-sm text-label-sm text-accent-blue">v2.4.1 WORKSTATION</span></div></div><div class="px-space-md py-space-sm bg-surface-container-lowest border-b border-surface-border flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-muted">LOKASI OPERASI</span><span class="font-label-sm text-label-sm text-accent-cyan font-bold bg-surface-dim px-space-xs py-0.5 rounded border border-surface-border">BARAT-TERMINAL</span></div><nav class="flex flex-col py-space-xs" data-active-classes="bg-selection-blue text-text-high-contrast border-l-2 border-status-info"><a aria-current="page" class="flex items-center px-space-md py-2.5 transition-colors font-body-sm bg-selection-blue text-text-high-contrast border-l-2 border-status-info" data-path="ringkasan-status-perangkat" href="#">1. Ringkasan &amp; Status</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-perangkat-konfigurasi" href="#">2. Manajemen Perangkat</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-tarif-parkir" href="#">3. Pengaturan Tarif</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="aktivasi-fitur-pembayaran" href="#">4. Fitur Pembayaran</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="kartu-keanggotaan-member" href="#">5. Keanggotaan / Member</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-karyawan-operator" href="#">6. Karyawan &amp; Operator</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-sistem-tema" href="#">7. Pengaturan Sistem</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="bantuan-f1-manual-sop" href="#">8. Bantuan (F1)</a></nav></div><div class="p-space-md border-t border-surface-border bg-surface-tertiary"><div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm"><span>CORE DAEMON</span><span class="text-status-success font-bold">RUNNING</span></div><div class="mt-1 text-text-muted font-label-sm text-label-sm flex justify-between"><span>PORT 8443</span><span>SSL SECURE</span></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-primary border-b border-surface-border z-40 flex items-center justify-between px-space-lg select-none"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast"><span class="material-symbols-outlined text-cta-primary text-[18px]">terminal</span><span>PARK-OS ADMIN CENTRAL</span></div><div class="h-4 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>CENTRAL SYNC OK</span></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>SITE SERVER ONLINE</span></div></div><div class="flex items-center gap-space-lg"><div class="font-label-md text-label-md text-accent-cyan flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">schedule</span><span>14:38:09 WIB</span></div><div class="flex items-center gap-space-xs px-space-xs py-0.5 bg-surface-container border border-surface-border rounded font-label-sm text-label-sm text-text-muted"><span class="material-symbols-outlined text-[14px] text-status-warning">brightness_auto</span><span>AUTO 06:00-18:00</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-surface-border"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-text-high-contrast leading-none">ADITYA P.</span><span class="font-label-sm text-label-sm text-cta-primary leading-none">SUPER ADMIN</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div><div class="flex items-center pl-space-sm border-l border-surface-border"><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Minimize"><span class="material-symbols-outlined text-[14px]">remove</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Maximize"><span class="material-symbols-outlined text-[14px]">check_box_outline_blank</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-status-error text-text-muted hover:text-text-high-contrast" title="Close"><span class="material-symbols-outlined text-[14px]">close</span></button></div></div></header><main class="relative pt-14 pb-8 w-full bg-surface-base px-space-lg flex-1"><div class="flex flex-col w-full">
+<div class="flex flex-col gap-y-space-xl pb-space-xl">
+<!-- Top Action & Context Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg bg-surface-primary rounded-xl p-space-xl shadow-sm">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container text-accent-cyan font-label-sm text-label-sm tracking-widest font-semibold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse"></span>
+            TELEMETRY &amp; OPERATIONAL TELEMETRY
+          </span>
+<span class="text-text-muted font-label-sm text-label-sm">| HUB-WEST-GATEWAY-01</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-high-contrast tracking-tight">
+          Ringkasan &amp; Status Operasional Loket
+        </h1>
+<p class="font-body-md text-body-md text-text-main">
+          Ikhtisar okupansi lot, arus kendaraan masuk/keluar, pendapatan shift berjalan, dan pemantauan gate live.
+        </p>
+</div>
+<div class="flex items-center gap-space-md self-start md:self-auto shrink-0">
+<button class="group flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-text-high-contrast font-label-md text-label-md transition-all shadow-sm" id="btnDownload">
+<span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-accent-cyan transition-colors">cloud_download</span>
+<span>Unduh Laporan Shift</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-cta-primary hover:bg-cta-hover text-text-high-contrast font-label-md text-label-md transition-all shadow-md active:translate-y-0.5" id="btnRefresh">
+<span class="material-symbols-outlined text-[18px]" id="refreshIcon">sync</span>
+<span>Refresh Data</span>
+</button>
+</div>
+</div>
+<!-- 4 Key Telemetry Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-lg">
+<!-- Metric 1: Okupansi Realtime -->
+<div class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-primary shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Okupansi Parkir Real-Time</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-currency text-display-currency text-text-high-contrast leading-none">482</span>
+<span class="font-label-lg text-label-lg text-text-muted">/ 600 Lot</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-status-warning">
+<span class="material-symbols-outlined text-[22px]">directions_car</span>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col gap-space-xs">
+<div class="flex justify-between items-center font-label-sm text-label-sm">
+<span class="text-text-main font-medium">Kapasitas Lapangan</span>
+<span class="text-status-warning font-semibold">80.3% Terisi</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden flex">
+<div class="h-full bg-status-success" style="width: 55%"></div>
+<div class="h-full bg-status-warning" style="width: 25.3%"></div>
+</div>
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-status-success"></span>Motor: <strong class="text-text-high-contrast">310</strong></span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-status-warning"></span>Mobil: <strong class="text-text-high-contrast">172</strong></span>
+</div>
+</div>
+</div>
+<!-- Metric 2: Total Transaksi Shift -->
+<div class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-primary shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Total Transaksi (Shift Pagi)</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-currency text-display-currency text-text-high-contrast leading-none">1,248</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold px-1.5 py-0.5 bg-surface-container rounded">+14% vs kmrn</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-accent-cyan">
+<span class="material-symbols-outlined text-[22px]">swap_vert</span>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-main">Flow Masuk / Keluar</span>
+<span class="text-accent-cyan font-mono-code">698 IN / 550 OUT</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden flex">
+<div class="h-full bg-accent-cyan" style="width: 56%"></div>
+<div class="h-full bg-accent-blue" style="width: 44%"></div>
+</div>
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm pt-1">
+<span>Rata Durasi: <span class="text-text-high-contrast font-medium">2j 14m</span></span>
+<span class="text-status-success">Aliran Lancar</span>
+</div>
+</div>
+</div>
+<!-- Metric 3: Akumulasi Omzet Shift -->
+<div class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-primary shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Akumulasi Omzet Hari Ini</span>
+<div class="flex items-baseline mt-1">
+<span class="font-headline-lg text-headline-lg text-text-high-contrast leading-none tracking-tight">Rp 34.850.000</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-primary">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col gap-space-xs">
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden flex">
+<div class="h-full bg-status-success" style="width: 42%" title="Tunai 42%"></div>
+<div class="h-full bg-accent-cyan" style="width: 38%" title="QRIS 38%"></div>
+<div class="h-full bg-accent-blue-soft" style="width: 20%" title="E-Money 20%"></div>
+</div>
+<div class="grid grid-cols-3 gap-1 pt-1 text-center font-label-sm text-label-sm">
+<div class="bg-surface-container rounded py-0.5">
+<span class="text-text-muted block text-[10px]">CASH</span>
+<span class="text-status-success font-semibold">42%</span>
+</div>
+<div class="bg-surface-container rounded py-0.5">
+<span class="text-text-muted block text-[10px]">QRIS</span>
+<span class="text-accent-cyan font-semibold">38%</span>
+</div>
+<div class="bg-surface-container rounded py-0.5">
+<span class="text-text-muted block text-[10px]">E-MONEY</span>
+<span class="text-accent-blue-soft font-semibold">20%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Metric 4: Status 6 Gerbang -->
+<div class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-primary shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Status Gerbang Loket</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-currency text-display-currency text-status-success leading-none">5</span>
+<span class="font-label-lg text-label-lg text-text-high-contrast">/ 6 Ready</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-status-warning">
+<span class="material-symbols-outlined text-[22px]">garage</span>
+</div>
+</div>
+<div class="mt-space-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded">
+<span class="flex items-center gap-1.5 text-text-main">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning animate-ping"></span>
+              Gate Timur 02
+            </span>
+<span class="text-status-warning font-mono-code font-bold">128ms LAT</span>
+</div>
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm pt-0.5">
+<span class="text-status-success flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Gate Barat In/Out OK
+            </span>
+<span>Palang Auto Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Operational Grid (2 Columns: Left Main View & Right Health/Actions) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg">
+<!-- Left Column (8 of 12 spans) -->
+<div class="xl:col-span-8 flex flex-col gap-space-lg">
+<!-- Throughput Hourly Visual Chart Section -->
+<div class="p-space-xl rounded-xl bg-surface-primary shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan text-[20px]">ssid_chart</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Arus Kendaraan Masuk &amp; Keluar Per Jam</h2>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">Throughput periodik operasional loket hari ini (06:00 - 15:00 WIB)</p>
+</div>
+<div class="flex items-center gap-3 font-label-sm text-label-sm bg-surface-container px-space-md py-1 rounded-lg">
+<span class="flex items-center gap-1.5 text-text-high-contrast">
+<span class="w-2.5 h-2.5 rounded-sm bg-accent-cyan"></span> Masuk (In)
+              </span>
+<span class="flex items-center gap-1.5 text-text-high-contrast">
+<span class="w-2.5 h-2.5 rounded-sm bg-cta-primary"></span> Keluar (Out)
+              </span>
+</div>
+</div>
+<!-- Minimalist High-Density SVG Flow Chart -->
+<div class="relative w-full h-48 mt-2 flex flex-col justify-end">
+<!-- Inline SVG Chart -->
+<svg class="w-full h-40 overflow-visible" preserveAspectRatio="none" viewBox="0 0 900 160">
+<defs>
+<linearGradient id="gradIn" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4fc1ff" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#4fc1ff" stop-opacity="0.0"></stop>
+</linearGradient>
+<linearGradient id="gradOut" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#f97316" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#f97316" stop-opacity="0.0"></stop>
+</linearGradient>
+</defs>
+<!-- Subtle Horizontal Grid Lines -->
+<line stroke="#27272a" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="900" y1="30" y2="30"></line>
+<line stroke="#27272a" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="900" y1="80" y2="80"></line>
+<line stroke="#27272a" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="900" y1="130" y2="130"></line>
+<!-- IN Flow Area & Line -->
+<polygon fill="url(#gradIn)" points="0,150 0,135 90,110 180,60 270,30 360,75 450,45 540,25 630,70 720,40 810,95 900,105 900,150"></polygon>
+<polyline fill="none" points="0,135 90,110 180,60 270,30 360,75 450,45 540,25 630,70 720,40 810,95 900,105" stroke="#4fc1ff" stroke-linecap="round" stroke-width="2.5"></polyline>
+<!-- OUT Flow Area & Line -->
+<polygon fill="url(#gradOut)" points="0,150 0,145 90,140 180,120 270,90 360,100 450,80 540,55 630,45 720,35 810,65 900,70 900,150"></polygon>
+<polyline fill="none" points="0,145 90,140 180,120 270,90 360,100 450,80 540,55 630,45 720,35 810,65 900,70" stroke="#f97316" stroke-linecap="round" stroke-width="2.5"></polyline>
+<!-- Peak Points Indicators -->
+<circle class="animate-pulse" cx="270" cy="30" fill="#4fc1ff" r="4"></circle>
+<circle cx="540" cy="25" fill="#4fc1ff" r="4"></circle>
+<circle cx="720" cy="35" fill="#f97316" r="4"></circle>
+</svg>
+<!-- X Axis Labels -->
+<div class="w-full flex justify-between pt-2 text-text-muted font-label-sm text-label-sm">
+<span>06:00</span>
+<span>07:00</span>
+<span>08:00</span>
+<span>09:00</span>
+<span>10:00</span>
+<span>11:00</span>
+<span>12:00</span>
+<span>13:00</span>
+<span>14:00</span>
+<span>15:00</span>
+</div>
+</div>
+<!-- Bottom Micro Metrics under Chart -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs font-label-sm text-label-sm">
+<div class="bg-surface-container rounded-lg p-space-sm flex flex-col">
+<span class="text-text-muted text-[11px]">WAKTU SIBUK (PEAK)</span>
+<span class="text-text-high-contrast font-bold mt-0.5">11:00 - 12:30 WIB</span>
+</div>
+<div class="bg-surface-container rounded-lg p-space-sm flex flex-col">
+<span class="text-text-muted text-[11px]">VOLUME TERBESAR</span>
+<span class="text-accent-cyan font-bold mt-0.5">184 KENDARAAN/JAM</span>
+</div>
+<div class="bg-surface-container rounded-lg p-space-sm flex flex-col">
+<span class="text-text-muted text-[11px]">KECEPATAN PALANG</span>
+<span class="text-status-success font-bold mt-0.5">1.8 DETIK / TAP</span>
+</div>
+<div class="bg-surface-container rounded-lg p-space-sm flex flex-col">
+<span class="text-text-muted text-[11px]">KENDARAAN MENGINAP</span>
+<span class="text-status-warning font-bold mt-0.5">14 UNIT AKTIF</span>
+</div>
+</div>
+</div>
+<!-- Latest Transactions Table (Tabel Aktivitas Terakhir 5 Transaksi Selesai) -->
+<div class="p-space-xl rounded-xl bg-surface-primary shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-status-success text-[20px]">receipt_long</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">5 Transaksi Terakhir Selesai</h2>
+</div>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-text-muted">Auto-Update Live Feed</span>
+</div>
+<!-- High-Scannability Dense Data Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm whitespace-nowrap">
+<thead>
+<tr class="bg-surface-tertiary text-text-muted font-label-sm text-label-sm">
+<th class="py-2.5 px-space-md rounded-l">WAKTU</th>
+<th class="py-2.5 px-space-md">PLAT NOMOR</th>
+<th class="py-2.5 px-space-md">GATE POS</th>
+<th class="py-2.5 px-space-md">JENIS</th>
+<th class="py-2.5 px-space-md">DURASI</th>
+<th class="py-2.5 px-space-md text-right">TOTAL TARIF</th>
+<th class="py-2.5 px-space-md text-center">METODE</th>
+<th class="py-2.5 px-space-md text-center rounded-r">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1 -->
+<tr class="bg-surface-base hover:bg-selection-blue/40 transition-colors">
+<td class="py-2.5 px-space-md font-mono-code text-text-main">14:37:42</td>
+<td class="py-2.5 px-space-md font-display-plate text-[0.875rem] text-text-high-contrast tracking-wider">B 1892 UKX</td>
+<td class="py-2.5 px-space-md font-mono-code text-accent-cyan">EXIT-01</td>
+<td class="py-2.5 px-space-md text-text-main flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">directions_car</span>
+                    Mobil
+                  </td>
+<td class="py-2.5 px-space-md font-mono-code text-text-main">01:45:12</td>
+<td class="py-2.5 px-space-md font-mono-code font-bold text-text-high-contrast text-right">Rp 12.000</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-accent-cyan font-bold">QRIS BCA</span>
+</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-status-success/20 text-status-success font-bold">LUNAS</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-primary hover:bg-selection-blue/40 transition-colors">
+<td class="py-2.5 px-space-md font-mono-code text-text-main">14:36:18</td>
+<td class="py-2.5 px-space-md font-display-plate text-[0.875rem] text-text-high-contrast tracking-wider">D 4591 ACQ</td>
+<td class="py-2.5 px-space-md font-mono-code text-accent-cyan">EXIT-02</td>
+<td class="py-2.5 px-space-md text-text-main flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">two_wheeler</span>
+                    Motor
+                  </td>
+<td class="py-2.5 px-space-md font-mono-code text-text-main">03:10:04</td>
+<td class="py-2.5 px-space-md font-mono-code font-bold text-text-high-contrast text-right">Rp 6.000</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-primary font-bold">TUNAI PAS</span>
+</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-status-success/20 text-status-success font-bold">LUNAS</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-surface-base hover:bg-selection-blue/40 transition-colors">
+<td class="py-2.5 px-space-md font-mono-code text-text-main">14:34:55</td>
+<td class="py-2.5 px-space-md font-display-plate text-[0.875rem] text-text-high-contrast tracking-wider">B 2098 ZFL</td>
+<td class="py-2.5 px-space-md font-mono-code text-accent-cyan">EXIT-01</td>
+<td class="py-2.5 px-space-md text-text-main flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">directions_car</span>
+                    Mobil
+                  </td>
+<td class="py-2.5 px-space-md font-mono-code text-text-main">00:48:20</td>
+<td class="py-2.5 px-space-md font-mono-code font-bold text-text-high-contrast text-right">Rp 8.000</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-accent-blue-soft font-bold">E-MONEY MANDIRI</span>
+</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-status-success/20 text-status-success font-bold">LUNAS</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-primary hover:bg-selection-blue/40 transition-colors">
+<td class="py-2.5 px-space-md font-mono-code text-text-main">14:32:02</td>
+<td class="py-2.5 px-space-md font-display-plate text-[0.875rem] text-text-high-contrast tracking-wider">F 3108 AA</td>
+<td class="py-2.5 px-space-md font-mono-code text-accent-cyan">EXIT-01</td>
+<td class="py-2.5 px-space-md text-text-main flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">two_wheeler</span>
+                    Motor
+                  </td>
+<td class="py-2.5 px-space-md font-mono-code text-text-main">04:12:49</td>
+<td class="py-2.5 px-space-md font-mono-code font-bold text-text-high-contrast text-right">Rp 8.000</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-accent-cyan font-bold">QRIS SHOPEE</span>
+</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-status-success/20 text-status-success font-bold">LUNAS</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="bg-surface-base hover:bg-selection-blue/40 transition-colors">
+<td class="py-2.5 px-space-md font-mono-code text-text-main">14:30:11</td>
+<td class="py-2.5 px-space-md font-display-plate text-[0.875rem] text-text-high-contrast tracking-wider">B 9801 SSB</td>
+<td class="py-2.5 px-space-md font-mono-code text-accent-cyan">EXIT-02</td>
+<td class="py-2.5 px-space-md text-text-main flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">local_shipping</span>
+                    Truk/Box
+                  </td>
+<td class="py-2.5 px-space-md font-mono-code text-text-main">01:05:00</td>
+<td class="py-2.5 px-space-md font-mono-code font-bold text-text-high-contrast text-right">Rp 20.000</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-primary font-bold">TUNAI LOKET</span>
+</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-status-success/20 text-status-success font-bold">LUNAS</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column (4 of 12 spans) -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg">
+<!-- Status Kesehatan Jalur & Perangkat Loket -->
+<div class="p-space-xl rounded-xl bg-surface-primary shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">monitor_heart</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Status Jalur &amp; Device</h2>
+</div>
+<span class="w-2.5 h-2.5 rounded-full bg-status-success"></span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted -mt-1">
+            Kondisi komunikasi serial COM, kamera OCR/ANPR, barrier gate controller, dan central sync link.
+          </p>
+<div class="flex flex-col gap-space-xs mt-1">
+<!-- Lane Item 1: Exit Lane 01 -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Exit Lane 01 (Utama)</span>
+<span class="text-text-muted text-[11px] font-mono-code">PRINTER: OK • GATE: OK • COM3</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-status-success font-bold px-2 py-0.5 bg-surface-primary rounded">ONLINE</span>
+</div>
+<!-- Lane Item 2: Exit Lane 02 (Warning ANPR) -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-status-warning animate-ping"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Exit Lane 02 (Otomatis)</span>
+<span class="text-status-warning text-[11px] font-mono-code">ANPR CAM: DIRTY LENS / BLUR</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-status-warning font-bold px-2 py-0.5 bg-surface-primary rounded">WARNING</span>
+</div>
+<!-- Lane Item 3: Entry Lane 01 -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Entry Lane 01 (Manless)</span>
+<span class="text-text-muted text-[11px] font-mono-code">DISPENSER: OK • ROLLS: 88%</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-status-success font-bold px-2 py-0.5 bg-surface-primary rounded">ONLINE</span>
+</div>
+<!-- Lane Item 4: Entry Lane 02 -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Entry Lane 02 (Manless)</span>
+<span class="text-text-muted text-[11px] font-mono-code">DISPENSER: OK • ROLLS: 94%</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-status-success font-bold px-2 py-0.5 bg-surface-primary rounded">ONLINE</span>
+</div>
+<!-- Lane Item 5: Server Sync Link -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast font-semibold">Central Server Sync</span>
+<span class="text-text-muted text-[11px] font-mono-code">SYNC-DELAY: 12ms • HTTPS SSL</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-accent-cyan font-bold px-2 py-0.5 bg-surface-primary rounded">CONNECTED</span>
+</div>
+</div>
+</div>
+<!-- Supervisor Quick Actions Card -->
+<div class="p-space-xl rounded-xl bg-surface-primary shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-cta-primary text-[20px]">bolt</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Quick Actions Supervisor</h2>
+</div>
+<div class="flex flex-col gap-space-sm mt-1">
+<!-- Action 1 -->
+<button class="w-full flex items-center justify-between p-space-md rounded-lg bg-surface-container hover:bg-selection-blue/60 text-text-high-contrast transition-colors text-left group" onclick="handleSupervisorAction('Buka Sesi Shift Baru')">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded bg-surface-base text-accent-cyan group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold">Buka Sesi Shift Baru</span>
+<span class="text-text-muted text-body-sm text-[12px]">Tutup shift berjalan &amp; serah terima</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[18px] group-hover:text-text-high-contrast transition-colors">chevron_right</span>
+</button>
+<!-- Action 2 -->
+<button class="w-full flex items-center justify-between p-space-md rounded-lg bg-surface-container hover:bg-selection-blue/60 text-text-high-contrast transition-colors text-left group" onclick="handleSupervisorAction('Cek Kas Fisik Laci')">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded bg-surface-base text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold">Cek Kas Fisik Laci</span>
+<span class="text-text-muted text-body-sm text-[12px]">Buka laci kasir tunai (Audit Cash)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[18px] group-hover:text-text-high-contrast transition-colors">chevron_right</span>
+</button>
+<!-- Action 3 -->
+<button class="w-full flex items-center justify-between p-space-md rounded-lg bg-surface-container hover:bg-selection-blue/60 text-text-high-contrast transition-colors text-left group" onclick="handleSupervisorAction('Broadcast Pengumuman Gate')">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded bg-surface-base text-status-warning group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]">campaign</span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold">Broadcast Pengumuman</span>
+<span class="text-text-muted text-body-sm text-[12px]">Kirim teks VMS atau peringatan audio</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[18px] group-hover:text-text-high-contrast transition-colors">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Refresh button micro-interaction
+  const btnRefresh = document.getElementById('btnRefresh');
+  const refreshIcon = document.getElementById('refreshIcon');
+  if (btnRefresh && refreshIcon) {
+    btnRefresh.addEventListener('click', function() {
+      refreshIcon.classList.add('animate-spin');
+      btnRefresh.disabled = true;
+      btnRefresh.classList.add('opacity-75');
+      setTimeout(function() {
+        refreshIcon.classList.remove('animate-spin');
+        btnRefresh.disabled = false;
+        btnRefresh.classList.remove('opacity-75');
+      }, 750);
+    });
+  }
+
+  // Download shift report feedback
+  const btnDownload = document.getElementById('btnDownload');
+  if (btnDownload) {
+    btnDownload.addEventListener('click', function() {
+      const origText = btnDownload.innerHTML;
+      btnDownload.innerHTML = '<span class="material-symbols-outlined text-[18px] text-status-success">check_circle</span><span>Mengunduh...</span>';
+      setTimeout(function() {
+        btnDownload.innerHTML = origText;
+      }, 1500);
+    });
+  }
+
+  // Quick Action Handler helper
+  function handleSupervisorAction(actionTitle) {
+    console.info('[PARK-OS SuperAdmin Command Triggered]:', actionTitle);
+  }
+</script></main><footer class="fixed bottom-0 left-72 right-0 h-8 bg-surface-tertiary border-t border-surface-border z-40 flex items-center justify-between px-space-lg font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs"><span>SYS HEALTH:</span><span class="text-status-success font-bold">100% OPERATIONAL</span></div><div class="h-3 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs"><span>LATENCY:</span><span class="text-accent-cyan font-bold">12ms</span></div><div class="h-3 w-px bg-surface-border"></div><div>ELECTRON RUNTIME v28.1.0</div></div><div class="flex items-center gap-space-md"><div class="bg-surface-container px-space-xs py-0.5 rounded border border-surface-border text-text-high-contrast"><span>SHORTCUT [F1] : PUSAT BANTUAN</span></div><div class="text-accent-blue">POS BOOTH #01</div></div></footer></div></body></html>

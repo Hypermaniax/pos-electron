@@ -2,7 +2,7 @@ import type React from 'react'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Shift, ShiftSummary } from '@shared/types'
-import { closeShift, getActiveShift, getShiftSummary, openShift } from '../mock/api'
+import { closeShift, getActiveShift, getShiftSummary, openShift } from '../lib/server-api'
 import { useAuth } from './AuthContext'
 import { useConfig } from './ConfigContext'
 

@@ -1,0 +1,515 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>body, input, select, button, textarea { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .font-mono-code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }</style><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-secondary":"#111111","surface-dim":"#131316","status-warning":"#f59e0b","surface-container-high":"#2a2a2d","on-error":"#690005","surface-container-lowest":"#0e0e11","status-error":"#ef4444","secondary":"#7bd0ff","tertiary":"#a3caf9","on-surface-variant":"#e0c0b1","surface-border":"#27272a","primary":"#ffb690","text-high-contrast":"#ffffff","accent-cyan":"#4fc1ff","status-info":"#38bdf8","on-primary-container":"#582200","surface-base":"#18181b","surface-container-highest":"#353438","text-main":"#d4d4d4","accent-blue-soft":"#60a5fa","on-tertiary-fixed-variant":"#1f4972","on-surface":"#e4e1e6","inverse-on-surface":"#303033","secondary-fixed-dim":"#7bd0ff","surface-container":"#1f1f22","surface-tertiary":"#0a0a0a","error-container":"#93000a","cta-primary":"#f97316","on-primary-fixed":"#341100","tertiary-container":"#779dcb","surface":"#131316","inverse-primary":"#9d4300","on-secondary-container":"#00374d","surface-primary":"#1e1e1e","on-tertiary-container":"#00345b","primary-container":"#f97316","secondary-container":"#00a6e0","on-secondary":"#00354a","selection-blue-alpha":"#075985b3","tertiary-fixed":"#d1e4ff","primary-fixed-dim":"#ffb690","surface-container-low":"#1b1b1e","inverse-surface":"#e4e1e6","error":"#ffb4ab","on-tertiary-fixed":"#001d36","on-background":"#e4e1e6","secondary-fixed":"#c4e7ff","surface-tint":"#ffb690","surface-border-subtle":"#1f1f23","selection-blue-tint":"#1e3a8acc","cta-hover":"#ea580c","background":"#131316","on-secondary-fixed":"#001e2c","text-muted":"#a1a1aa","outline":"#a78b7d","selection-blue":"#264f78","on-primary-fixed-variant":"#783200","surface-variant":"#353438","status-success":"#22c55e","surface-bright":"#39393c","on-secondary-fixed-variant":"#004c69","tertiary-fixed-dim":"#a3caf9","primary-fixed":"#ffdbca","on-primary":"#552100","on-error-container":"#ffdad6","outline-variant":"#584237","accent-blue":"#569cd6","on-tertiary":"#003258"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","gutter":"1rem","space-md":"0.75rem","margin":"1rem","space-lg":"1rem","space-sm":"0.5rem"},fontFamily:{"label-md":["JetBrains Mono"],"display-currency":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"label-sm":["JetBrains Mono"],"headline-xl":["Space Grotesk"],"body-sm":["Geist"],"display-plate":["JetBrains Mono"],"body-lg":["Geist"],"label-lg":["JetBrains Mono"],"headline-md":["Space Grotesk"],"body-md":["Geist"],"headline-sm":["Space Grotesk"]},fontSize:{"label-md":["0.75rem",{"lineHeight":"1.2","letterSpacing":"0.04em","fontWeight":"500"}],"display-currency":["2.75rem",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["2rem",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],"label-sm":["0.6875rem",{"lineHeight":"1.1","letterSpacing":"0.06em","fontWeight":"500"}],"headline-xl":["3rem",{"lineHeight":"1.1","letterSpacing":"-0.03em","fontWeight":"700"}],"body-sm":["0.8125rem",{"lineHeight":"1.4","fontWeight":"400"}],"display-plate":["2rem",{"lineHeight":"1.15","letterSpacing":"0.08em","fontWeight":"700"}],"body-lg":["1.125rem",{"lineHeight":"1.5","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.2","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"1.25","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["0.9375rem",{"lineHeight":"1.45","fontWeight":"400"}],"headline-sm":["1.25rem",{"lineHeight":"1.3","fontWeight":"600"}]}}}}</script></head><body class="bg-surface-base font-body-md text-text-main antialiased selection:bg-selection-blue"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-secondary z-50 flex flex-col justify-between border-r border-surface-border"><div class="flex flex-col"><div class="h-14 px-space-lg flex items-center gap-space-sm border-b border-surface-border bg-surface-tertiary"><span class="material-symbols-outlined text-accent-cyan text-[20px]">local_parking</span><div class="flex flex-col"><span class="font-label-lg text-label-lg tracking-wider text-text-high-contrast">PARK-OS</span><span class="font-label-sm text-label-sm text-accent-blue">v2.4.1 WORKSTATION</span></div></div><div class="px-space-md py-space-sm bg-surface-container-lowest border-b border-surface-border flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-muted">LOKASI OPERASI</span><span class="font-label-sm text-label-sm text-accent-cyan font-bold bg-surface-dim px-space-xs py-0.5 rounded border border-surface-border">BARAT-TERMINAL</span></div><nav class="flex flex-col py-space-xs" data-active-classes="bg-selection-blue text-text-high-contrast border-l-2 border-status-info"><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="ringkasan-status-perangkat" href="#">1. Ringkasan &amp; Status</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-perangkat-konfigurasi" href="#">2. Manajemen Perangkat</a><a aria-current="page" class="flex items-center px-space-md py-2.5 transition-colors font-body-sm bg-selection-blue text-text-high-contrast border-l-2 border-status-info" data-path="pengaturan-tarif-parkir" href="#">3. Pengaturan Tarif</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="aktivasi-fitur-pembayaran" href="#">4. Fitur Pembayaran</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="kartu-keanggotaan-member" href="#">5. Keanggotaan / Member</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="manajemen-karyawan-operator" href="#">6. Karyawan &amp; Operator</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="pengaturan-sistem-tema" href="#">7. Pengaturan Sistem</a><a class="flex items-center px-space-md py-2.5 text-text-main hover:bg-surface-container hover:text-text-high-contrast transition-colors font-body-sm text-body-sm" data-path="bantuan-f1-manual-sop" href="#">8. Bantuan (F1)</a></nav></div><div class="p-space-md border-t border-surface-border bg-surface-tertiary"><div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm"><span>CORE DAEMON</span><span class="text-status-success font-bold">RUNNING</span></div><div class="mt-1 text-text-muted font-label-sm text-label-sm flex justify-between"><span>PORT 8443</span><span>SSL SECURE</span></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-primary border-b border-surface-border z-40 flex items-center justify-between px-space-lg select-none"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast"><span class="material-symbols-outlined text-cta-primary text-[18px]">terminal</span><span>PARK-OS ADMIN CENTRAL</span></div><div class="h-4 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>CENTRAL SYNC OK</span></div><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-status-success bg-surface-container px-space-xs py-0.5 rounded border border-surface-border"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>SITE SERVER ONLINE</span></div></div><div class="flex items-center gap-space-lg"><div class="font-label-md text-label-md text-accent-cyan flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">schedule</span><span>14:38:09 WIB</span></div><div class="flex items-center gap-space-xs px-space-xs py-0.5 bg-surface-container border border-surface-border rounded font-label-sm text-label-sm text-text-muted"><span class="material-symbols-outlined text-[14px] text-status-warning">brightness_auto</span><span>AUTO 06:00-18:00</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-surface-border"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-text-high-contrast leading-none">ADITYA P.</span><span class="font-label-sm text-label-sm text-cta-primary leading-none">SUPER ADMIN</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div><div class="flex items-center pl-space-sm border-l border-surface-border"><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Minimize"><span class="material-symbols-outlined text-[14px]">remove</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-surface-container text-text-muted hover:text-text-high-contrast" title="Maximize"><span class="material-symbols-outlined text-[14px]">check_box_outline_blank</span></button><button class="w-7 h-7 flex items-center justify-center hover:bg-status-error text-text-muted hover:text-text-high-contrast" title="Close"><span class="material-symbols-outlined text-[14px]">close</span></button></div></div></header><main class="relative pt-14 pb-8 w-full bg-surface-base px-space-lg flex-1"><div class="flex flex-col w-full gap-space-lg pb-space-xl">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-accent-cyan font-label-sm text-label-sm uppercase tracking-wider">
+          MODUL KONFIGURASI PUSAT • REV 2025.04
+        </span>
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-text-muted">LIVE SYNC READY</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-high-contrast tracking-tight">
+        Pengaturan Tarif &amp; Kebijakan Parkir
+      </h1>
+<p class="font-body-md text-body-md text-text-muted max-w-3xl">
+        Kelola struktur matriks tarif berjenjang, penalti denda tiket hilang, grace period, dan aturan pembulatan durasi operasional seluruh gardu.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-auto">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded bg-surface-container hover:bg-selection-blue text-text-main hover:text-text-high-contrast transition-colors font-label-md text-label-md uppercase" id="btn-open-simulasi" type="button">
+<span class="material-symbols-outlined text-[18px] text-accent-cyan">calculate</span>
+<span>Simulasi Hitung Tarif</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded bg-cta-primary hover:bg-cta-hover text-text-high-contrast transition-colors font-label-md text-label-md uppercase shadow-md" id="btn-save-master" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Simpan Perubahan Tarif</span>
+</button>
+</div>
+</div>
+<div class="w-full bg-surface-primary rounded-xl p-space-md flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-11 h-11 rounded-lg bg-surface-container flex items-center justify-center text-status-success shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-text-muted">
+<span>STATUS SKEMA TARIF OPERASIONAL</span>
+<span class="px-1.5 py-0.2 bg-surface-container rounded font-label-sm text-status-success font-semibold">VALIDATED</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-text-high-contrast mt-0.5">
+          Aktif (Perda Parkir No. 14/2024)
+        </div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-lg">
+<div class="flex flex-col text-left md:text-right">
+<span class="font-label-sm text-label-sm text-text-muted">CHECKSUM CRC32</span>
+<span class="font-label-md text-label-md text-accent-blue font-mono font-bold tracking-wider">0x9AF41B8</span>
+</div>
+<div class="h-8 w-px bg-surface-container-high hidden md:block"></div>
+<div class="flex items-center gap-space-sm bg-surface-container px-space-md py-2 rounded">
+<span class="w-2.5 h-2.5 rounded-full bg-status-success"></span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted">SYNC STATUS</span>
+<span class="font-label-md text-label-md text-text-high-contrast">Terhubung Otomatis ke semua POS Booth</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full bg-surface-primary rounded-xl overflow-hidden shadow-sm">
+<div class="p-space-md bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-blue text-[20px]">table_chart</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Matriks Tarif Golongan Kendaraan</h2>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">3 GOLONGAN TERDEFINISI • MODE EDIT INLINE AKTIF</span>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-tertiary text-text-muted font-label-sm text-label-sm uppercase tracking-wider">
+<tr>
+<th class="py-space-md px-space-lg">Golongan Kendaraan</th>
+<th class="py-space-md px-space-md text-right">Jam Pertama</th>
+<th class="py-space-md px-space-md text-right">Per Jam Berikutnya</th>
+<th class="py-space-md px-space-md text-right">Maksimal / 24 Jam</th>
+<th class="py-space-md px-space-md text-right">Denda Tiket Hilang</th>
+<th class="py-space-md px-space-md text-center">Grace Period</th>
+<th class="py-space-md px-space-md text-center">Status</th>
+<th class="py-space-md px-space-lg text-center">Aksi Cepat</th>
+</tr>
+</thead>
+<tbody class="text-text-main divide-y-0" id="tarif-table-body">
+<tr class="bg-surface-primary hover:bg-surface-container transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-blue text-[22px]">two_wheeler</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast">Golongan I</span>
+<span class="font-label-sm text-label-sm text-text-muted">Sepeda Motor &lt; 250cc</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 2.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 1.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 15.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-status-warning font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 25.000">
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="px-2 py-1 rounded bg-surface-container font-label-md text-label-md text-accent-cyan">10 Menit</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-status-success font-semibold tracking-wider">AKTIF</span>
+</td>
+<td class="py-space-md px-space-lg text-center">
+<button class="btn-quick-edit px-space-sm py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm uppercase transition-colors" data-group="Golongan I" type="button">
+                Atur Aturan
+              </button>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-blue text-[22px]">directions_car</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast">Golongan II</span>
+<span class="font-label-sm text-label-sm text-text-muted">Mobil / Sedan / SUV</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 5.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 3.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 40.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-status-warning font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 50.000">
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="px-2 py-1 rounded bg-surface-container font-label-md text-label-md text-accent-cyan">10 Menit</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-status-success font-semibold tracking-wider">AKTIF</span>
+</td>
+<td class="py-space-md px-space-lg text-center">
+<button class="btn-quick-edit px-space-sm py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm uppercase transition-colors" data-group="Golongan II" type="button">
+                Atur Aturan
+              </button>
+</td>
+</tr>
+<tr class="bg-surface-primary hover:bg-surface-container transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-blue text-[22px]">local_shipping</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-high-contrast">Golongan III</span>
+<span class="font-label-sm text-label-sm text-text-muted">Bus / Truk / Box R6+</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 10.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 5.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-text-high-contrast font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 80.000">
+</td>
+<td class="py-space-md px-space-md text-right">
+<input class="w-28 text-right bg-surface-secondary px-2 py-1 rounded text-status-warning font-label-md text-label-md focus:bg-selection-blue-alpha focus:text-accent-cyan outline-none" type="text" value="Rp 100.000">
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="px-2 py-1 rounded bg-surface-container font-label-md text-label-md text-accent-cyan">10 Menit</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-status-success font-semibold tracking-wider">AKTIF</span>
+</td>
+<td class="py-space-md px-space-lg text-center">
+<button class="btn-quick-edit px-space-sm py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm uppercase transition-colors" data-group="Golongan III" type="button">
+                Atur Aturan
+              </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-space-lg py-space-sm bg-surface-tertiary flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-accent-blue">info</span>
+<span>Perubahan angka langsung tersimpan lokal sebagai draft hingga tombol SIMPAN ditekan.</span>
+</div>
+<span class="text-accent-blue font-mono font-semibold">VALIDATION RULE: STRICT NON-ZERO</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-blue text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast">Pengaturan Kebijakan Tambahan</h2>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">4 PARAMETER SISTEM TERAPLIKASI</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<div class="bg-surface-primary rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-accent-cyan">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-dropoff" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-high-contrast after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cta-primary"></div>
+</label>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-text-high-contrast">Drop-off Gratis</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">10 Menit Pertama bebas biaya keluar gardu.</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-lg -mb-space-lg px-space-lg py-space-sm rounded-b-xl flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted">Toleransi Barrier:</span>
+<span class="text-status-success font-semibold font-mono">+60 Detik</span>
+</div>
+</div>
+<div class="bg-surface-primary rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-status-warning">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-weekend" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-high-contrast after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cta-primary"></div>
+</label>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-text-high-contrast">Tarif Weekend &amp; Hari Libur</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Penyesuaian surcharge untuk Sabtu, Minggu, &amp; Tanggal Merah.</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-lg -mb-space-lg px-space-lg py-space-sm rounded-b-xl flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted">Surcharge Dinamis:</span>
+<span class="text-status-warning font-semibold font-mono">+10% Tarif Normal</span>
+</div>
+</div>
+<div class="bg-surface-primary rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-accent-blue">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-accent-blue font-semibold">CEIL RULE</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-text-high-contrast">Kebijakan Pembulatan Waktu</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Format pembulatan durasi operasional kalkulasi kasir.</p>
+</div>
+<div class="flex items-center gap-space-md mt-1">
+<label class="flex items-center gap-2 cursor-pointer font-label-sm text-label-sm text-text-main">
+<input class="accent-cta-primary text-cta-primary focus:ring-0" name="rounding_unit" type="radio" value="30">
+<span>30 Menit</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-label-sm text-label-sm text-text-high-contrast">
+<input checked="" class="accent-cta-primary text-cta-primary focus:ring-0" name="rounding_unit" type="radio" value="60">
+<span>60 Menit Penuh</span>
+</label>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-lg -mb-space-lg px-space-lg py-space-sm rounded-b-xl flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted">Aturan Matematis:</span>
+<span class="text-text-high-contrast font-semibold font-mono">Strict Ceil (Pukul Atas)</span>
+</div>
+</div>
+<div class="bg-surface-primary rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-status-success">
+<span class="material-symbols-outlined text-[20px]">health_and_safety</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-asuransi" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-high-contrast after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cta-primary"></div>
+</label>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-text-high-contrast">Premi Jasa Raharja</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Kompensasi asuransi pertanggungan kendaraan parkir.</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-lg -mb-space-lg px-space-lg py-space-sm rounded-b-xl flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted">Besaran Nominal:</span>
+<span class="text-status-success font-semibold font-mono">Flat Rp 500 / trx</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-secondary rounded-xl p-space-md flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-accent-cyan shrink-0">
+<span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted">OPERATIONAL AUDIT TRAIL</span>
+<span class="font-label-md text-label-md text-text-high-contrast">
+          Terakhir disinkronkan oleh <span class="text-accent-cyan font-bold font-mono">SUP_ADITYA</span> pada 14:38:09 WIB
+        </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-1 rounded bg-surface-container font-label-sm text-label-sm text-status-success font-semibold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+        SIAP DEPLOY INSTAN KE GARDU KELUAR POS
+      </span>
+</div>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden" id="simulasi-modal">
+<div class="bg-surface-primary rounded-xl p-space-lg w-full max-w-lg flex flex-col gap-space-md shadow-2xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-accent-cyan text-[22px]">calculate</span>
+<h3 class="font-headline-sm text-headline-sm text-text-high-contrast">Simulasi Hitung Biaya Parkir</h3>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-status-error flex items-center justify-center text-text-muted hover:text-text-high-contrast transition-colors" id="btn-close-simulasi">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">
+        Uji coba validasi perhitungan tarif secara realtime berdasarkan parameter matriks yang sedang dikonfigurasi.
+      </p>
+<div class="flex flex-col gap-space-sm bg-surface-tertiary p-space-md rounded-lg">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">GOLONGAN KENDARAAN</label>
+<select class="bg-surface-secondary text-text-high-contrast font-label-md text-label-md p-2 rounded outline-none" id="sim-golongan">
+<option value="1">Golongan I - Sepeda Motor (&lt; 250cc)</option>
+<option selected="" value="2">Golongan II - Mobil / Sedan / SUV</option>
+<option value="3">Golongan III - Bus / Truk / Box R6+</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">DURASI PARKIR (JAM)</label>
+<input class="bg-surface-secondary text-text-high-contrast font-label-md text-label-md p-2 rounded outline-none" id="sim-durasi" max="72" min="0" type="number" value="3">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">TAMBAHAN MENIT</label>
+<input class="bg-surface-secondary text-text-high-contrast font-label-md text-label-md p-2 rounded outline-none" id="sim-menit" max="59" min="0" type="number" value="15">
+</div>
+</div>
+<div class="flex items-center gap-space-md pt-2">
+<label class="flex items-center gap-2 cursor-pointer font-label-sm text-label-sm text-text-main">
+<input class="accent-cta-primary text-cta-primary" id="sim-weekend" type="checkbox">
+<span>Hitung Hari Libur (+10%)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-label-sm text-label-sm text-text-main">
+<input checked="" class="accent-cta-primary text-cta-primary" id="sim-asuransi" type="checkbox">
+<span>+Asuransi Rp 500</span>
+</label>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col gap-1">
+<div class="flex justify-between items-center font-label-sm text-label-sm text-text-muted">
+<span>HASIL ESTIMASI BILLING POS:</span>
+<span class="text-accent-blue font-mono font-medium" id="sim-breakdown">Jam Ke-1 + 3 Jam Ceil</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-headline-sm text-headline-sm text-text-muted">TOTAL</span>
+<span class="font-display-currency text-display-currency text-status-success tracking-tight" id="sim-total">Rp 14.500</span>
+</div>
+</div>
+<div class="flex justify-end gap-space-sm">
+<button class="w-full py-2.5 rounded bg-cta-primary hover:bg-cta-hover text-text-high-contrast font-label-md text-label-md uppercase font-semibold transition-colors" id="btn-run-sim" type="button">
+          Kalkulasi Ulang
+        </button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-12 right-6 z-50 bg-surface-primary text-text-high-contrast px-space-md py-3 rounded-lg shadow-2xl flex items-center gap-space-sm transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toast-notify">
+<span class="material-symbols-outlined text-status-success text-[20px]">check_circle</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-status-success font-bold" id="toast-title">BERHASIL DISIMPAN</span>
+<span class="font-body-sm text-body-sm text-text-main" id="toast-desc">Konfigurasi tarif telah disinkronkan ke 4 gardu keluar.</span>
+</div>
+</div>
+</div>
+<script>
+  (function initTarifPage() {
+    const navLinks = document.querySelectorAll('aside nav a');
+    navLinks.forEach(link => {
+      if (link.getAttribute('data-path') === 'pengaturan-tarif-parkir' || link.textContent.includes('3. Pengaturan Tarif')) {
+        link.className = 'flex items-center px-space-md py-2.5 bg-selection-blue text-text-high-contrast border-l-2 border-status-info transition-colors font-body-sm text-body-sm';
+      }
+    });
+
+    const modal = document.getElementById('simulasi-modal');
+    const btnOpen = document.getElementById('btn-open-simulasi');
+    const btnClose = document.getElementById('btn-close-simulasi');
+    const toast = document.getElementById('toast-notify');
+    const toastTitle = document.getElementById('toast-title');
+    const toastDesc = document.getElementById('toast-desc');
+    const btnSave = document.getElementById('btn-save-master');
+
+    function showToast(title, desc) {
+      toastTitle.textContent = title;
+      toastDesc.textContent = desc;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3200);
+    }
+
+    if (btnOpen && modal) {
+      btnOpen.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        recalculateSim();
+      });
+    }
+
+    if (btnClose && modal) {
+      btnClose.addEventListener('click', () => modal.classList.add('hidden'));
+    }
+
+    if (btnSave) {
+      btnSave.addEventListener('click', () => {
+        showToast('SKEMA DIPERBARUI (CRC 0x9AF41B8)', 'Berhasil sinkronisasi skema baru ke Gardu 01, Gardu 02 & Kiosk.');
+      });
+    }
+
+    const quickEditButtons = document.querySelectorAll('.btn-quick-edit');
+    quickEditButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const groupName = btn.getAttribute('data-group');
+        showToast('MEMBUAT ATURAN: ' + groupName.toUpperCase(), 'Mode parameter spesifik dibuka untuk ' + groupName);
+      });
+    });
+
+    const simGolongan = document.getElementById('sim-golongan');
+    const simDurasi = document.getElementById('sim-durasi');
+    const simMenit = document.getElementById('sim-menit');
+    const simWeekend = document.getElementById('sim-weekend');
+    const simAsuransi = document.getElementById('sim-asuransi');
+    const simTotal = document.getElementById('sim-total');
+    const simBreakdown = document.getElementById('sim-breakdown');
+    const btnRunSim = document.getElementById('btn-run-sim');
+
+    function recalculateSim() {
+      if (!simGolongan || !simTotal) return;
+
+      const g = parseInt(simGolongan.value, 10);
+      const jam = parseInt(simDurasi.value, 10) || 0;
+      const menit = parseInt(simMenit.value, 10) || 0;
+      const isWeekend = simWeekend.checked;
+      const isAsuransi = simAsuransi.checked;
+
+      let firstHour = 2000;
+      let nextHour = 1000;
+      let max24 = 15000;
+
+      if (g === 2) {
+        firstHour = 5000;
+        nextHour = 3000;
+        max24 = 40000;
+      } else if (g === 3) {
+        firstHour = 10000;
+        nextHour = 5000;
+        max24 = 80000;
+      }
+
+      if (jam === 0 && menit <= 10) {
+        let total = isAsuransi ? 500 : 0;
+        simTotal.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        simBreakdown.textContent = 'Bebas Biaya (Drop-off Grace Period)';
+        return;
+      }
+
+      let extraHours = jam;
+      if (menit > 0) {
+        extraHours += 1;
+      }
+
+      let parkingCharge = 0;
+      if (extraHours <= 1) {
+        parkingCharge = firstHour;
+      } else {
+        parkingCharge = firstHour + ((extraHours - 1) * nextHour);
+      }
+
+      if (parkingCharge > max24) {
+        parkingCharge = max24;
+      }
+
+      if (isWeekend) {
+        parkingCharge = Math.round(parkingCharge * 1.10);
+      }
+
+      if (isAsuransi) {
+        parkingCharge += 500;
+      }
+
+      simTotal.textContent = 'Rp ' + parkingCharge.toLocaleString('id-ID');
+      simBreakdown.textContent = (extraHours) + ' Jam Total Terhitung' + (isWeekend ? ' (+10% Libur)' : '');
+    }
+
+    if (btnRunSim) {
+      btnRunSim.addEventListener('click', recalculateSim);
+    }
+    if (simGolongan) simGolongan.addEventListener('change', recalculateSim);
+    if (simDurasi) simDurasi.addEventListener('input', recalculateSim);
+    if (simMenit) simMenit.addEventListener('input', recalculateSim);
+    if (simWeekend) simWeekend.addEventListener('change', recalculateSim);
+    if (simAsuransi) simAsuransi.addEventListener('change', recalculateSim);
+  })();
+</script></main><footer class="fixed bottom-0 left-72 right-0 h-8 bg-surface-tertiary border-t border-surface-border z-40 flex items-center justify-between px-space-lg font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs"><span>SYS HEALTH:</span><span class="text-status-success font-bold">100% OPERATIONAL</span></div><div class="h-3 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs"><span>LATENCY:</span><span class="text-accent-cyan font-bold">12ms</span></div><div class="h-3 w-px bg-surface-border"></div><div>ELECTRON RUNTIME v28.1.0</div></div><div class="flex items-center gap-space-md"><div class="bg-surface-container px-space-xs py-0.5 rounded border border-surface-border text-text-high-contrast"><span>SHORTCUT [F1] : PUSAT BANTUAN</span></div><div class="text-accent-blue">POS BOOTH #01</div></div></footer></div></body></html>

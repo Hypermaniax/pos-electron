@@ -72,7 +72,7 @@ export function ShiftScreen(): React.JSX.Element {
   return (
     <div className="flex max-w-3xl flex-col gap-6">
       <div>
-        <h1 className="text-lg font-semibold">Shift</h1>
+        <h1 className="font-heading text-xl font-bold tracking-tight">Shift</h1>
         <p className="text-sm text-muted-foreground">
           Kelola shift pada loket ini. Tutup shift diblokir bila masih ada transaksi menggantung.
         </p>
@@ -126,11 +126,7 @@ export function ShiftScreen(): React.JSX.Element {
                     Dibuka oleh {shift.openedByName} pada {formatDateTime(shift.openedAt)}
                   </p>
                 </div>
-                <Button
-                  variant="destructive"
-                  onClick={() => void handleClose()}
-                  disabled={busy}
-                >
+                <Button variant="destructive" onClick={() => void handleClose()} disabled={busy}>
                   {busy ? 'Menutup...' : 'Tutup shift'}
                 </Button>
               </div>

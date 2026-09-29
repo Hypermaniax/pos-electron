@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PARK-POS • Loket Exit 01</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-base": "#18181b",
+            "surface-primary": "#1e1e1e",
+            "surface-secondary": "#111111",
+            "surface-tertiary": "#0a0a0a",
+            "surface-card": "#252528",
+            "surface-card-subtle": "#1f1f23",
+            "surface-border": "#333338",
+            "surface-border-subtle": "#27272a",
+            "text-main": "#d4d4d4",
+            "text-muted": "#9ca3af",
+            "text-high-contrast": "#ffffff",
+            "accent-blue": "#569cd6",
+            "accent-cyan": "#38bdf8",
+            "selection-blue": "#264f78",
+            "cta-primary": "#f97316",
+            "cta-hover": "#ea580c",
+            "status-success": "#22c55e",
+            "status-warning": "#f59e0b",
+            "status-error": "#ef4444"
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            headline: ['"Space Grotesk"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      overflow-x: hidden;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="bg-surface-primary text-text-main font-sans antialiased min-h-screen flex flex-col justify-between overflow-y-auto lg:h-screen lg:overflow-hidden select-none">
+<!-- Toast Notification Container -->
+<div class="fixed top-12 right-4 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
+<!-- ================= TOP WINDOW BAR (Electron Chrome Header) ================= -->
+<header class="w-full bg-surface-secondary border-b border-surface-border flex-none z-40">
+<!-- Top System Title Bar -->
+<div class="h-8 px-3 bg-surface-tertiary border-b border-surface-border-subtle flex items-center justify-between text-xs font-mono">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-cta-primary flex items-center justify-center text-[9px] font-bold text-black">P</span>
+<span class="text-text-high-contrast font-semibold tracking-wide">PARK-POS v2.4.1</span>
+<span class="text-surface-border">/</span>
+<span class="text-text-muted">Electron Desktop Workstation</span>
+</div>
+<div class="flex items-center gap-4 text-[11px]">
+<span class="flex items-center gap-1.5 text-text-muted">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+          Site Server: <span class="text-status-success font-semibold">Online 10ms</span>
+</span>
+<span class="flex items-center gap-1.5 text-text-muted">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+          Central: <span class="text-status-success font-semibold">Sync OK</span>
+</span>
+<span class="text-surface-border">|</span>
+<span class="text-accent-cyan">Gate: Exit Barat 01</span>
+</div>
+<div class="flex items-center">
+<button class="h-8 px-3 text-text-muted hover:text-white hover:bg-surface-card transition-colors flex items-center justify-center cursor-pointer active:scale-95" title="Minimize">
+<span class="material-symbols-outlined text-[14px]">remove</span>
+</button>
+<button class="h-8 px-3 text-text-muted hover:text-white hover:bg-surface-card transition-colors flex items-center justify-center cursor-pointer active:scale-95" title="Maximize">
+<span class="material-symbols-outlined text-[13px]">crop_square</span>
+</button>
+<button class="h-8 px-3 text-text-muted hover:text-white hover:bg-status-error transition-colors flex items-center justify-center cursor-pointer active:scale-95" onclick="resetTransaction()" title="Tutup / Keluar">
+<span class="material-symbols-outlined text-[15px]">close</span>
+</button>
+</div>
+</div>
+<!-- Main Navigation & Peripheral Bar -->
+<div class="h-14 px-4 flex items-center justify-between">
+<!-- Left: Logo & Gate info -->
+<div class="flex items-center gap-3">
+<div class="h-9 px-2.5 rounded bg-cta-primary text-black font-bold font-headline flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[20px] font-bold">local_parking</span>
+<span class="tracking-tight text-sm text-surface-tertiary">PARK-OS</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold text-text-high-contrast tracking-wide">LOKET EXIT 01</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-selection-blue text-accent-cyan">LANE 03 MOBIL</span>
+</div>
+<span class="text-xs text-text-muted font-mono flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-accent-cyan">pin_drop</span> Gate Barat • Exit Kendaraan Roda 4
+          </span>
+</div>
+</div>
+<!-- Center: Peripherals Status Badges -->
+<div class="hidden xl:flex items-center gap-2 font-mono text-xs">
+<div class="px-2.5 py-1 rounded bg-surface-card-subtle border border-surface-border flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span class="text-text-muted">SCANNER:</span>
+<span class="text-status-success font-semibold">OK (USB HID)</span>
+</div>
+<div class="px-2.5 py-1 rounded bg-surface-card-subtle border border-surface-border flex items-center gap-2 cursor-pointer hover:border-accent-cyan transition-colors" onclick="printReceipt()" title="Klik untuk Test Printer">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span class="text-text-muted">PRINTER:</span>
+<span class="text-status-success font-semibold">READY (TM-T82)</span>
+</div>
+<div class="px-2.5 py-1 rounded bg-surface-card-subtle border border-surface-border flex items-center gap-2 cursor-pointer hover:border-accent-cyan transition-colors" onclick="triggerBarrierOpen()" title="Klik untuk Kontrol Palang">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span class="text-text-muted">BARRIER:</span>
+<span class="text-accent-cyan font-semibold">ONLINE (COM3)</span>
+</div>
+</div>
+<!-- Right: Operator profile & Clock -->
+<div class="flex items-center gap-4">
+<button class="text-right cursor-pointer group p-1 -m-1 rounded hover:bg-surface-card transition-colors flex items-center gap-2.5" onclick="openModalShift()" title="Klik untuk Ganti Shift [F2]">
+<div>
+<div class="text-xs font-semibold text-text-high-contrast flex items-center justify-end gap-1.5 group-hover:text-accent-cyan transition-colors">
+<span class="material-symbols-outlined text-accent-blue text-[15px]">badge</span>
+<span>Budi Santoso</span>
+</div>
+<div class="text-[11px] font-mono text-accent-cyan">Shift Pagi • 06:00 - 14:00</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-text-muted group-hover:text-white transition-colors">swap_horiz</span>
+</button>
+<div class="h-8 w-px bg-surface-border hidden sm:block"></div>
+<div class="text-right font-mono hidden sm:block">
+<div class="text-sm font-bold text-text-high-contrast" id="live-clock">14:23:45 <span class="text-xs text-accent-cyan">WIB</span></div>
+<div class="text-[11px] text-text-muted">24 OKT 2024</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ================= MAIN WORKSPACE (2 Balanced Columns) ================= -->
+<main class="flex-1 w-full max-w-[1720px] mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 overflow-y-auto lg:overflow-hidden items-stretch">
+<!-- ================= LEFT COLUMN: Data Kendaraan & Sesi Parkir (7 Cols) ================= -->
+<div class="lg:col-span-7 flex flex-col gap-3 min-h-0">
+<!-- 1. Bar Tab Mode Input & Scanner Bar -->
+<div class="bg-surface-card rounded-lg border border-surface-border p-2.5 sm:p-3 flex flex-col gap-2.5 flex-none shadow-sm">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-1.5 bg-surface-tertiary p-1 rounded-md border border-surface-border-subtle">
+<button class="px-3 py-1.5 rounded text-xs font-mono font-bold bg-selection-blue text-text-high-contrast flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shadow-sm" id="tab-scan-btn" onclick="switchInputTab('scan')">
+<span class="material-symbols-outlined text-[16px]">qr_code_scanner</span>
+<span>Scan Tiket [F3]</span>
+</button>
+<button class="px-3 py-1.5 rounded text-xs font-mono font-medium text-text-muted hover:text-white hover:bg-surface-card flex items-center gap-1.5 transition-all cursor-pointer active:scale-95" id="tab-manual-btn" onclick="switchInputTab('manual')">
+<span class="material-symbols-outlined text-[16px]">keyboard</span>
+<span>Input Manual [F4]</span>
+</button>
+</div>
+<div class="flex items-center gap-2 font-mono text-xs text-text-muted" id="scanner-payload-indicator">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+<span>BARCODE SCANNER PAYLOAD READY</span>
+</div>
+</div>
+<!-- Scan Input Box -->
+<div class="relative flex items-center" id="panel-scan">
+<span class="absolute left-3 text-accent-cyan material-symbols-outlined text-[20px]">barcode_reader</span>
+<input autofocus="" class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-sm pl-10 pr-28 py-2 rounded border border-surface-border focus:border-accent-cyan focus:outline-none transition-colors" id="barcode-input" placeholder="Tembak barcode scanner atau input nomor tiket..." type="text" value="TKT-20250520-00892"/>
+<button class="absolute right-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface-card-subtle text-accent-cyan border border-surface-border hover:bg-selection-blue/40 cursor-pointer active:scale-95 transition-all" onclick="document.getElementById('barcode-input').focus(); showToast('Scanner fokus siap input!', 'info');">AUTO-FOCUS</button>
+</div>
+<!-- Manual Input Box (Toggled) -->
+<div class="hidden grid-cols-2 gap-2 pt-1 font-mono" id="panel-manual">
+<div>
+<label class="block text-[11px] text-text-muted uppercase mb-1">Nomor Plat Polisi [Manual]</label>
+<input class="w-full bg-surface-tertiary text-text-high-contrast font-mono uppercase text-sm px-3 py-1.5 rounded border border-surface-border focus:outline-none focus:border-accent-cyan tracking-wider font-bold" id="manual-plate-input" type="text" value="B 1842 WKA"/>
+</div>
+<div>
+<label class="block text-[11px] text-text-muted uppercase mb-1">Klasifikasi Golongan</label>
+<select class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-xs px-2 py-2 rounded border border-surface-border focus:outline-none">
+<option>Gol. 1 - Mobil Minibus/Sedan</option>
+<option>Gol. 2 - Motor / Roda Dua</option>
+<option>Gol. 3 - Truk / Bus Besar</option>
+</select>
+</div>
+</div>
+</div>
+<!-- 2. Snapshot Kamera Masuk & Metadata ANPR OCR -->
+<div class="bg-surface-card rounded-lg border border-surface-border p-3 flex flex-col gap-2.5 flex-none shadow-sm">
+<div class="flex items-center justify-between border-b border-surface-border pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan text-[18px]">videocam</span>
+<span class="text-xs font-mono font-bold uppercase tracking-wider text-text-high-contrast">Snapshot Kamera Masuk &amp; OCR ANPR</span>
+</div>
+<div class="flex items-center gap-2 font-mono text-[11px]">
+<span class="text-text-muted">CAM-IN-01</span>
+<span class="px-1.5 py-0.5 rounded bg-status-success/20 text-status-success font-bold">CONFIDENCE: 99.4%</span>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-3 items-center">
+<!-- Image Box -->
+<div class="col-span-5 sm:col-span-4 relative rounded-md overflow-hidden bg-surface-tertiary border border-surface-border h-28 flex items-center justify-center">
+<img alt="ANPR Snapshot Gerbang Masuk" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIBdV_cQ0L8nesnxi3mcvcJlh5Mz0X7Uizixh6slYE7lYACzYCljqnMsbXJmXugofB6Y2Eq5rRM4n7OZpeRlca0fFr5f8TFhP1hDFcx_5neCbmoM5mFYEn6rnvcHk6mGdosSeH8JqfWYyvbmOHeBKuqLWAJfdfW9uqxr71En6c3HBzkLDG-n-Uf6JtIiCbkdG1wCQVHQjp_ZS5HiN9kFEd-HXHRAzHstMMjfMpXbd9sxJADCivmB-p"/>
+<div class="absolute bottom-1 left-1 bg-surface-tertiary/80 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-mono text-text-high-contrast">
+              CAM-IN-BARAT
+            </div>
+</div>
+<!-- Vehicle Plate & Classification Details -->
+<div class="col-span-7 sm:col-span-8 flex flex-col justify-between h-full gap-2">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-[10px] font-mono text-text-muted uppercase block">Plat Terdeteksi ANPR</span>
+<span class="text-xl sm:text-2xl font-mono font-extrabold tracking-widest text-text-high-contrast bg-surface-tertiary px-3 py-0.5 rounded border border-surface-border inline-block" id="plate-display">
+                  B 1842 WKA
+                </span>
+</div>
+<span class="text-xs font-mono px-2 py-1 rounded bg-surface-card-subtle text-accent-cyan border border-surface-border font-medium">
+                Mobil Minibus / Sedan
+              </span>
+</div>
+<div class="flex items-center justify-between text-xs font-mono text-text-muted pt-1">
+<span>Lane Masuk: <strong class="text-text-main">Gate Barat 01</strong></span>
+<button class="text-accent-blue hover:text-accent-cyan flex items-center gap-1 underline text-[11px] cursor-pointer active:scale-95 transition-all" onclick="switchInputTab('manual')">
+<span class="material-symbols-outlined text-[13px]">edit_note</span> Koreksi Plat Manual [F4]
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Card Rincian Sesi Parkir & Breakdown Tarif -->
+<div class="bg-surface-card rounded-lg border border-surface-border p-3 flex flex-col justify-between gap-3 flex-1 min-h-0 shadow-sm">
+<div>
+<div class="flex items-center justify-between border-b border-surface-border pb-2 mb-2.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-blue text-[18px]">receipt_long</span>
+<span class="text-xs font-mono font-bold uppercase tracking-wider text-text-high-contrast">Rincian Sesi Parkir &amp; Tarif</span>
+</div>
+<span class="text-[11px] font-mono text-status-success font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> SESI VALID (SITE SERVER)
+            </span>
+</div>
+<!-- Session Data Matrix -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs mb-3">
+<div class="bg-surface-card-subtle p-2 rounded border border-surface-border-subtle">
+<span class="text-[10px] text-text-muted block">NOMOR TIKET</span>
+<span class="font-bold text-text-high-contrast truncate block">TKT-20250520-00892</span>
+</div>
+<div class="bg-surface-card-subtle p-2 rounded border border-surface-border-subtle">
+<span class="text-[10px] text-text-muted block">WAKTU MASUK</span>
+<span class="text-text-main block">20/05/2025 08:15:20</span>
+</div>
+<div class="bg-surface-card-subtle p-2 rounded border border-surface-border-subtle">
+<span class="text-[10px] text-text-muted block">WAKTU KELUAR</span>
+<span class="text-text-main block">20/05/2025 11:45:35</span>
+</div>
+<div class="bg-selection-blue/40 p-2 rounded border border-selection-blue">
+<span class="text-[10px] text-accent-cyan block font-semibold">TOTAL DURASI</span>
+<span class="font-bold text-text-high-contrast block">3j 30m <span class="text-[10px] text-accent-cyan">(4 Jam)</span></span>
+</div>
+</div>
+<!-- Tariff Breakdown Components -->
+<div class="grid grid-cols-3 gap-2 font-mono text-xs">
+<div class="bg-surface-tertiary px-3 py-2 rounded border border-surface-border-subtle flex flex-col">
+<span class="text-[11px] text-text-muted">Jam Pertama</span>
+<span class="font-bold text-text-high-contrast text-sm mt-0.5">Rp 5.000</span>
+</div>
+<div class="bg-surface-tertiary px-3 py-2 rounded border border-surface-border-subtle flex flex-col">
+<span class="text-[11px] text-text-muted">Jam Tambahan (3x)</span>
+<span class="font-bold text-text-high-contrast text-sm mt-0.5">Rp 9.000</span>
+</div>
+<div class="bg-surface-tertiary px-3 py-2 rounded border border-surface-border-subtle flex flex-col">
+<span class="text-[11px] text-text-muted">Asuransi / Jasa</span>
+<span class="font-bold text-text-high-contrast text-sm mt-0.5">Rp 1.000</span>
+</div>
+</div>
+</div>
+<!-- 4. Big Banner Total Tagihan -->
+<div class="bg-surface-tertiary rounded-lg border-2 border-selection-blue p-3 sm:p-4 flex items-center justify-between shadow-md">
+<div class="flex flex-col">
+<span class="text-xs font-mono font-bold tracking-widest text-accent-cyan uppercase">TOTAL TAGIHAN PARKIR</span>
+<span class="text-[11px] font-mono text-text-muted mt-0.5">Termasuk PPN Parkir 10% • Terverifikasi Otomatis</span>
+</div>
+<div class="text-right">
+<div class="text-3xl sm:text-4xl font-mono font-extrabold text-white tracking-tight" id="display-total">
+              Rp 15.000
+            </div>
+<div class="text-[11px] font-mono text-status-warning font-semibold tracking-wide">
+              LIMA BELAS RIBU RUPIAH NET
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT COLUMN: Metode Pembayaran & Kontrol Gate (5 Cols) ================= -->
+<div class="lg:col-span-5 flex flex-col gap-3 min-h-0">
+<!-- 1. Transaction Status Header & Idempotency Badge -->
+<div class="bg-surface-card rounded-lg border border-surface-border p-3 flex flex-col gap-1.5 shadow-sm flex-none" id="status-card">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-status-warning animate-ping" id="status-pulse-dot"></span>
+<div>
+<span class="text-[10px] font-mono text-text-muted block uppercase">Status Transaksi Gate</span>
+<span class="text-xs font-mono font-bold text-status-warning tracking-wide" id="status-text-badge">
+                STATUS: MENUNGGU PEMBAYARAN (UNPAID)
+              </span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface-tertiary text-accent-cyan border border-surface-border">
+            GATE 02 EXIT
+          </span>
+</div>
+<div class="pt-1 border-t border-surface-border-subtle flex items-center justify-between text-[10px] font-mono text-text-muted">
+<span>TXN: <strong class="text-text-main font-semibold">TXN-88219-SITE01</strong></span>
+<span>IDEMPOTENCY: <strong class="text-text-main font-semibold">IDEM-9921-X7</strong></span>
+</div>
+</div>
+<!-- 2. Payment Method Switcher Tabs & Content Panels -->
+<div class="bg-surface-card rounded-lg border border-surface-border p-3 flex flex-col gap-3 flex-1 min-h-0 shadow-sm">
+<!-- Tabs -->
+<div class="grid grid-cols-3 gap-1.5 font-mono text-xs">
+<button class="py-2 px-1 rounded font-bold bg-selection-blue text-text-high-contrast flex flex-col items-center justify-center gap-0.5 border border-accent-blue/50 transition-all cursor-pointer active:scale-95 shadow-sm" id="pay-tab-cash" onclick="switchPayment('cash')">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span>Tunai / Cash [F5]</span>
+</button>
+<button class="py-2 px-1 rounded font-medium bg-surface-card-subtle text-text-muted hover:text-white hover:bg-surface-card flex flex-col items-center justify-center gap-0.5 border border-surface-border transition-all cursor-pointer active:scale-95" id="pay-tab-qris" onclick="switchPayment('qris')">
+<span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+<span>QRIS Dinamis [F6]</span>
+</button>
+<button class="py-2 px-1 rounded font-medium bg-surface-card-subtle text-text-muted hover:text-white hover:bg-surface-card flex flex-col items-center justify-center gap-0.5 border border-surface-border transition-all cursor-pointer active:scale-95" id="pay-tab-emoney" onclick="switchPayment('emoney')">
+<span class="material-symbols-outlined text-[18px]">contactless</span>
+<span>E-Money Tap [F7]</span>
+</button>
+</div>
+<!-- TAB CONTENT 1: TUNAI / CASH -->
+<div class="flex flex-col justify-between flex-1 gap-3" id="pay-content-cash">
+<div class="flex flex-col gap-2.5">
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="text-xs font-mono font-bold text-text-high-contrast uppercase">Uang Tunai Diterima (Rp)</label>
+<span class="text-[11px] font-mono text-accent-blue">Numpad / Enter</span>
+</div>
+<div class="relative">
+<span class="absolute left-3 top-2.5 font-mono text-lg font-bold text-text-muted">Rp</span>
+<input class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-2xl font-bold pl-12 pr-3 py-2 rounded border border-surface-border focus:border-accent-cyan focus:outline-none" id="cash-input" oninput="calculateChange()" type="number" value="20000"/>
+</div>
+</div>
+<!-- Preset Buttons -->
+<div>
+<span class="text-[11px] font-mono text-text-muted block mb-1">Pilihan Cepat Nominal:</span>
+<div class="grid grid-cols-4 gap-1.5 font-mono text-xs font-bold">
+<button class="py-1.5 rounded bg-surface-tertiary hover:bg-selection-blue text-accent-cyan border border-surface-border transition-colors cursor-pointer active:scale-95" onclick="setCash(15000)">Uang Pas (15k)</button>
+<button class="py-1.5 rounded bg-surface-tertiary hover:bg-selection-blue text-text-high-contrast border border-surface-border transition-colors cursor-pointer active:scale-95" onclick="setCash(20000)">20.000</button>
+<button class="py-1.5 rounded bg-surface-tertiary hover:bg-selection-blue text-text-high-contrast border border-surface-border transition-colors cursor-pointer active:scale-95" onclick="setCash(50000)">50.000</button>
+<button class="py-1.5 rounded bg-surface-tertiary hover:bg-selection-blue text-text-high-contrast border border-surface-border transition-colors cursor-pointer active:scale-95" onclick="setCash(100000)">100.000</button>
+</div>
+</div>
+<!-- Kembalian Display Box -->
+<div class="bg-surface-tertiary p-3 rounded border border-surface-border flex items-center justify-between">
+<div>
+<span class="text-xs font-mono font-bold text-text-muted uppercase tracking-wider block">KEMBALIAN OPERATOR:</span>
+<span class="text-[11px] font-mono text-text-muted">Siapkan pecahan tunai</span>
+</div>
+<div class="font-mono text-2xl font-extrabold text-status-success tracking-tight" id="change-display">
+                Rp 5.000
+              </div>
+</div>
+</div>
+<!-- Action Button: Bayar Cash -->
+<button class="w-full py-3 bg-cta-primary hover:bg-cta-hover active:scale-[0.98] text-white font-mono font-bold text-sm rounded flex items-center justify-center gap-2 shadow-lg transition-all tracking-wider cursor-pointer" id="btn-submit-cash" onclick="processCashPayment()">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>TERIMA PEMBAYARAN CASH [ENTER]</span>
+</button>
+</div>
+<!-- TAB CONTENT 2: QRIS DINAMIS (Hidden default) -->
+<div class="hidden flex-col items-center justify-between flex-1 gap-2.5" id="pay-content-qris">
+<div class="w-full flex items-center justify-between text-xs font-mono border-b border-surface-border pb-1.5">
+<span class="text-text-muted">NMID: ID102938475 • ASPI QRIS</span>
+<span class="text-status-warning font-bold flex items-center gap-1 font-mono">
+<span class="material-symbols-outlined text-[14px]">timer</span> <span id="qris-timer">00:60</span>
+</span>
+</div>
+<!-- QR Dummy -->
+<div class="w-36 h-36 bg-white p-2 rounded flex items-center justify-center shadow-inner">
+<svg class="w-full h-full text-black" fill="currentColor" viewbox="0 0 100 100">
+<rect fill="none" height="26" stroke="currentColor" stroke-width="4" width="26" x="5" y="5"></rect>
+<rect height="14" width="14" x="11" y="11"></rect>
+<rect fill="none" height="26" stroke="currentColor" stroke-width="4" width="26" x="69" y="5"></rect>
+<rect height="14" width="14" x="75" y="11"></rect>
+<rect fill="none" height="26" stroke="currentColor" stroke-width="4" width="26" x="5" y="69"></rect>
+<rect height="14" width="14" x="11" y="75"></rect>
+<rect height="6" width="6" x="36" y="8"></rect>
+<rect height="6" width="8" x="48" y="14"></rect>
+<rect fill="#f97316" height="24" width="24" x="38" y="38"></rect>
+<text fill="#ffffff" font-family="Space Grotesk" font-size="8" font-weight="bold" text-anchor="middle" x="50" y="54">QRIS</text>
+<rect height="8" width="8" x="68" y="40"></rect>
+<rect height="6" width="10" x="42" y="72"></rect>
+<rect height="12" width="12" x="72" y="72"></rect>
+</svg>
+</div>
+<span class="text-xs font-mono text-accent-cyan text-center">Menunggu Scan Nasabah: Rp 15.000 (QR Standar Nasional)</span>
+<div class="grid grid-cols-2 gap-2 w-full font-mono text-xs">
+<button class="py-2.5 rounded bg-status-success text-surface-tertiary font-bold hover:opacity-90 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow" onclick="simulateQRSuccess()">
+<span class="material-symbols-outlined text-[16px]">qr_code_scanner</span>
+<span>[DEV] Simulasi Sukses</span>
+</button>
+<button class="py-2.5 rounded bg-surface-tertiary text-text-muted hover:text-white hover:bg-surface-card border border-surface-border active:scale-95 transition-all cursor-pointer" onclick="switchPayment('cash')">
+              Batalkan [F5]
+            </button>
+</div>
+</div>
+<!-- TAB CONTENT 3: E-MONEY TAP (Hidden default) -->
+<div class="hidden flex-col items-center justify-between flex-1 gap-2.5 font-mono" id="pay-content-emoney">
+<div class="w-full flex items-center justify-between text-xs border-b border-surface-border pb-1.5">
+<span class="text-text-muted">SAM NFC READER INTERFACE (COM4)</span>
+<span class="text-status-success font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span> POLLING READY
+            </span>
+</div>
+<div class="my-auto text-center flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan text-[48px] animate-bounce">contactless</span>
+<span class="text-sm font-bold text-text-high-contrast">TEMPELKAN KARTU E-MONEY / FLAZZ</span>
+<span class="text-xs text-text-muted">Mandiri e-Money • BCA Flazz • BNI TapCash • BRI Brizzi</span>
+<span class="text-[11px] text-accent-blue bg-surface-tertiary px-2.5 py-1 rounded border border-surface-border">Saldo terpotong otomatis Rp 15.000</span>
+</div>
+<div class="w-full flex flex-col gap-1.5">
+<button class="w-full py-2.5 bg-selection-blue text-text-high-contrast text-xs font-bold rounded hover:bg-selection-blue/80 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow" onclick="simulateEMoneyTap()">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+<span>[DEV] Simulasi Tap Kartu Berhasil</span>
+</button>
+<button class="w-full py-1.5 bg-surface-tertiary text-text-muted hover:text-white border border-surface-border text-xs rounded cursor-pointer" onclick="switchPayment('cash')">
+              Ganti Metode [F5]
+            </button>
+</div>
+</div>
+</div>
+<!-- 3. Panel Kontrol Palang Pintu & Printer -->
+<div class="bg-surface-card rounded-lg border border-surface-border p-3 flex flex-col gap-2 flex-none shadow-sm">
+<div class="flex items-center justify-between text-xs font-mono pb-1 border-b border-surface-border">
+<span class="font-bold text-text-high-contrast flex items-center gap-1.5">
+<span class="material-symbols-outlined text-status-warning text-[16px]">door_open</span> Kontrol Palang &amp; Terminal
+          </span>
+<span class="text-text-muted">IO RELAY: PORT 4 (COM3)</span>
+</div>
+<!-- Tombol Buka Palang (Locked/Disabled state default, can be clicked anytime to trigger response) -->
+<button class="w-full py-3 bg-surface-card-subtle text-text-muted hover:bg-surface-tertiary font-mono font-bold text-xs sm:text-sm rounded border border-surface-border flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-98" id="btn-barrier-open" onclick="triggerBarrierOpen()">
+<span class="material-symbols-outlined text-[18px]" id="barrier-lock-icon">lock</span>
+<span id="btn-barrier-label">BUKA PALANG PINTU [F9] (Terkunci: Menunggu Pembayaran Lunas)</span>
+</button>
+<!-- Secondary Buttons (Struk, Batal, Override) -->
+<div class="grid grid-cols-2 gap-2 font-mono text-xs">
+<button class="py-2 px-2 bg-surface-tertiary hover:bg-surface-card-subtle text-text-main hover:text-white rounded border border-surface-border flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95" onclick="printReceipt()">
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">print</span>
+<span>Cetak Struk [F10]</span>
+</button>
+<button class="py-2 px-2 bg-surface-tertiary hover:bg-status-error/20 hover:text-status-error hover:border-status-error/50 text-status-error rounded border border-surface-border flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95" onclick="resetTransaction()">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+<span>Batal / Reset [ESC]</span>
+</button>
+</div>
+<button class="w-full py-1.5 bg-surface-tertiary hover:bg-status-warning/20 hover:text-status-warning hover:border-status-warning/40 text-status-warning font-mono text-xs font-medium rounded border border-surface-border flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95" onclick="openSupervisorModal()">
+<span class="material-symbols-outlined text-[15px]">admin_panel_settings</span>
+<span>Override Supervisor [F11] • Otorisasi Darurat</span>
+</button>
+</div>
+</div>
+</main>
+<!-- ================= BOTTOM FOOTER (Shortcuts Dock - Fully Clickable & Responsive) ================= -->
+<footer class="w-full bg-surface-secondary border-t border-surface-border px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between text-xs font-mono text-text-muted flex-none z-40 gap-2">
+<div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+<!-- F1 Bantuan -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" onclick="openModalBantuan()" title="Pusat Bantuan &amp; SOP Loket [F1]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-surface-border border border-surface-border text-white font-bold text-[11px]">F1</kbd>
+<span class="text-text-main group-hover:text-white font-medium text-[11px]">Bantuan</span>
+</button>
+<!-- F2 Ganti Shift -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" onclick="openModalShift()" title="Ganti Shift &amp; Tutup Sesi [F2]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-surface-border border border-surface-border text-white font-bold text-[11px]">F2</kbd>
+<span class="text-text-main group-hover:text-white font-medium text-[11px]">Ganti Shift</span>
+</button>
+<!-- F3 Scan Tiket -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm" id="dock-f3" onclick="switchInputTab('scan')" title="Scan Tiket Barcode [F3]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-tertiary border border-surface-border text-accent-cyan font-bold text-[11px]">F3</kbd>
+<span class="font-medium text-[11px]">Scan Tiket</span>
+</button>
+<!-- F4 Input Manual -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" id="dock-f4" onclick="switchInputTab('manual')" title="Input Manual Plat Nomor [F4]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-surface-border border border-surface-border text-white font-bold text-[11px]">F4</kbd>
+<span class="text-text-main group-hover:text-white font-medium text-[11px]">Input Manual</span>
+</button>
+<!-- F5 Tunai -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm" id="dock-f5" onclick="switchPayment('cash')" title="Pembayaran Tunai / Cash [F5]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-tertiary border border-surface-border text-white font-bold text-[11px]">F5</kbd>
+<span class="font-medium text-[11px]">Tunai</span>
+</button>
+<!-- F6 QRIS -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" id="dock-f6" onclick="switchPayment('qris')" title="QRIS Dinamis [F6]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-surface-border border border-surface-border text-white font-bold text-[11px]">F6</kbd>
+<span class="text-text-main group-hover:text-white font-medium text-[11px]">QRIS</span>
+</button>
+<!-- F7 E-Money -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" id="dock-f7" onclick="switchPayment('emoney')" title="Kartu E-Money / Flazz [F7]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-surface-border border border-surface-border text-white font-bold text-[11px]">F7</kbd>
+<span class="text-text-main group-hover:text-white font-medium text-[11px]">E-Money</span>
+</button>
+<!-- F9 Buka Palang -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-status-success/20 hover:bg-status-success text-status-success hover:text-surface-tertiary border border-status-success/50 active:scale-95 transition-all cursor-pointer group shadow-sm font-semibold" id="dock-f9" onclick="triggerBarrierOpen()" title="Buka Palang Pintu Barrier [F9]">
+<kbd class="px-1.5 py-0.5 rounded bg-status-success text-black font-bold text-[11px]">F9</kbd>
+<span class="text-[11px]">Buka Palang</span>
+</button>
+<!-- F10 Cetak -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" id="dock-f10" onclick="printReceipt()" title="Cetak Struk Thermal EPSON [F10]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-surface-border border border-surface-border text-white font-bold text-[11px]">F10</kbd>
+<span class="text-text-main group-hover:text-white font-medium text-[11px]">Cetak</span>
+</button>
+<!-- F11 Override -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-status-warning/20 hover:bg-status-warning text-status-warning hover:text-surface-tertiary border border-status-warning/50 active:scale-95 transition-all cursor-pointer group shadow-sm font-semibold" id="dock-f11" onclick="openSupervisorModal()" title="Otorisasi Supervisor Darurat [F11]">
+<kbd class="px-1.5 py-0.5 rounded bg-status-warning text-black font-bold text-[11px]">F11</kbd>
+<span class="text-[11px]">Override</span>
+</button>
+<!-- ESC Batal / Reset -->
+<button class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-status-error/20 hover:text-status-error border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm" onclick="handleEscAction()" title="Tutup Modal atau Batal Transaksi [ESC]">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-card group-hover:bg-status-error group-hover:text-white border border-surface-border text-status-error font-bold text-[11px]">ESC</kbd>
+<span class="text-text-muted group-hover:text-status-error font-medium text-[11px]">Batal / Tutup</span>
+</button>
+</div>
+<div class="flex items-center gap-3 text-[11px]">
+<span class="text-accent-cyan">Session: #SESS-20241024-001</span>
+<span class="text-surface-border">|</span>
+<span>Audit Level: <strong class="text-text-high-contrast">Standard 1</strong></span>
+</div>
+</footer>
+<!-- ================= MODAL 1: BANTUAN & SOP LOKET [F1] ================= -->
+<div class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm" id="modal-bantuan">
+<div class="bg-surface-card border border-surface-border p-5 rounded-lg max-w-xl w-full flex flex-col gap-3 shadow-2xl font-mono animate-in fade-in zoom-in-95 duration-150">
+<div class="flex items-center justify-between border-b border-surface-border pb-2.5">
+<div class="flex items-center gap-2 text-accent-cyan">
+<span class="material-symbols-outlined text-[24px]">help_center</span>
+<div>
+<h3 class="font-bold text-sm text-text-high-contrast">Pusat Bantuan &amp; SOP Loket [F1]</h3>
+<span class="text-[10px] text-text-muted">Prosedur Operasi Standar Exit Gate &amp; Penanganan Masalah</span>
+</div>
+</div>
+<button class="text-text-muted hover:text-white p-1 rounded hover:bg-surface-tertiary transition-colors cursor-pointer active:scale-95" onclick="closeAllModals()" title="Tutup [ESC]">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Tabs Sop -->
+<div class="grid grid-cols-3 gap-1 bg-surface-tertiary p-1 rounded border border-surface-border-subtle text-xs">
+<button class="py-1.5 px-2 rounded font-bold bg-selection-blue text-text-high-contrast transition-all cursor-pointer" id="sop-tab-tiket" onclick="switchSopTab('tiket')">Tiket Hilang</button>
+<button class="py-1.5 px-2 rounded font-medium text-text-muted hover:text-white transition-all cursor-pointer" id="sop-tab-palang" onclick="switchSopTab('palang')">Palang Macet</button>
+<button class="py-1.5 px-2 rounded font-medium text-text-muted hover:text-white transition-all cursor-pointer" id="sop-tab-qris" onclick="switchSopTab('qris')">Kendala QRIS/Tap</button>
+</div>
+<!-- Sop Content Area -->
+<div class="bg-surface-tertiary p-3 rounded border border-surface-border text-xs min-h-[160px] flex flex-col justify-between" id="sop-body">
+<div class="space-y-2 text-text-main font-sans" id="sop-content-tiket">
+<p class="font-bold text-accent-cyan font-mono text-xs">Prosedur Tiket Hilang (Denda + Tarif Parkir):</p>
+<ul class="list-disc pl-5 space-y-1 text-xs text-text-muted">
+<li>Minta pengemudi menunjukkan STNK asli sesuai plat nomor kendaraan.</li>
+<li>Cek rekaman ANPR kamera masuk berdasarkan perkiraan jam dan nomor plat.</li>
+<li>Gunakan mode <strong class="text-text-high-contrast font-mono">[F4] Input Manual</strong> untuk mencocokkan plat nomor.</li>
+<li>Tekan <strong class="text-status-warning font-mono">[F11] Override Supervisor</strong> bila memerlukan input denda khusus tiket hilang.</li>
+</ul>
+</div>
+<div class="hidden space-y-2 text-text-main font-sans" id="sop-content-palang">
+<p class="font-bold text-status-warning font-mono text-xs">Prosedur Palang Macet / Barrier Loop Fail:</p>
+<ul class="list-disc pl-5 space-y-1 text-xs text-text-muted">
+<li>Pastikan kendaraan sudah melunasi pembayaran parkir.</li>
+<li>Tekan tombol darurat <strong class="text-status-success font-mono">[F9] Buka Palang</strong> untuk force pulse relay COM3.</li>
+<li>Jika motorik palang tetap tidak bergerak, periksa saklar manual limit switch di dalam kabin barrier gate.</li>
+<li>Panggil pengawas lapangan / teknisi bila motor servo macet mekanik.</li>
+</ul>
+</div>
+<div class="hidden space-y-2 text-text-main font-sans" id="sop-content-qris">
+<p class="font-bold text-accent-blue font-mono text-xs">Prosedur Gagal Saldo / QRIS Timeout:</p>
+<ul class="list-disc pl-5 space-y-1 text-xs text-text-muted">
+<li>Bila saldo pelanggan terpotong namun status UNPAID: catat No. RRN perbankan nasabah.</li>
+<li>Gunakan tombol <strong class="text-text-high-contrast font-mono">[DEV] Simulasi Sukses</strong> hanya jika verifikasi mutasi EDC bank telah terbit.</li>
+<li>Tawarkan alternatif bayar tunai <strong class="text-text-high-contrast font-mono">[F5]</strong> atau kartu E-Money bank lain <strong class="text-text-high-contrast font-mono">[F7]</strong>.</li>
+</ul>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between gap-2 pt-1 border-t border-surface-border">
+<button class="px-3 py-2 bg-selection-blue hover:bg-selection-blue/80 text-text-high-contrast font-mono font-bold text-xs rounded border border-accent-blue/50 flex items-center gap-1.5 cursor-pointer active:scale-95 transition-all shadow" onclick="callIntercomSPV()">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+<span>Panggil Interkom SPV</span>
+</button>
+<button class="px-4 py-2 bg-surface-tertiary hover:bg-surface-card text-text-muted hover:text-white border border-surface-border text-xs rounded cursor-pointer active:scale-95 transition-all" onclick="closeAllModals()">
+          Tutup [ESC]
+        </button>
+</div>
+</div>
+</div>
+<!-- ================= MODAL 2: GANTI SHIFT & TUTUP SESI [F2] ================= -->
+<div class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm" id="modal-shift">
+<div class="bg-surface-card border border-surface-border p-5 rounded-lg max-w-lg w-full flex flex-col gap-3.5 shadow-2xl font-mono animate-in fade-in zoom-in-95 duration-150">
+<div class="flex items-center justify-between border-b border-surface-border pb-2.5">
+<div class="flex items-center gap-2 text-accent-cyan">
+<span class="material-symbols-outlined text-[24px]">swap_horiz</span>
+<div>
+<h3 class="font-bold text-sm text-text-high-contrast">Ganti Shift &amp; Tutup Sesi [F2]</h3>
+<span class="text-[10px] text-text-muted">Serah Terima Laci Kasir &amp; Laporan Z-Report</span>
+</div>
+</div>
+<button class="text-text-muted hover:text-white p-1 rounded hover:bg-surface-tertiary transition-colors cursor-pointer active:scale-95" onclick="closeAllModals()" title="Tutup [ESC]">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Current Shift Stats Summary -->
+<div class="bg-surface-tertiary p-3 rounded border border-surface-border grid grid-cols-3 gap-2 text-xs">
+<div>
+<span class="text-[10px] text-text-muted block">OPERATOR AKTIF</span>
+<span class="font-bold text-text-high-contrast">Budi Santoso</span>
+<span class="text-[10px] text-accent-cyan">Shift Pagi</span>
+</div>
+<div>
+<span class="text-[10px] text-text-muted block">TOTAL KENDARAAN</span>
+<span class="font-bold text-text-high-contrast">142 Unit</span>
+<span class="text-[10px] text-status-success">100% Selesai</span>
+</div>
+<div>
+<span class="text-[10px] text-text-muted block">TOTAL KAS TUNAI</span>
+<span class="font-bold text-status-success text-sm">Rp 1.840.000</span>
+<span class="text-[10px] text-text-muted">Fisik di Laci</span>
+</div>
+</div>
+<!-- Tabs Switch Shift Mode -->
+<div class="grid grid-cols-2 gap-1.5 bg-surface-tertiary p-1 rounded border border-surface-border-subtle text-xs">
+<button class="py-1.5 rounded font-bold bg-selection-blue text-text-high-contrast cursor-pointer transition-all" id="shift-tab-operasional" onclick="switchShiftTab('operasional')">Opsi A: Serah Terima Operator</button>
+<button class="py-1.5 rounded font-medium text-text-muted hover:text-white cursor-pointer transition-all" id="shift-tab-end" onclick="switchShiftTab('end')">Opsi B: End Shift (Tutup Sesi)</button>
+</div>
+<!-- Shift Form A: Serah Terima -->
+<div class="space-y-2.5 text-xs" id="shift-panel-operasional">
+<div>
+<label class="block text-text-muted uppercase text-[10px] mb-1">NIP Operator Pengganti</label>
+<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono focus:border-accent-cyan focus:outline-none" id="shift-next-nip" placeholder="Contoh: OP-8820 (Agus W)" value="OP-8820 (Agus W)"/>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block text-text-muted uppercase text-[10px] mb-1">PIN Pengganti (4 Digit)</label>
+<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono text-center tracking-widest focus:border-accent-cyan focus:outline-none" maxlength="4" placeholder="****" type="password" value="1234"/>
+</div>
+<div>
+<label class="block text-text-muted uppercase text-[10px] mb-1">Modal Awal Laci Kas</label>
+<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono focus:border-accent-cyan focus:outline-none" value="Rp 200.000"/>
+</div>
+</div>
+<button class="w-full py-2.5 bg-cta-primary hover:bg-cta-hover text-white font-mono font-bold text-xs rounded transition-all active:scale-95 cursor-pointer shadow flex items-center justify-center gap-1.5" onclick="executeHandoverShift()">
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+<span>Konfirmasi Serah Terima Kasir</span>
+</button>
+</div>
+<!-- Shift Form B: End Shift -->
+<div class="hidden space-y-2.5 text-xs" id="shift-panel-end">
+<p class="text-text-muted font-sans text-xs">
+          Tutup sesi loket sepenuhnya, cetak Z-Report ringkasan harian, dan set status booth menjadi OFFLINE.
+        </p>
+<div class="p-2.5 bg-surface-tertiary rounded border border-surface-border flex items-center justify-between text-xs">
+<span class="text-text-muted">Cetak Z-Report ke Printer Epson:</span>
+<span class="text-status-success font-bold font-mono">AKTIF (AUTO-PRINT)</span>
+</div>
+<button class="w-full py-2.5 bg-status-error hover:opacity-90 text-white font-mono font-bold text-xs rounded transition-all active:scale-95 cursor-pointer shadow flex items-center justify-center gap-1.5" onclick="executeEndShift()">
+<span class="material-symbols-outlined text-[16px]">lock_clock</span>
+<span>Tutup Sesi &amp; Kunci Booth Offline</span>
+</button>
+</div>
+<div class="pt-1 border-t border-surface-border flex justify-end">
+<button class="px-4 py-1.5 bg-surface-tertiary hover:bg-surface-card text-text-muted hover:text-white border border-surface-border text-xs rounded cursor-pointer active:scale-95 transition-all" onclick="closeAllModals()">
+          Batal [ESC]
+        </button>
+</div>
+</div>
+</div>
+<!-- ================= MODAL 3: SUPERVISOR OVERRIDE [F11] ================= -->
+<div class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm" id="modal-supervisor">
+<div class="bg-surface-card border border-surface-border p-5 rounded-lg max-w-md w-full flex flex-col gap-3 shadow-2xl font-mono animate-in fade-in zoom-in-95 duration-150">
+<div class="flex items-center justify-between border-b border-surface-border pb-2">
+<div class="flex items-center gap-2 text-status-warning">
+<span class="material-symbols-outlined text-[22px]">admin_panel_settings</span>
+<span class="font-bold text-sm">Otorisasi Supervisor [F11]</span>
+</div>
+<button class="text-text-muted hover:text-white p-1 rounded hover:bg-surface-tertiary transition-colors cursor-pointer active:scale-95" onclick="closeAllModals()" title="Tutup [ESC]">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="text-xs text-text-muted font-sans">
+        Buka paksa palang tanpa verifikasi pembayaran kasir. Tindakan ini dicatat ke log audit database sentral.
+      </p>
+<!-- PIN Display & Input -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-xs text-text-muted uppercase">
+<span>PIN Supervisor (6 Digit)</span>
+<button class="text-status-warning hover:underline text-[10px] cursor-pointer" onclick="clearSupervisorPin()">Clear</button>
+</div>
+<input class="bg-surface-tertiary border border-surface-border text-text-high-contrast text-center text-lg tracking-widest py-1.5 rounded focus:outline-none focus:border-accent-cyan font-mono" id="supervisor-pin-input" maxlength="6" placeholder="******" type="password" value="889900"/>
+</div>
+<!-- Clickable Numpad for Touch/Mouse -->
+<div class="grid grid-cols-3 gap-1 text-xs font-mono font-bold pt-1">
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('1')">1</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('2')">2</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('3')">3</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('4')">4</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('5')">5</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('6')">6</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('7')">7</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('8')">8</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('9')">9</button>
+<button class="py-2 bg-surface-tertiary hover:bg-status-error/30 text-status-error border border-surface-border rounded active:scale-95 cursor-pointer" onclick="clearSupervisorPin()">C</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-high-contrast rounded active:scale-95 cursor-pointer" onclick="appendSupervisorPin('0')">0</button>
+<button class="py-2 bg-surface-tertiary hover:bg-selection-blue border border-surface-border text-text-muted hover:text-white rounded active:scale-95 cursor-pointer flex items-center justify-center" onclick="backspaceSupervisorPin()">
+<span class="material-symbols-outlined text-[15px]">backspace</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs text-text-muted uppercase">Alasan Override</label>
+<select class="bg-surface-tertiary border border-surface-border text-text-high-contrast text-xs py-2 px-2 rounded focus:outline-none cursor-pointer" id="supervisor-reason">
+<option>Kendaraan Dinas / Operasional VIP</option>
+<option>Gangguan Hardware Tiket / Barcode Rusak</option>
+<option>Instruksi Lapangan Management</option>
+<option>Pemulihan Darurat Sistem</option>
+</select>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 bg-status-warning hover:opacity-90 active:scale-95 text-surface-tertiary font-bold text-xs rounded transition-all cursor-pointer shadow" onclick="executeOverride()">
+          Otorisasi &amp; Buka Palang
+        </button>
+<button class="px-4 py-2.5 bg-surface-tertiary text-text-muted hover:text-white border border-surface-border text-xs rounded cursor-pointer active:scale-95 transition-all" onclick="closeAllModals()">
+          Batal [ESC]
+        </button>
+</div>
+</div>
+</div>
+<!-- ================= SCRIPTS ================= -->
+<script>
+    const totalFare = 15000;
+    let isPaid = false;
+    let qrisCountdown = 60;
+    let qrisTimerInterval = null;
+
+    // Toast Notification Utility
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      let borderCol = 'border-accent-cyan';
+      let icon = 'info';
+      let textCol = 'text-accent-cyan';
+      
+      if (type === 'success') {
+        borderCol = 'border-status-success';
+        icon = 'check_circle';
+        textCol = 'text-status-success';
+      } else if (type === 'warning') {
+        borderCol = 'border-status-warning';
+        icon = 'warning';
+        textCol = 'text-status-warning';
+      } else if (type === 'error') {
+        borderCol = 'border-status-error';
+        icon = 'error';
+        textCol = 'text-status-error';
+      }
+
+      toast.className = `bg-surface-secondary border ${borderCol} text-text-high-contrast px-3 py-2 rounded shadow-2xl font-mono text-xs flex items-center gap-2 transition-all transform translate-y-2 opacity-0 pointer-events-auto`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-[18px] ${textCol}">${icon}</span>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-4');
+        setTimeout(() => toast.remove(), 250);
+      }, 3500);
+    }
+
+    // Real-time Clock
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) {
+        clockEl.innerHTML = `${hours}:${minutes}:${seconds} <span class="text-xs text-accent-cyan">WIB</span>`;
+      }
+    }
+    setInterval(updateClock, 1000);
+
+    // Update Dock Highlights for Modes
+    function updateDockStyles(activeTab) {
+      const dockScan = document.getElementById('dock-f3');
+      const dockManual = document.getElementById('dock-f4');
+      
+      if (activeTab === 'scan') {
+        dockScan.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm';
+        dockManual.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm';
+      } else {
+        dockManual.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm';
+        dockScan.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm';
+      }
+    }
+
+    function updateDockPayStyles(method) {
+      const dockCash = document.getElementById('dock-f5');
+      const dockQris = document.getElementById('dock-f6');
+      const dockEmoney = document.getElementById('dock-f7');
+
+      [dockCash, dockQris, dockEmoney].forEach(d => {
+        d.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-surface-tertiary hover:bg-surface-card hover:text-white border border-surface-border active:scale-95 transition-all cursor-pointer group shadow-sm';
+      });
+
+      if (method === 'cash') {
+        dockCash.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm';
+      } else if (method === 'qris') {
+        dockQris.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm';
+      } else if (method === 'emoney') {
+        dockEmoney.className = 'flex items-center gap-1.5 px-2 py-1 rounded bg-selection-blue text-text-high-contrast border border-accent-blue/40 active:scale-95 transition-all cursor-pointer group shadow-sm';
+      }
+    }
+
+    // Switch Input Modes (Scan vs Manual)
+    function switchInputTab(mode) {
+      closeAllModals();
+      const btnScan = document.getElementById('tab-scan-btn');
+      const btnManual = document.getElementById('tab-manual-btn');
+      const panelScan = document.getElementById('panel-scan');
+      const panelManual = document.getElementById('panel-manual');
+      const payloadInd = document.getElementById('scanner-payload-indicator');
+
+      if (mode === 'scan') {
+        btnScan.className = 'px-3 py-1.5 rounded text-xs font-mono font-bold bg-selection-blue text-text-high-contrast flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shadow-sm';
+        btnManual.className = 'px-3 py-1.5 rounded text-xs font-mono font-medium text-text-muted hover:text-white hover:bg-surface-card flex items-center gap-1.5 transition-all cursor-pointer active:scale-95';
+        panelScan.classList.remove('hidden');
+        panelManual.classList.add('hidden');
+        panelManual.classList.remove('grid');
+        payloadInd.innerHTML = '<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span>BARCODE SCANNER PAYLOAD READY</span>';
+        updateDockStyles('scan');
+        const input = document.getElementById('barcode-input');
+        input.focus();
+        input.select();
+        showToast('Mode Scan Tiket [F3] Aktif - Scanner Siap', 'info');
+      } else {
+        btnManual.className = 'px-3 py-1.5 rounded text-xs font-mono font-bold bg-selection-blue text-text-high-contrast flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shadow-sm';
+        btnScan.className = 'px-3 py-1.5 rounded text-xs font-mono font-medium text-text-muted hover:text-white hover:bg-surface-card flex items-center gap-1.5 transition-all cursor-pointer active:scale-95';
+        panelScan.classList.add('hidden');
+        panelManual.classList.remove('hidden');
+        panelManual.classList.add('grid');
+        payloadInd.innerHTML = '<span class="w-2 h-2 rounded-full bg-accent-blue"></span><span>KEYBOARD MANUAL ENTRY MODE</span>';
+        updateDockStyles('manual');
+        const manualInput = document.getElementById('manual-plate-input');
+        manualInput.focus();
+        manualInput.select();
+        showToast('Mode Input Manual [F4] Aktif - Silakan Ketik Plat', 'info');
+      }
+    }
+
+    // Switch Payment Tabs
+    function switchPayment(method) {
+      closeAllModals();
+      const methods = ['cash', 'qris', 'emoney'];
+      methods.forEach(m => {
+        const tab = document.getElementById('pay-tab-' + m);
+        const content = document.getElementById('pay-content-' + m);
+        if (m === method) {
+          tab.className = 'py-2 px-1 rounded font-bold bg-selection-blue text-text-high-contrast flex flex-col items-center justify-center gap-0.5 border border-accent-blue/50 transition-all cursor-pointer active:scale-95 shadow-sm';
+          content.classList.remove('hidden');
+          content.classList.add('flex');
+        } else {
+          tab.className = 'py-2 px-1 rounded font-medium bg-surface-card-subtle text-text-muted hover:text-white hover:bg-surface-card flex flex-col items-center justify-center gap-0.5 border border-surface-border transition-all cursor-pointer active:scale-95';
+          content.classList.add('hidden');
+          content.classList.remove('flex');
+        }
+      });
+
+      updateDockPayStyles(method);
+
+      if (method === 'cash') {
+        const input = document.getElementById('cash-input');
+        input.focus();
+        input.select();
+        showToast('Metode Tunai / Cash [F5] Aktif', 'info');
+      } else if (method === 'qris') {
+        startQrisCountdown();
+        showToast('QRIS Dinamis [F6] Aktif - Menunggu Scan Pelanggan', 'warning');
+      } else if (method === 'emoney') {
+        showToast('E-Money Tap [F7] Aktif - SAM Reader Polling', 'info');
+      }
+    }
+
+    function startQrisCountdown() {
+      clearInterval(qrisTimerInterval);
+      qrisCountdown = 60;
+      const timerEl = document.getElementById('qris-timer');
+      if (timerEl) timerEl.textContent = '00:60';
+
+      qrisTimerInterval = setInterval(() => {
+        qrisCountdown--;
+        if (qrisCountdown <= 0) {
+          clearInterval(qrisTimerInterval);
+          if (timerEl) timerEl.textContent = 'EXPIRED';
+          showToast('Waktu QRIS Habis. Silakan generate ulang.', 'warning');
+        } else {
+          const sec = String(qrisCountdown).padStart(2, '0');
+          if (timerEl) timerEl.textContent = `00:${sec}`;
+        }
+      }, 1000);
+    }
+
+    function setCash(amount) {
+      document.getElementById('cash-input').value = amount;
+      calculateChange();
+    }
+
+    function calculateChange() {
+      const cash = parseFloat(document.getElementById('cash-input').value) || 0;
+      const change = cash - totalFare;
+      const display = document.getElementById('change-display');
+
+      if (change >= 0) {
+        display.textContent = 'Rp ' + change.toLocaleString('id-ID');
+        display.className = 'font-mono text-2xl font-extrabold text-status-success tracking-tight';
+      } else {
+        display.textContent = '- Rp ' + Math.abs(change).toLocaleString('id-ID');
+        display.className = 'font-mono text-2xl font-extrabold text-status-error tracking-tight';
+      }
+    }
+
+    function markAsPaid(methodLabel) {
+      isPaid = true;
+      const statusBadge = document.getElementById('status-text-badge');
+      const pulseDot = document.getElementById('status-pulse-dot');
+      const btnBarrier = document.getElementById('btn-barrier-open');
+      const barrierLabel = document.getElementById('btn-barrier-label');
+      const barrierIcon = document.getElementById('barrier-lock-icon');
+
+      statusBadge.textContent = 'STATUS: LUNAS (PAID) VIA ' + methodLabel;
+      statusBadge.className = 'text-xs font-mono font-bold text-status-success tracking-wide';
+      pulseDot.className = 'w-3 h-3 rounded-full bg-status-success';
+
+      btnBarrier.className = 'w-full py-3 bg-status-success hover:bg-status-success/90 active:scale-[0.98] text-surface-tertiary font-mono font-bold text-xs sm:text-sm rounded border border-status-success flex items-center justify-center gap-2 cursor-pointer shadow-lg transition-all';
+      barrierIcon.textContent = 'lock_open';
+      barrierLabel.textContent = 'BUKA PALANG PINTU [F9] (IZIN TERBIT: SIAP BUKA)';
+
+      showToast(`Pembayaran Sukses via ${methodLabel}! Izin Buka Palang Aktif.`, 'success');
+    }
+
+    function processCashPayment() {
+      const cash = parseFloat(document.getElementById('cash-input').value) || 0;
+      if (cash < totalFare) {
+        showToast('Nominal tunai kurang dari total pembayaran!', 'error');
+        document.getElementById('cash-input').focus();
+        return;
+      }
+      const btn = document.getElementById('btn-submit-cash');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>MEMPROSES SERVER...</span>';
+
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>PEMBAYARAN CASH SUKSES</span>';
+        btn.className = 'w-full py-3 bg-surface-tertiary text-status-success font-mono font-bold text-sm rounded border border-status-success flex items-center justify-center gap-2 cursor-pointer';
+        markAsPaid('CASH');
+      }, 400);
+    }
+
+    function simulateQRSuccess() {
+      markAsPaid('QRIS');
+    }
+
+    function simulateEMoneyTap() {
+      markAsPaid('E-MONEY');
+    }
+
+    // F9 Trigger Barrier Open
+    function triggerBarrierOpen() {
+      if (!isPaid) {
+        showToast('Palang Terkunci! Selesaikan pembayaran atau gunakan Override SPV [F11]', 'warning');
+        return;
+      }
+      const barrierLabel = document.getElementById('btn-barrier-label');
+      barrierLabel.textContent = 'PALANG TELAH DIBUKA [RELAY COM3 SENT]';
+      showToast('Sinyal relay COM3 terkirim! Palang terbuka, sensor loop aktif.', 'success');
+    }
+
+    // F10 Print Receipt
+    function printReceipt() {
+      showToast('Mencetak struk transaksi ke printer EPSON TM-T82...', 'info');
+      setTimeout(() => {
+        showToast('Struk berhasil dicetak!', 'success');
+      }, 800);
+    }
+
+    // F1 Open Modal Bantuan
+    function openModalBantuan() {
+      closeAllModals();
+      const modal = document.getElementById('modal-bantuan');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function switchSopTab(tab) {
+      const tabs = ['tiket', 'palang', 'qris'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('sop-tab-' + t);
+        const content = document.getElementById('sop-content-' + t);
+        if (t === tab) {
+          btn.className = 'py-1.5 px-2 rounded font-bold bg-selection-blue text-text-high-contrast transition-all cursor-pointer';
+          content.classList.remove('hidden');
+        } else {
+          btn.className = 'py-1.5 px-2 rounded font-medium text-text-muted hover:text-white transition-all cursor-pointer';
+          content.classList.add('hidden');
+        }
+      });
+    }
+
+    function callIntercomSPV() {
+      showToast('Menghubungkan interkom audio ke Pos Supervisor Ruang Kontrol...', 'info');
+      setTimeout(() => {
+        showToast('Interkom SPV Terhubung (Line 01 Active)', 'success');
+      }, 1000);
+    }
+
+    // F2 Open Modal Shift
+    function openModalShift() {
+      closeAllModals();
+      const modal = document.getElementById('modal-shift');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function switchShiftTab(tab) {
+      const btnOp = document.getElementById('shift-tab-operasional');
+      const btnEnd = document.getElementById('shift-tab-end');
+      const panelOp = document.getElementById('shift-panel-operasional');
+      const panelEnd = document.getElementById('shift-panel-end');
+
+      if (tab === 'operasional') {
+        btnOp.className = 'py-1.5 rounded font-bold bg-selection-blue text-text-high-contrast cursor-pointer transition-all';
+        btnEnd.className = 'py-1.5 rounded font-medium text-text-muted hover:text-white cursor-pointer transition-all';
+        panelOp.classList.remove('hidden');
+        panelEnd.classList.add('hidden');
+      } else {
+        btnEnd.className = 'py-1.5 rounded font-bold bg-selection-blue text-text-high-contrast cursor-pointer transition-all';
+        btnOp.className = 'py-1.5 rounded font-medium text-text-muted hover:text-white cursor-pointer transition-all';
+        panelEnd.classList.remove('hidden');
+        panelOp.classList.add('hidden');
+      }
+    }
+
+    function executeHandoverShift() {
+      const nextNip = document.getElementById('shift-next-nip').value;
+      closeAllModals();
+      showToast(`Serah terima sukses! Sesi dialihkan ke ${nextNip}. Mencetak bukti serah terima...`, 'success');
+    }
+
+    function executeEndShift() {
+      closeAllModals();
+      showToast('Z-Report sedang dicetak ke printer. Menutup booth exit...', 'warning');
+      setTimeout(() => {
+        showToast('Booth Loket Exit 01 telah terkunci (Offline).', 'info');
+      }, 1200);
+    }
+
+    // F11 Open Supervisor Modal
+    function openSupervisorModal() {
+      closeAllModals();
+      const modal = document.getElementById('modal-supervisor');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      const pinInput = document.getElementById('supervisor-pin-input');
+      pinInput.focus();
+    }
+
+    function appendSupervisorPin(digit) {
+      const pinInput = document.getElementById('supervisor-pin-input');
+      if (pinInput.value.length < 6) {
+        pinInput.value += digit;
+      }
+    }
+
+    function backspaceSupervisorPin() {
+      const pinInput = document.getElementById('supervisor-pin-input');
+      pinInput.value = pinInput.value.slice(0, -1);
+    }
+
+    function clearSupervisorPin() {
+      const pinInput = document.getElementById('supervisor-pin-input');
+      pinInput.value = '';
+    }
+
+    function executeOverride() {
+      const pin = document.getElementById('supervisor-pin-input').value;
+      const reason = document.getElementById('supervisor-reason').value;
+      if (pin.length < 4) {
+        showToast('PIN Supervisor harus diisi minimal 4 digit!', 'error');
+        return;
+      }
+      closeAllModals();
+      markAsPaid('OVERRIDE SPV (' + reason + ')');
+      showToast('Override disetujui! Palang dibuka paksa & dicatat ke audit log.', 'warning');
+    }
+
+    // General Modal Helpers
+    function closeAllModals() {
+      ['modal-supervisor', 'modal-bantuan', 'modal-shift'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+    }
+
+    function handleEscAction() {
+      // If modal is open, close it; else reset/batal
+      const anyModalOpen = ['modal-supervisor', 'modal-bantuan', 'modal-shift'].some(id => {
+        const el = document.getElementById(id);
+        return el && !el.classList.contains('hidden');
+      });
+
+      if (anyModalOpen) {
+        closeAllModals();
+        showToast('Dialog ditutup [ESC]', 'info');
+      } else {
+        resetTransaction();
+      }
+    }
+
+    function resetTransaction() {
+      if (confirm('Batal / Reset transaksi loket ini?')) {
+        location.reload();
+      }
+    }
+
+    // Unified Physical Keyboard Shortcuts Listener (e.preventDefault & key mapping)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F1') {
+        e.preventDefault();
+        openModalBantuan();
+      } else if (e.key === 'F2') {
+        e.preventDefault();
+        openModalShift();
+      } else if (e.key === 'F3') {
+        e.preventDefault();
+        switchInputTab('scan');
+      } else if (e.key === 'F4') {
+        e.preventDefault();
+        switchInputTab('manual');
+      } else if (e.key === 'F5') {
+        e.preventDefault();
+        switchPayment('cash');
+      } else if (e.key === 'F6') {
+        e.preventDefault();
+        switchPayment('qris');
+      } else if (e.key === 'F7') {
+        e.preventDefault();
+        switchPayment('emoney');
+      } else if (e.key === 'F9') {
+        e.preventDefault();
+        triggerBarrierOpen();
+      } else if (e.key === 'F10') {
+        e.preventDefault();
+        printReceipt();
+      } else if (e.key === 'F11') {
+        e.preventDefault();
+        openSupervisorModal();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        handleEscAction();
+      } else if (e.key === 'Enter') {
+        const cashPanel = document.getElementById('pay-content-cash');
+        const modalSpv = document.getElementById('modal-supervisor');
+        
+        if (modalSpv && !modalSpv.classList.contains('hidden')) {
+          e.preventDefault();
+          executeOverride();
+        } else if (cashPanel && !cashPanel.classList.contains('hidden') && !isPaid) {
+          e.preventDefault();
+          processCashPayment();
+        }
+      }
+    });
+  </script>
+</body></html>

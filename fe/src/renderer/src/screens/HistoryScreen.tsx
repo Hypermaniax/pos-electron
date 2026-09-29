@@ -1,7 +1,7 @@
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import type { PaymentMethod, PaymentStatus, PaymentTransaction } from '@shared/types'
-import { listTransactions, statusLabel } from '../mock/api'
+import { listTransactions, statusLabel } from '../lib/server-api'
 import { useShift } from '../context/ShiftContext'
 import { formatCurrency, formatDateTime } from '../lib/format'
 import { Badge } from '@renderer/components/ui/badge'
@@ -52,7 +52,7 @@ export function HistoryScreen(): React.JSX.Element {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-lg font-semibold">Riwayat transaksi</h1>
+        <h1 className="font-heading text-xl font-bold tracking-tight">Riwayat Transaksi</h1>
         <p className="text-sm text-muted-foreground">
           {shift
             ? `Transaksi pada shift aktif (${shift.openedByName}).`

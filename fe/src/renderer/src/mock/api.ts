@@ -364,9 +364,17 @@ export async function openGate(
   const correlationId = nextId('corr')
   const result: GateResult =
     simulate === 'failed'
-      ? { status: 'FAILED', message: 'Perintah buka palang ditolak perangkat gerbang.', correlationId }
+      ? {
+          status: 'FAILED',
+          message: 'Perintah buka palang ditolak perangkat gerbang.',
+          correlationId
+        }
       : simulate === 'timeout'
-        ? { status: 'TIMEOUT', message: 'Perangkat gerbang tidak merespons tepat waktu.', correlationId }
+        ? {
+            status: 'TIMEOUT',
+            message: 'Perangkat gerbang tidak merespons tepat waktu.',
+            correlationId
+          }
         : { status: 'SUCCESS', message: 'Palang pintu berhasil dibuka.', correlationId }
 
   if (result.status === 'SUCCESS') {
@@ -446,7 +454,8 @@ export async function closeShift(
   const shift = shifts.find((candidate) => candidate.id === shiftId)
   if (!shift) return fail('NOT_FOUND', 'Shift tidak ditemukan.')
   const pending = rawSessions.some(
-    (session) => session.paymentStatus === 'PENDING_QR' || session.paymentStatus === 'PENDING_EMONEY'
+    (session) =>
+      session.paymentStatus === 'PENDING_QR' || session.paymentStatus === 'PENDING_EMONEY'
   )
   if (pending) {
     return fail(

@@ -1,8 +1,10 @@
 import { prisma } from '../db/prisma'
 import { Errors } from '../lib/errors'
+import { newId } from '../lib/ids'
 import { calculateAmount, durationMinutes } from '../domain/tariff'
 import {
   findSessionById,
+  listLatestSessions,
   searchSessionsByScan,
   searchSessionsByText
 } from '../repositories/session.repository'
@@ -95,6 +97,55 @@ export async function getSession(sessionId: string): Promise<ParkingSession> {
   return toParkingSession(await getSessionOrThrow(sessionId))
 }
 
+export async function listSessions(limit: number): Promise<ParkingSession[]> {
+  const rows = await listLatestSessions(prisma, limit)
+  return rows.map(toParkingSession)
+}
+
 export function resolveSessionAmount(session: SessionRow): number {
   return session.amount ?? calculateAmount(session.vehicleType, session.entryTime.toISOString())
+}
+
+export interface CheckInInput {
+  plateNumber: string
+  vehicleType: string
+  laneIn: string
+}
+
+function ticketStamp(date: Date): string {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}${m}${d}`
+}
+
+async function generateTicketNumber(attempts = 5): Promise<string> {
+ const stamp = ticketStamp(new Date())
+  for (let index = 0; index < attempts; index += 1) {
+    const candidate = `TKT-${stamp}-${Math.floor(1000 + Math.random() * 9000)}`
+    const existing = await prisma.parkingSession.findUnique({
+      where: { ticketNumber: candidate },
+      select: { id: true }
+    })
+    if (!existing) return candidate
+  }
+  throw Errors.validation('Gagal membuat nomor tiket unik. Coba lagi.')
+}
+
+export async function createSession(input: CheckInInput): Promise<ParkingSession> {
+  const entryTime = new Date()
+  const ticketNumber = await generateTicketNumber()
+  const row = await prisma.parkingSession.create({
+    data: {
+      id: newId('ses'),
+      ticketNumber,
+      plateNumber: input.plateNumber.toUpperCase(),
+      vehicleType: input.vehicleType,
+      entryTime,
+      sessionStatus: 'ACTIVE',
+      paymentStatus: 'UNPAID',
+      laneIn: input.laneIn
+    }
+  })
+  return toParkingSession(row)
 }

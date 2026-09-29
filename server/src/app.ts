@@ -13,6 +13,7 @@ import { paymentsRouter } from './routers/payment.router'
 import { gateRouter } from './routers/gate.router'
 import { transactionsRouter } from './routers/transaction.router'
 import { auditRouter } from './routers/audit.router'
+import { personelRouter } from './routers/personel.router'
 
 export function createApp(): express.Express {
   const app = express()
@@ -47,6 +48,7 @@ export function createApp(): express.Express {
   app.use('/api/v1/gate', gateRouter)
   app.use('/api/v1/transactions', transactionsRouter)
   app.use('/api/v1/audit', auditRouter)
+  app.use('/api/v1/personel', personelRouter)
 
   app.use(notFoundHandler)
   app.use(errorHandler)

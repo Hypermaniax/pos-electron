@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"error":"#ffb4ab","surface-container":"#1f1f22","inverse-primary":"#9d4300","surface-container-highest":"#353438","selection-blue":"#264f78","surface-variant":"#353438","tertiary-fixed":"#d1e4ff","surface-tertiary":"#0a0a0a","tertiary-container":"#779dcb","on-primary-fixed":"#341100","inverse-surface":"#e4e1e6","outline-variant":"#584237","on-surface":"#e4e1e6","cta-primary":"#f97316","on-tertiary":"#003258","secondary":"#7bd0ff","surface-tint":"#ffb690","text-high-contrast":"#ffffff","background":"#131316","on-tertiary-fixed":"#001d36","accent-cyan":"#4fc1ff","surface-primary":"#1e1e1e","on-primary-container":"#582200","on-error-container":"#ffdad6","surface-container-high":"#2a2a2d","surface-border-subtle":"#1f1f23","on-secondary-fixed-variant":"#004c69","on-secondary-fixed":"#001e2c","secondary-fixed-dim":"#7bd0ff","surface-bright":"#39393c","surface-dim":"#131316","outline":"#a78b7d","on-primary-fixed-variant":"#783200","status-success":"#22c55e","accent-blue":"#569cd6","status-warning":"#f59e0b","secondary-fixed":"#c4e7ff","surface-container-lowest":"#0e0e11","primary":"#ffb690","tertiary-fixed-dim":"#a3caf9","on-secondary":"#00354a","primary-container":"#f97316","on-background":"#e4e1e6","text-muted":"#a1a1aa","surface-container-low":"#1b1b1e","tertiary":"#a3caf9","on-secondary-container":"#00374d","on-surface-variant":"#e0c0b1","selection-blue-tint":"#1e3a8acc","on-primary":"#552100","surface":"#131316","accent-blue-soft":"#60a5fa","primary-fixed-dim":"#ffb690","text-main":"#d4d4d4","selection-blue-alpha":"#075985b3","cta-hover":"#ea580c","status-error":"#ef4444","status-info":"#38bdf8","error-container":"#93000a","inverse-on-surface":"#303033","surface-base":"#18181b","primary-fixed":"#ffdbca","on-tertiary-fixed-variant":"#1f4972","on-error":"#690005","surface-border":"#27272a","surface-secondary":"#111111","secondary-container":"#00a6e0","on-tertiary-container":"#00345b"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-lg":"1rem","space-md":"0.75rem","space-sm":"0.5rem","gutter":"1rem","space-xs":"0.25rem","space-xl":"1.5rem","margin":"1rem"},"fontFamily":{"headline-lg":["Space Grotesk"],"headline-sm":["Space Grotesk"],"display-currency":["JetBrains Mono"],"label-sm":["JetBrains Mono"],"headline-xl":["Space Grotesk"],"body-md":["Geist"],"label-lg":["JetBrains Mono"],"headline-md":["Space Grotesk"],"display-plate":["JetBrains Mono"],"body-lg":["Geist"],"label-md":["JetBrains Mono"],"body-sm":["Geist"]},"fontSize":{"headline-lg":["2rem",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["1.25rem",{"lineHeight":"1.3","fontWeight":"600"}],"display-currency":["2.75rem",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"label-sm":["0.6875rem",{"lineHeight":"1.1","letterSpacing":"0.06em","fontWeight":"500"}],"headline-xl":["3rem",{"lineHeight":"1.1","letterSpacing":"-0.03em","fontWeight":"700"}],"body-md":["0.9375rem",{"lineHeight":"1.45","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.2","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"1.25","letterSpacing":"-0.01em","fontWeight":"600"}],"display-plate":["2rem",{"lineHeight":"1.15","letterSpacing":"0.08em","fontWeight":"700"}],"body-lg":["1.125rem",{"lineHeight":"1.5","fontWeight":"400"}],"label-md":["0.75rem",{"lineHeight":"1.2","letterSpacing":"0.04em","fontWeight":"500"}],"body-sm":["0.8125rem",{"lineHeight":"1.4","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased select-none"><header class="fixed top-0 left-0 right-0 h-10 bg-surface-tertiary border-b border-surface-border z-50 flex items-center justify-between px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast"><span class="flex items-center justify-center w-5 h-5 bg-cta-primary text-text-high-contrast rounded font-bold text-[11px]">P</span><span class="tracking-wider text-text-high-contrast font-headline-sm text-label-md">PARK-OS v2.4.1 WORKSTATION</span></div><div class="h-4 w-px bg-surface-border"></div><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span class="font-label-sm text-label-sm text-status-success uppercase tracking-wider">Central Sync OK</span></div><div class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-accent-blue"></span><span class="font-label-sm text-label-sm text-text-muted">Site Server Online</span></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-space-sm py-0.5 bg-surface-container-high rounded text-accent-cyan font-label-md text-label-md border border-surface-border"><span class="material-symbols-outlined text-[14px]">schedule</span><span>14:32:09 WIB</span></div><div class="flex items-center gap-space-xs px-space-sm py-0.5 bg-surface-container rounded text-text-muted font-label-sm text-label-sm"><span class="text-status-warning font-bold">[AUTO]</span><span>06:00 - 18:00</span></div><div class="flex items-center gap-space-xs pl-space-sm border-l border-surface-border"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-text-high-contrast leading-none">ADITYA P.</span><span class="font-label-sm text-label-sm text-cta-primary leading-none">SUPER ADMIN</span></div></div><div class="flex items-center gap-space-xs ml-space-sm"><button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[16px]">remove</span></button><button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[16px]">crop_square</span></button><button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:bg-status-error hover:text-text-high-contrast" type="button"><span class="material-symbols-outlined text-[16px]">close</span></button></div></div></header><aside class="fixed left-0 top-10 bottom-8 w-64 bg-surface-container-low border-r border-surface-border z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="p-space-md border-b border-surface-border bg-surface-container-lowest"><div class="font-label-sm text-label-sm text-text-muted uppercase tracking-widest">LOKASI OPERASIONAL</div><div class="font-headline-sm text-headline-sm text-text-high-contrast tracking-wide flex items-center justify-between mt-space-xs"><span>BARAT-TERMINAL</span><span class="w-2 h-2 rounded-full bg-status-success"></span></div></div><nav class="flex flex-col py-space-xs px-space-xs gap-0.5" data-active-classes="bg-selection-blue text-text-high-contrast border-l-2 border-accent-cyan font-bold"><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="ringkasan-status" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">01</span><span>Ringkasan &amp; Status</span></span><span class="material-symbols-outlined text-[14px]">dashboard</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="manajemen-perangkat" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">02</span><span>Manajemen Perangkat</span></span><span class="material-symbols-outlined text-[14px]">hardware</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="pengaturan-tarif" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">03</span><span>Pengaturan Tarif</span></span><span class="material-symbols-outlined text-[14px]">payments</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="fitur-pembayaran" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">04</span><span>Fitur Pembayaran</span></span><span class="material-symbols-outlined text-[14px]">point_of_sale</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="keanggotaan-member" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">05</span><span>Keanggotaan / Member</span></span><span class="material-symbols-outlined text-[14px]">badge</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="karyawan-operator" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">06</span><span>Karyawan &amp; Operator</span></span><span class="material-symbols-outlined text-[14px]">group</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="pengaturan-sistem" href="#"><span class="flex items-center gap-space-sm"><span class="text-accent-cyan font-bold">07</span><span>Pengaturan Sistem</span></span><span class="material-symbols-outlined text-[14px]">settings</span></a><a class="flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors" data-path="bantuan" href="#"><span class="flex items-center gap-space-sm"><span class="text-cta-primary font-bold">08</span><span>Bantuan</span></span><span class="px-1.5 py-0.5 bg-surface-container-high rounded text-[10px] font-label-sm text-text-muted">F1</span></a></nav></div><div class="p-space-sm border-t border-surface-border bg-surface-container-lowest"><div class="flex items-center gap-space-xs text-status-success font-label-sm text-label-sm mb-1"><span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span><span>CORE DAEMON RUNNING</span></div><div class="font-label-sm text-label-sm text-text-muted flex justify-between"><span>PORT: 8443</span><span class="text-accent-cyan">SSL SECURE</span></div></div></aside><div class="pl-64"><main class="w-full pt-10 pb-8 min-h-screen bg-background"><div class="flex flex-col w-full">
+<!-- Dynamic Sidebar Activation Script -->
+<script>
+    (function activateSidebar() {
+      const targetNav = document.querySelector('a[data-path="karyawan-operator"]');
+      if (targetNav) {
+        document.querySelectorAll('aside nav a').forEach(el => {
+          el.className = "flex items-center justify-between px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-colors";
+        });
+        targetNav.className = "flex items-center justify-between px-space-md py-2 rounded font-label-md text-label-md transition-colors bg-selection-blue text-text-high-contrast border-l-2 border-accent-cyan font-bold shadow-sm";
+      }
+    })();
+  </script>
+<!-- Content Container with Industrial Spacing -->
+<div class="p-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+<!-- 1. Header Section -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-cta-primary tracking-widest uppercase">
+<span class="inline-block w-2 h-2 rounded-full bg-cta-primary"></span>
+<span>PERSONNEL ORCHESTRATION &amp; ACCESS CONTROL • 10 BOOTH MANAGED</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-high-contrast tracking-tight">
+          Manajemen Karyawan &amp; Operator Loket
+        </h1>
+<p class="font-body-md text-body-md text-text-muted max-w-4xl">
+          Pengelolaan akun petugas loket, pembagian jadwal shift kerja, penetapan hak akses/permission (Operator, Supervisor, Teknisi), dan pemantauan status kehadiran aktif.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-text-main font-label-md text-label-md transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Ekspor Data Petugas</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded bg-cta-primary hover:bg-cta-hover text-text-high-contrast font-label-md text-label-md tracking-wider uppercase shadow-md transition-all active:scale-[0.98]" id="btn-tambah-karyawan" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span class="font-bold">+ Tambah Karyawan Baru</span>
+</button>
+</div>
+</div>
+<!-- 2. KPI Summary Bar (4 Status Cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-text-muted mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Total Petugas Terdaftar</span>
+<span class="material-symbols-outlined text-accent-cyan text-[20px]">badge</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-currency text-headline-lg text-text-high-contrast">18</span>
+<span class="font-label-md text-label-md text-text-muted">Personel</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-accent-cyan bg-surface-container-high px-2 py-0.5 rounded">
+            14 Operator • 3 Spv • 1 Tek
+          </span>
+<span class="text-status-success text-[12px] font-label-sm font-semibold">100% OK</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-text-muted mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Operator Bertugas Aktif</span>
+<span class="flex h-2.5 w-2.5 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-status-success"></span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-currency text-headline-lg text-status-success">8</span>
+<span class="font-label-md text-label-md text-text-high-contrast">Petugas On-Duty</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-space-xs text-text-muted font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-status-warning text-[14px]">schedule</span>
+<span>Shift Siang 14:00 - 22:00</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-text-muted mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Total Transaksi Shift Berjalan</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">directions_car</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-currency text-headline-lg text-text-high-contrast">1.248</span>
+<span class="font-label-md text-label-md text-text-muted">Kendaraan</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted">Rerata Kecepatan:</span>
+<span class="text-accent-cyan font-bold bg-surface-container-high px-1.5 py-0.5 rounded">6.2s / transaksi</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-text-muted mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Tingkat Kepatuhan Kas</span>
+<span class="material-symbols-outlined text-status-success text-[20px]">verified_user</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-currency text-headline-lg text-text-high-contrast">100%</span>
+<span class="font-label-md text-label-md text-status-success">Valid</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-muted">Selisih Kas Laci:</span>
+<span class="font-display-currency text-status-success font-bold">Rp 0 (Sesuai)</span>
+</div>
+</div>
+</div>
+<!-- 3. Balanced 2-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT COLUMN: Main Personnel Table (~65% -> 8 of 12 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-sm">
+<!-- Filter Controls -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm shadow-sm">
+<!-- Search Input -->
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px]">search</span>
+<input class="w-full bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm pl-9 pr-space-sm py-2 rounded focus:outline-none focus:ring-1 focus:ring-accent-cyan placeholder:text-text-muted transition-all" id="employee-search" placeholder="Cari Nama, NIP, atau Booth..." type="text"/>
+</div>
+<!-- Status Filter Tabs -->
+<div class="flex items-center bg-surface-container-lowest p-1 rounded overflow-x-auto">
+<button class="filter-tab px-3 py-1 rounded font-label-sm text-label-sm bg-selection-blue text-text-high-contrast font-bold shadow-sm transition-colors whitespace-nowrap" data-filter="all">Semua (18)</button>
+<button class="filter-tab px-3 py-1 rounded font-label-sm text-label-sm text-text-muted hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" data-filter="onduty">Shift Aktif (8)</button>
+<button class="filter-tab px-3 py-1 rounded font-label-sm text-label-sm text-text-muted hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" data-filter="offduty">Off Duty (10)</button>
+<button class="filter-tab px-3 py-1 rounded font-label-sm text-label-sm text-text-muted hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" data-filter="spv">Supervisor (3)</button>
+</div>
+</div>
+<!-- Personnel Table Container -->
+<div class="bg-surface-container-low rounded-lg overflow-hidden shadow-md">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm border-collapse min-w-[720px]">
+<thead>
+<tr class="bg-surface-container-lowest text-text-muted font-label-sm text-label-sm uppercase tracking-wider select-none">
+<th class="py-2.5 px-space-md">NIP / ID</th>
+<th class="py-2.5 px-space-md">Nama Petugas</th>
+<th class="py-2.5 px-space-md">Role &amp; Akses</th>
+<th class="py-2.5 px-space-md">Penugasan Booth</th>
+<th class="py-2.5 px-space-md">Jadwal Shift</th>
+<th class="py-2.5 px-space-md text-center">Status</th>
+<th class="py-2.5 px-space-md text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-text-main" id="table-body">
+<!-- Row 1 -->
+<tr class="bg-surface-base hover:bg-surface-container-high transition-colors group">
+<td class="py-2.5 px-space-md font-label-md text-label-md text-accent-cyan font-semibold">NIP-2024-001</td>
+<td class="py-2.5 px-space-md font-body-md text-body-md text-text-high-contrast font-medium">Budi Santoso</td>
+<td class="py-2.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-text-main bg-surface-container-highest px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px] text-accent-blue">point_of_sale</span> Operator Loket
+                    </span>
+</td>
+<td class="py-2.5 px-space-md font-label-md text-label-md text-text-high-contrast">Gate Exit Barat 01</td>
+<td class="py-2.5 px-space-md font-label-sm text-label-sm text-text-muted">Shift Pagi (06:00 - 14:00)</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#14532d80] text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span> ON DUTY
+                    </span>
+</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm mr-1 transition-colors">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-cta-primary text-text-high-contrast font-label-sm text-label-sm transition-colors">Shift</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors group">
+<td class="py-2.5 px-space-md font-label-md text-label-md text-accent-cyan font-semibold">NIP-2024-004</td>
+<td class="py-2.5 px-space-md font-body-md text-body-md text-text-high-contrast font-medium">Rian Ardiansyah</td>
+<td class="py-2.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-text-main bg-surface-container-highest px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px] text-accent-blue">point_of_sale</span> Operator Loket
+                    </span>
+</td>
+<td class="py-2.5 px-space-md font-label-md text-label-md text-text-high-contrast">Gate Exit Barat 02</td>
+<td class="py-2.5 px-space-md font-label-sm text-label-sm text-text-muted">Shift Pagi (06:00 - 14:00)</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#14532d80] text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span> ON DUTY
+                    </span>
+</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm mr-1 transition-colors">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-cta-primary text-text-high-contrast font-label-sm text-label-sm transition-colors">Shift</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-surface-base hover:bg-surface-container-high transition-colors group">
+<td class="py-2.5 px-space-md font-label-md text-label-md text-accent-cyan font-semibold">NIP-2024-009</td>
+<td class="py-2.5 px-space-md font-body-md text-body-md text-text-high-contrast font-medium">Siti Rahmawati</td>
+<td class="py-2.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-text-main bg-surface-container-highest px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px] text-accent-blue">point_of_sale</span> Operator Loket
+                    </span>
+</td>
+<td class="py-2.5 px-space-md font-label-md text-label-md text-text-high-contrast">Gate Entry Timur 01</td>
+<td class="py-2.5 px-space-md font-label-sm text-label-sm text-text-muted">Shift Siang (14:00 - 22:00)</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#0c4a6e80] text-status-info font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-info"></span> SIAP SHIFT
+                    </span>
+</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm mr-1 transition-colors">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-cta-primary text-text-high-contrast font-label-sm text-label-sm transition-colors">Shift</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors group">
+<td class="py-2.5 px-space-md font-label-md text-label-md text-accent-cyan font-semibold">NIP-2024-012</td>
+<td class="py-2.5 px-space-md font-body-md text-body-md text-text-high-contrast font-medium">Hendra Wijaya</td>
+<td class="py-2.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-cta-primary bg-primary-container/20 px-2 py-0.5 rounded font-bold">
+<span class="material-symbols-outlined text-[13px]">shield_person</span> Supervisor Loket
+                    </span>
+</td>
+<td class="py-2.5 px-space-md font-label-md text-label-md text-status-warning font-semibold">Supervisi All Booth</td>
+<td class="py-2.5 px-space-md font-label-sm text-label-sm text-text-muted">Shift Full (Audit &amp; Override)</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#14532d80] text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span> ON DUTY
+                    </span>
+</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm mr-1 transition-colors">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-cta-primary text-text-high-contrast font-label-sm text-label-sm transition-colors">Shift</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="bg-surface-base hover:bg-surface-container-high transition-colors group">
+<td class="py-2.5 px-space-md font-label-md text-label-md text-accent-cyan font-semibold">NIP-2024-015</td>
+<td class="py-2.5 px-space-md font-body-md text-body-md text-text-high-contrast font-medium">Dani Prasetyo</td>
+<td class="py-2.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary-fixed-dim bg-secondary/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">build</span> Teknisi Lapangan
+                    </span>
+</td>
+<td class="py-2.5 px-space-md font-label-md text-label-md text-text-muted">Maintenance Hardware</td>
+<td class="py-2.5 px-space-md font-label-sm text-label-sm text-text-muted">On-Call / Standby</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface-container-high text-text-muted font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span> STANDBY
+                    </span>
+</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm mr-1 transition-colors">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-cta-primary text-text-high-contrast font-label-sm text-label-sm transition-colors">Shift</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors group">
+<td class="py-2.5 px-space-md font-label-md text-label-md text-accent-cyan font-semibold">NIP-2024-008</td>
+<td class="py-2.5 px-space-md font-body-md text-body-md text-text-high-contrast font-medium">Agus Setiawan</td>
+<td class="py-2.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-text-main bg-surface-container-highest px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px] text-accent-blue">point_of_sale</span> Operator Loket
+                    </span>
+</td>
+<td class="py-2.5 px-space-md font-label-md text-label-md text-text-high-contrast">Gate Exit Timur 02</td>
+<td class="py-2.5 px-space-md font-label-sm text-label-sm text-text-muted">Shift Malam (22:00 - 06:00)</td>
+<td class="py-2.5 px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface-container-highest text-text-muted font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-variant"></span> OFF DUTY
+                    </span>
+</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-selection-blue text-text-high-contrast font-label-sm text-label-sm mr-1 transition-colors">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-cta-primary text-text-high-contrast font-label-sm text-label-sm transition-colors">Shift</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Bar -->
+<div class="p-space-sm bg-surface-container-lowest flex items-center justify-between text-text-muted font-label-sm text-label-sm select-none">
+<span>Menampilkan <strong class="text-text-high-contrast">6</strong> dari <strong class="text-text-high-contrast">18</strong> karyawan terdaftar</span>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 flex items-center justify-center rounded bg-selection-blue text-text-high-contrast font-bold">1</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-high text-text-main transition-colors">2</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-high text-text-main transition-colors">3</button>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Fast Assign & Live Audit Log (~35% -> 4 of 12 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Panel 1: Form Cepat Penugasan Shift & Role -->
+<div class="bg-surface-container-low p-space-md rounded-lg shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast font-bold">
+<span class="material-symbols-outlined text-cta-primary text-[18px]">assignment_ind</span>
+<span>Form Cepat Penugasan Shift &amp; Role</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-cta-primary/20 text-cta-primary rounded font-bold">HOT-ASSIGN</span>
+</div>
+<form class="flex flex-col gap-space-sm" id="fast-assign-form">
+<!-- Select Karyawan -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">PILIH PETUGAS KARYAWAN</label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm px-3 py-2 rounded focus:outline-none focus:ring-1 focus:ring-accent-cyan cursor-pointer appearance-none">
+<option value="1">Budi Santoso (NIP-2024-001)</option>
+<option value="4">Rian Ardiansyah (NIP-2024-004)</option>
+<option value="9">Siti Rahmawati (NIP-2024-009)</option>
+<option value="12">Hendra Wijaya (NIP-2024-012)</option>
+<option value="15">Dani Prasetyo (NIP-2024-015)</option>
+<option value="8">Agus Setiawan (NIP-2024-008)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Role / Hak Akses -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">ROLE &amp; TINGKAT AKSES</label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm px-3 py-2 rounded focus:outline-none focus:ring-1 focus:ring-accent-cyan cursor-pointer appearance-none">
+<option value="op">Operator Kasir (Standar Booth)</option>
+<option value="spv">Supervisor (Audit &amp; Emergency Override)</option>
+<option value="tek">Teknisi Lapangan (Konfigurasi Barrier &amp; Sensor)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Penugasan Loket / Gate -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">LOKET / GATE PENUGASAN</label>
+<div class="relative">
+<select class="w-full bg-surface-secondary text-text-high-contrast font-body-sm text-body-sm px-3 py-2 rounded focus:outline-none focus:ring-1 focus:ring-accent-cyan cursor-pointer appearance-none">
+<option value="exit-01">Exit Gate Barat 01 (POS Booth 1)</option>
+<option value="exit-02">Exit Gate Barat 02 (POS Booth 2)</option>
+<option value="entry-01">Entry Gate Timur 01 (Dispenser Tiket)</option>
+<option value="all-spv">Supervisi &amp; Monitoring (All Gates)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Shift Working Hours -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">JADWAL JAM SHIFT</label>
+<div class="grid grid-cols-3 gap-1">
+<button class="shift-btn px-2 py-1.5 rounded bg-selection-blue text-text-high-contrast font-label-sm text-label-sm font-bold text-center" type="button">Pagi<br/><span class="text-[10px] font-normal opacity-80">06 - 14</span></button>
+<button class="shift-btn px-2 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-text-muted font-label-sm text-label-sm text-center" type="button">Siang<br/><span class="text-[10px] font-normal opacity-80">14 - 22</span></button>
+<button class="shift-btn px-2 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-text-muted font-label-sm text-label-sm text-center" type="button">Malam<br/><span class="text-[10px] font-normal opacity-80">22 - 06</span></button>
+</div>
+</div>
+<!-- Switches & Permissions -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<!-- Switch 1 -->
+<label class="flex items-center justify-between cursor-pointer p-1.5 rounded bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-high-contrast font-medium">Buka Palang Darurat [F11]</span>
+<span class="font-label-sm text-label-sm text-text-muted text-[10px]">Supervisor bypass manual</span>
+</div>
+<input checked="" class="accent-cta-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Switch 2 -->
+<label class="flex items-center justify-between cursor-pointer p-1.5 rounded bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-high-contrast font-medium">Rekonsiliasi Kas Laci</span>
+<span class="font-label-sm text-label-sm text-text-muted text-[10px]">Akses tutup kasir &amp; setor shift</span>
+</div>
+<input checked="" class="accent-cta-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</label>
+</div>
+<!-- Save CTA -->
+<button class="w-full mt-space-xs py-2.5 px-space-md rounded bg-cta-primary hover:bg-cta-hover text-text-high-contrast font-label-md text-label-md font-bold uppercase tracking-wider flex items-center justify-center gap-space-xs shadow-md transition-all active:scale-[0.98]" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Simpan Penugasan Shift</span>
+</button>
+</form>
+</div>
+<!-- Panel 2: Live Log Audit Aktivitas Kasir -->
+<div class="bg-surface-container-low p-space-md rounded-lg shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-text-high-contrast font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success animate-ping"></span>
+<span>Live Log Audit Aktivitas Kasir</span>
+</div>
+<span class="font-label-sm text-label-sm text-accent-cyan">SYNC STREAM</span>
+</div>
+<div class="flex flex-col gap-2 font-label-sm text-label-sm">
+<!-- Log Entry 1 -->
+<div class="p-2.5 rounded bg-surface-container-lowest flex flex-col gap-0.5">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-accent-cyan font-bold">[14:38:12]</span>
+<span class="text-[10px] bg-surface-container-high px-1.5 py-0.2 rounded text-status-success font-bold">EXIT BOOTH 01</span>
+</div>
+<p class="text-text-high-contrast font-body-sm text-body-sm">
+<strong class="text-text-high-contrast">Budi Santoso:</strong> Tutup transaksi tunai <span class="font-display-currency text-status-success font-bold">Rp 15.000</span>
+</p>
+<span class="text-[11px] text-text-muted">Plat: B 1842 UXX • Tiket #TK-99214</span>
+</div>
+<!-- Log Entry 2 -->
+<div class="p-2.5 rounded bg-surface-container-lowest flex flex-col gap-0.5">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-status-warning font-bold">[14:35:45]</span>
+<span class="text-[10px] bg-status-warning/20 px-1.5 py-0.2 rounded text-status-warning font-bold">SUPERVISOR OVERRIDE</span>
+</div>
+<p class="text-text-high-contrast font-body-sm text-body-sm">
+<strong class="text-text-high-contrast">Hendra Wijaya:</strong> Override supervisor tiket hilang disetujui
+              </p>
+<span class="text-[11px] text-text-muted">Lokasi: Gate Exit Barat 02 • Biaya Denda Terbit</span>
+</div>
+<!-- Log Entry 3 -->
+<div class="p-2.5 rounded bg-surface-container-lowest flex flex-col gap-0.5">
+<div class="flex items-center justify-between text-text-muted">
+<span class="text-accent-blue font-bold">[14:00:03]</span>
+<span class="text-[10px] bg-selection-blue px-1.5 py-0.2 rounded text-text-high-contrast font-bold">SHIFT HANDOVER</span>
+</div>
+<p class="text-text-high-contrast font-body-sm text-body-sm">
+                Pergantian Shift Pagi ke Siang berhasil disinkronkan ke Central Cloud.
+              </p>
+<span class="text-[11px] text-text-muted">Laci kas awal diverifikasi Rp 500.000 (Float Balance)</span>
+</div>
+</div>
+<!-- Bottom Telemetry Notice -->
+<div class="pt-space-xs flex items-center justify-between text-text-muted font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-status-success">verified</span>
+              Audit Trail SHA-256 Aktif
+            </span>
+<a class="text-accent-cyan hover:underline" href="#">Lihat Semua Log</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Toast & Interactions -->
+<div class="fixed bottom-12 right-6 bg-surface-tertiary text-text-high-contrast px-space-md py-space-sm rounded-lg shadow-xl font-label-md text-label-md flex items-center gap-space-sm transition-all duration-300 opacity-0 pointer-events-none translate-y-2 z-50" id="toast">
+<span class="material-symbols-outlined text-status-success text-[20px]">check_circle</span>
+<span id="toast-text">Penugasan Shift Berhasil Disimpan</span>
+</div>
+<script>
+    // Shift selection toggles
+    document.querySelectorAll('.shift-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.shift-btn').forEach(b => {
+          b.className = "shift-btn px-2 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-text-muted font-label-sm text-label-sm text-center";
+        });
+        btn.className = "shift-btn px-2 py-1.5 rounded bg-selection-blue text-text-high-contrast font-label-sm text-label-sm font-bold text-center";
+      });
+    });
+
+    // Filter tab toggles
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => {
+          t.className = "filter-tab px-3 py-1 rounded font-label-sm text-label-sm text-text-muted hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap";
+        });
+        tab.className = "filter-tab px-3 py-1 rounded font-label-sm text-label-sm bg-selection-blue text-text-high-contrast font-bold shadow-sm transition-colors whitespace-nowrap";
+      });
+    });
+
+    // Simple toast helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      if (toast && toastText) {
+        toastText.textContent = msg;
+        toast.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+          toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 2800);
+      }
+    }
+
+    // Submit assignment
+    const assignForm = document.getElementById('fast-assign-form');
+    if (assignForm) {
+      assignForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showToast('Penugasan shift berhasil disinkronkan ke operator & gate!');
+      });
+    }
+
+    // Add employee trigger
+    const addBtn = document.getElementById('btn-tambah-karyawan');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        showToast('Membuka wizard registrasi karyawan baru...');
+      });
+    }
+  </script>
+</div></main></div><footer class="fixed bottom-0 left-0 right-0 h-8 bg-surface-tertiary border-t border-surface-border z-50 flex items-center justify-between px-space-md font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="text-text-muted">SYS HEALTH:</span><span class="text-status-success font-semibold">100% OPERATIONAL</span></div><span class="text-surface-border">|</span><div class="flex items-center gap-space-xs"><span class="text-text-muted">LATENCY:</span><span class="text-accent-cyan font-semibold">12ms</span></div><span class="text-surface-border">|</span><div class="flex items-center gap-space-xs"><span class="text-text-muted">ELECTRON RUNTIME:</span><span class="text-text-high-contrast">v28.1.0</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-cta-primary font-bold"><span class="px-1 bg-surface-container-high border border-surface-border rounded text-[10px]">F1</span><span>PUSAT BANTUAN</span></div><span class="text-surface-border">|</span><div class="px-2 py-0.5 bg-surface-container-high rounded text-text-high-contrast font-bold border border-surface-border">POS BOOTH #01</div></div></footer></body></html>

@@ -7,7 +7,7 @@ import { AppConfigSchema } from '../shared/schemas'
 import { log } from './logger'
 
 const defaults = (): AppConfig => ({
-  siteServerUrl: 'http://127.0.0.1:4311',
+  siteServerUrl: 'http://127.0.0.1:4000',
   deviceId: randomUUID(),
   laneName: 'Loket 1',
   gateName: 'Gerbang 1',
@@ -17,6 +17,19 @@ const defaults = (): AppConfig => ({
 })
 
 let cached: AppConfig | null = null
+
+// URL default lama yang tidak pernah dipakai; dimigrasi agar config.json lama mengarah ke server.
+const STALE_DEFAULT_URLS = ['http://127.0.0.1:4311']
+
+function migrateStored(stored: Partial<AppConfig>): Partial<AppConfig> {
+  if (
+    typeof stored.siteServerUrl === 'string' &&
+    STALE_DEFAULT_URLS.includes(stored.siteServerUrl.replace(/\/+$/, ''))
+  ) {
+    return { ...stored, siteServerUrl: defaults().siteServerUrl }
+  }
+  return stored
+}
 
 function configPath(): string {
   return join(app.getPath('userData'), 'config.json')
@@ -32,7 +45,7 @@ export function loadConfig(): AppConfig {
   try {
     if (existsSync(configPath())) {
       const raw = JSON.parse(readFileSync(configPath(), 'utf-8')) as Partial<AppConfig>
-      cached = AppConfigSchema.parse({ ...defaults(), ...raw })
+      cached = AppConfigSchema.parse({ ...defaults(), ...migrateStored(raw) })
     } else {
       cached = defaults()
       persist(cached)
