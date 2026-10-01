@@ -1,114 +1,71 @@
 import type React from 'react'
-import { useEffect, useState } from 'react'
-import type { PaymentMethod, PaymentStatus, PaymentTransaction } from '@shared/types'
-import { listTransactions, statusLabel } from '../lib/server-api'
-import { useShift } from '../context/ShiftContext'
-import { formatCurrency, formatDateTime } from '../lib/format'
+import { useState } from 'react'
+import { listTransactions } from '../lib/server-api'
+import type { PaymentTransaction } from '@shared/types'
+import { Card, CardContent, CardHeader, CardTitle } from '@renderer/components/ui/card'
 import { Badge } from '@renderer/components/ui/badge'
-import { Card } from '@renderer/components/ui/card'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@renderer/components/ui/table'
+import { Button } from '@renderer/components/ui/button'
+import { formatCurrency, formatDateTime } from '../lib/format'
+import { methodLabel } from '../mock/store'
 import { cn } from '@renderer/lib/utils'
 
-const METHOD_LABEL: Record<PaymentMethod, string> = {
-  cash: 'Tunai',
-  qr: 'QR',
-  emoney: 'E-Money'
-}
-
-const STATUS_STYLE: Record<PaymentStatus, string> = {
-  UNPAID: 'bg-muted text-muted-foreground',
-  PENDING_QR: 'bg-amber-100 text-amber-700',
-  PENDING_EMONEY: 'bg-amber-100 text-amber-700',
-  PAID: 'bg-emerald-100 text-emerald-700',
-  FAILED: 'bg-rose-100 text-rose-700',
-  EXPIRED: 'bg-orange-100 text-orange-700',
-  CANCELLED: 'bg-secondary text-secondary-foreground'
+const STATUS_STYLE: Record<string, string> = {
+  PAID: 'bg-park-success/20 text-park-success',
+  UNPAID: 'bg-park-muted/20 text-park-muted',
+  PENDING_QR: 'bg-park-warning/20 text-park-warning',
+  PENDING_EMONEY: 'bg-park-warning/20 text-park-warning',
+  FAILED: 'bg-park-error/20 text-park-error',
+  EXPIRED: 'bg-orange-500/20 text-orange-400',
+  CANCELLED: 'bg-park-muted/20 text-park-muted'
 }
 
 export function HistoryScreen(): React.JSX.Element {
-  const { shift } = useShift()
-  const [rows, setRows] = useState<PaymentTransaction[]>([])
-  const [loading, setLoading] = useState(true)
+  const [transactions, setTransactions] = useState<PaymentTransaction[]>([])
+  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    let active = true
-    void listTransactions(shift?.id ?? null).then((data) => {
-      if (!active) return
-      setRows(data)
-      setLoading(false)
-    })
-    return () => {
-      active = false
-    }
-  }, [shift?.id])
+  const load = async (): Promise<void> => {
+    setLoading(true)
+    const result = await listTransactions(null)
+    setTransactions(result)
+    setLoading(false)
+  }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="font-heading text-xl font-bold tracking-tight">Riwayat Transaksi</h1>
-        <p className="text-sm text-muted-foreground">
-          {shift
-            ? `Transaksi pada shift aktif (${shift.openedByName}).`
-            : 'Belum ada shift aktif. Menampilkan seluruh transaksi contoh.'}
-        </p>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h1 className="font-heading text-xl font-bold text-park-main">Riwayat Transaksi</h1>
+        <Button onClick={() => void load()} disabled={loading} variant="outline" className="border-park-border bg-park-tertiary text-park-main hover:bg-park-card">
+          {loading ? 'Memuat...' : 'Muat Data'}
+        </Button>
       </div>
 
-      <Card className="overflow-hidden p-0">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Waktu</TableHead>
-              <TableHead>Tiket</TableHead>
-              <TableHead>Plat</TableHead>
-              <TableHead>Metode</TableHead>
-              <TableHead className="text-right">Jumlah</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Operator</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading && (
-              <TableRow>
-                <TableCell colSpan={7} className="h-16 text-center text-muted-foreground">
-                  Memuat transaksi...
-                </TableCell>
-              </TableRow>
-            )}
-            {!loading && rows.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={7} className="h-16 text-center text-muted-foreground">
-                  Belum ada transaksi.
-                </TableCell>
-              </TableRow>
-            )}
-            {!loading &&
-              rows.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{formatDateTime(row.createdAt)}</TableCell>
-                  <TableCell className="font-medium">{row.ticketNumber}</TableCell>
-                  <TableCell>{row.plateNumber}</TableCell>
-                  <TableCell>{METHOD_LABEL[row.method]}</TableCell>
-                  <TableCell className="text-right">{formatCurrency(row.amount)}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={cn('border-transparent', STATUS_STYLE[row.status])}
-                    >
-                      {statusLabel(row.status)}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-sm">Transaksi</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {transactions.length === 0 ? (
+            <p className="py-8 text-center font-mono text-xs text-park-muted">Belum ada data. Klik "Muat Data" untuk mengambil dari server.</p>
+          ) : (
+            <div className="space-y-2">
+              {transactions.map((tx) => (
+                <div key={tx.id} className="flex items-center justify-between rounded border border-park-border bg-park-tertiary p-3">
+                  <div className="space-y-0.5">
+                    <p className="font-mono text-xs font-bold text-park-main">{tx.ticketNumber}</p>
+                    <p className="font-mono text-[10px] text-park-muted">{tx.plateNumber} · {methodLabel(tx.method)}</p>
+                    <p className="font-mono text-[10px] text-park-muted">{formatDateTime(tx.createdAt)}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono text-sm font-bold text-park-main">{formatCurrency(tx.amount)}</p>
+                    <Badge className={cn('border-transparent', STATUS_STYLE[tx.status] ?? 'bg-park-muted/20 text-park-muted')}>
+                      {tx.status}
                     </Badge>
-                  </TableCell>
-                  <TableCell>{row.operatorName}</TableCell>
-                </TableRow>
+                  </div>
+                </div>
               ))}
-          </TableBody>
-        </Table>
+            </div>
+          )}
+        </CardContent>
       </Card>
     </div>
   )

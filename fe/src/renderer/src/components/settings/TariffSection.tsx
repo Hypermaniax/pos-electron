@@ -5,6 +5,7 @@ import { calculateAmount } from '../../lib/tariff-preview'
 import { formatCurrency } from '../../lib/format'
 import { Button } from '@renderer/components/ui/button'
 import { Input } from '@renderer/components/ui/input'
+import { Switch } from '@renderer/components/ui/switch'
 import {
   Select,
   SelectContent,
@@ -234,9 +235,9 @@ export function TariffSection(): React.JSX.Element {
                 <span className="flex size-9 items-center justify-center rounded border border-border bg-background text-cyan-400">
                   ◷
                 </span>
-                <SwitchPreview
+                <Switch
                   checked={toggles.dropoff}
-                  onChange={(next) => setToggles((prev) => ({ ...prev, dropoff: next }))}
+                  onCheckedChange={(next) => setToggles((prev) => ({ ...prev, dropoff: next }))}
                 />
               </div>
               <div>
@@ -258,9 +259,9 @@ export function TariffSection(): React.JSX.Element {
                 <span className="flex size-9 items-center justify-center rounded border border-border bg-background text-amber-400">
                   ☼
                 </span>
-                <SwitchPreview
+                <Switch
                   checked={toggles.weekend}
-                  onChange={(next) => setToggles((prev) => ({ ...prev, weekend: next }))}
+                  onCheckedChange={(next) => setToggles((prev) => ({ ...prev, weekend: next }))}
                 />
               </div>
               <div>
@@ -308,7 +309,7 @@ export function TariffSection(): React.JSX.Element {
                       name="rounding_unit"
                       checked={rounding === option.value}
                       onChange={() => setRounding(option.value)}
-                      className="accent-orange-500"
+                      className="size-4 accent-orange-500"
                     />
                     <span className={rounding === option.value ? 'text-foreground' : undefined}>
                       {option.label}
@@ -331,9 +332,9 @@ export function TariffSection(): React.JSX.Element {
                 <span className="flex size-9 items-center justify-center rounded border border-border bg-background text-emerald-400">
                   ✚
                 </span>
-                <SwitchPreview
+                <Switch
                   checked={toggles.insurance}
-                  onChange={(next) => setToggles((prev) => ({ ...prev, insurance: next }))}
+                  onCheckedChange={(next) => setToggles((prev) => ({ ...prev, insurance: next }))}
                 />
               </div>
               <div>
@@ -461,30 +462,4 @@ export function TariffSection(): React.JSX.Element {
   )
 }
 
-function SwitchPreview({
-  checked,
-  onChange
-}: {
-  checked: boolean
-  onChange: (next: boolean) => void
-}): React.JSX.Element {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={cn(
-        'inline-flex h-6 w-11 items-center rounded-full border border-border transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/50',
-        checked ? 'bg-orange-500' : 'bg-input'
-      )}
-    >
-      <span
-        className={cn(
-          'mx-0.5 size-5 rounded-full bg-foreground transition-transform',
-          checked ? 'translate-x-5' : 'translate-x-0'
-        )}
-      />
-    </button>
-  )
-}
+

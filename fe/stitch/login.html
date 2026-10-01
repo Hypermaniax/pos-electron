@@ -1,0 +1,1552 @@
+<!DOCTYPE html><html lang="id" class="h-full bg-[#131316]"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POS Parkir Workstation - PARK-OS v2.4.1</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#101014",
+            "surface": "#131316",
+            "surface-card": "#1a1a20",
+            "surface-panel": "#22222a",
+            "surface-border": "#2e2e38",
+            "brand": "#f97316",
+            "brand-hover": "#ea580c"
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            grotesk: ['Space Grotesk', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Geist', sans-serif; user-select: none; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+    .view-screen { display: none; }
+    .view-screen.active { display: flex; }
+    .dash-pane { display: none; }
+    .dash-pane.active { display: block; }
+  </style>
+</head>
+<body class="h-full flex flex-col overflow-hidden text-neutral-200 selection:bg-brand selection:text-white bg-[#131316]">
+
+  <!-- Global Alert/Toast Banner -->
+  <div id="globalToast" class="fixed top-11 right-4 z-50 transition-all duration-300 transform translate-y-[-140%] opacity-0 pointer-events-none">
+    <div class="p-3.5 rounded-xl border border-red-500/50 bg-[#221013] shadow-2xl flex items-center gap-3 text-xs font-mono text-red-200">
+      <span class="material-symbols-outlined text-red-400 text-[22px]">lock</span>
+      <div>
+        <strong id="toastTitle" class="font-bold text-red-400 block text-sm">Akses Ditolak</strong>
+        <span id="toastDesc" class="text-neutral-300">Modul ini hanya dapat diakses oleh akun berwenang.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Titlebar Electron Desktop -->
+  <header class="h-9 w-full bg-[#0d0d10] border-b border-surface-border flex items-center justify-between px-3 select-none z-50 shrink-0">
+    <div class="flex items-center gap-2.5">
+      <div class="w-5 h-5 rounded bg-brand flex items-center justify-center font-mono font-black text-black text-xs">P</div>
+      <span class="text-xs font-bold text-neutral-200 font-grotesk tracking-wide">PARK-OS POS Loket</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border text-neutral-400 font-mono">v2.4.1</span>
+      <span class="hidden md:inline-flex items-center gap-1.5 text-[10px] text-emerald-400 font-mono pl-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Node Exit-01 Ready
+      </span>
+    </div>
+
+    <!-- Center Active Role & Quick Preview Switchers -->
+    <div class="flex items-center gap-2">
+      <div id="topSubtitle" class="hidden lg:block text-xs text-neutral-400 font-mono">Mode Login</div>
+      <div class="flex items-center gap-1 bg-surface-card px-2 py-0.5 rounded border border-surface-border text-[11px] font-mono">
+        <button id="navLoginBtn" onclick="navigateTo('login')" class="px-2 py-0.5 rounded text-neutral-300 hover:text-white">🔑 Login</button>
+        <span class="text-neutral-600">|</span>
+        <button id="navLoketBtn" onclick="handleLoketNavigation()" class="px-2 py-0.5 rounded text-emerald-400 font-bold hover:bg-surface-panel">🚗 Loket [F12]</button>
+        <span class="text-neutral-600">|</span>
+        <button id="navAdminBtn" onclick="handleAdminNavigation()" class="px-2 py-0.5 rounded text-sky-400 font-bold hover:bg-surface-panel">📊 Admin</button>
+        <span class="text-neutral-600">|</span>
+        <span class="text-[10px] text-neutral-500 uppercase ml-1">Simulasi Role:</span>
+        <button onclick="setSimulatedRole('operator')" class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-400 font-bold hover:bg-emerald-500/40" title="Simulasi Operator">OPR</button>
+        <button onclick="setSimulatedRole('supervisor')" class="px-1.5 py-0.5 rounded text-[10px] bg-sky-500/20 text-sky-400 font-bold hover:bg-sky-500/40" title="Simulasi Supervisor">SPV</button>
+        <button onclick="setSimulatedRole('teknisi')" class="px-1.5 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-400 font-bold hover:bg-amber-500/40" title="Simulasi Teknisi">ENG</button>
+      </div>
+    </div>
+
+    <!-- Window buttons -->
+    <div class="flex items-center gap-1 text-neutral-400">
+      <button class="w-6 h-6 hover:text-white hover:bg-surface-panel rounded flex items-center justify-center text-xs">─</button>
+      <button class="w-6 h-6 hover:text-white hover:bg-surface-panel rounded flex items-center justify-center text-xs">□</button>
+      <button onclick="navigateTo('login')" class="w-6 h-6 hover:text-red-400 hover:bg-surface-panel rounded flex items-center justify-center text-xs" title="Keluar">✕</button>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 1. SCREEN: LOGIN MULTI-ROLE (#screenLogin)                                -->
+  <!-- ========================================================================= -->
+  <main id="screenLogin" class="view-screen active flex-1 flex items-center justify-center p-4 lg:p-8 bg-gradient-to-b from-[#131316] via-[#101014] to-[#0a0a0d] overflow-y-auto">
+    <div class="w-full max-w-[920px] rounded-2xl border border-surface-border bg-surface-card shadow-2xl overflow-hidden flex flex-col md:flex-row">
+      <!-- Left Info Box -->
+      <section class="w-full md:w-[42%] p-7 bg-[#15151a] border-b md:border-b-0 md:border-r border-surface-border flex flex-col justify-between">
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-white text-neutral-900 flex items-center justify-center font-mono font-black text-2xl shadow-lg">P</div>
+            <div>
+              <h1 class="text-xl font-bold text-white font-grotesk flex items-center gap-2">
+                PARK-OS Terminal <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              </h1>
+              <p class="text-xs text-neutral-400 font-mono">Kendali Exit Gate &amp; Pos Kasir</p>
+            </div>
+          </div>
+          <p class="text-xs text-neutral-300 leading-relaxed">
+            Sistem workstation terdistribusi untuk gerbang keluar parkir dengan aturan hak akses role yang ketat.
+          </p>
+          <div class="p-3 rounded-xl bg-surface-panel border border-surface-border text-neutral-300 text-xs flex gap-2.5 items-start">
+            <span class="material-symbols-outlined text-brand text-[20px] shrink-0">verified_user</span>
+            <div>
+              <p class="font-semibold text-neutral-100">Otorisasi Role-Based</p>
+              <p class="text-[11px] text-neutral-400 mt-0.5 leading-snug">
+                Hak akses dibatasi otomatis: Operator ke Loket, Admin/SPV ke Operasional &amp; Override, Teknisi ke Hardware &amp; Sistem.
+              </p>
+            </div>
+          </div>
+          <div class="space-y-1.5 pt-2 text-xs font-mono">
+            <div class="flex justify-between py-1 border-b border-surface-border/60">
+              <span class="text-neutral-400">Lokasi:</span><span class="text-white font-bold">Gate Barat (Exit 01)</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-surface-border/60">
+              <span class="text-neutral-400">Preset Aktif:</span><span id="loginSelectedBadge" class="text-emerald-400 font-bold">Operator Loket</span>
+            </div>
+            <div class="flex justify-between py-1">
+              <span class="text-neutral-400">Hak Akses:</span><span id="loginSelectedScope" class="text-neutral-300 text-right">Khusus Loket Kasir</span>
+            </div>
+          </div>
+        </div>
+        <div class="pt-4 border-t border-surface-border/60 flex justify-between text-[11px] text-neutral-400 font-mono">
+          <span>Barrier: <strong class="text-emerald-400">COM3 Ready</strong></span>
+          <span>Baud: 9600 bps</span>
+        </div>
+      </section>
+
+      <!-- Right Login Form -->
+      <section class="w-full md:w-[58%] p-7 bg-[#1a1a20] text-neutral-100 flex flex-col justify-between">
+        <div>
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white font-grotesk">Masuk Workstation</h2>
+              <p class="text-xs text-neutral-400 mt-1">Pilih profil role atau gunakan akun terdaftar:</p>
+            </div>
+            <div class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-panel rounded-full border border-surface-border">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span class="text-[11px] font-mono text-neutral-300">Ready</span>
+            </div>
+          </div>
+
+          <!-- 3 Preset Buttons -->
+          <div class="mb-4">
+            <label class="text-[10px] font-bold text-neutral-400 tracking-wider uppercase font-mono block mb-1.5">PILIH ROLE PRESET INSTAN</label>
+            <div class="grid grid-cols-3 gap-2 font-mono">
+              <!-- Operator Preset -->
+              <button type="button" id="roleBtnOpr" onclick="chooseRolePreset('operator')" class="p-2.5 rounded-xl border text-left transition-all ring-2 ring-brand bg-brand/10 border-brand text-white">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Operator</span>
+                  <span class="text-[9px] bg-black/50 px-1 py-0.5 rounded">OPR</span>
+                </div>
+                <span class="text-[10px] text-neutral-300 block mt-1">Khusus Loket</span>
+              </button>
+
+              <!-- Supervisor Preset -->
+              <button type="button" id="roleBtnSpv" onclick="chooseRolePreset('supervisor')" class="p-2.5 rounded-xl border text-left transition-all bg-surface-panel border-surface-border text-neutral-300 hover:border-neutral-500">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold flex items-center gap-1 text-white"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Supervisor</span>
+                  <span class="text-[9px] bg-black/50 px-1 py-0.5 rounded">SPV</span>
+                </div>
+                <span class="text-[10px] text-neutral-400 block mt-1">Admin + Loket</span>
+              </button>
+
+              <!-- Teknisi Preset -->
+              <button type="button" id="roleBtnEng" onclick="chooseRolePreset('teknisi')" class="p-2.5 rounded-xl border text-left transition-all bg-surface-panel border-surface-border text-neutral-300 hover:border-neutral-500">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold flex items-center gap-1 text-white"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Teknisi</span>
+                  <span class="text-[9px] bg-black/50 px-1 py-0.5 rounded">ENG</span>
+                </div>
+                <span class="text-[10px] text-neutral-400 block mt-1">Hardware/Sistem</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Form Fields -->
+          <form onsubmit="event.preventDefault(); submitLogin();" class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-neutral-300 mb-1" for="usernameInput">Username</label>
+              <input type="text" id="usernameInput" value="operator" required="" class="w-full px-3.5 py-2 rounded-lg bg-surface-dim border border-surface-border text-white text-sm font-mono focus:border-brand focus:ring-1 focus:ring-brand">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs font-semibold text-neutral-300" for="passwordInput">Password</label>
+                <button type="button" onclick="togglePassVisibility()" id="togglePassBtn" class="text-[11px] text-brand hover:underline font-mono">Lihat</button>
+              </div>
+              <input type="password" id="passwordInput" value="operator" required="" class="w-full px-3.5 py-2 rounded-lg bg-surface-dim border border-surface-border text-white text-sm font-mono focus:border-brand focus:ring-1 focus:ring-brand">
+            </div>
+
+            <!-- Role Access Card -->
+            <div id="roleAccessExplainer" class="p-3 rounded-lg bg-surface-panel border border-surface-border text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-semibold text-neutral-200 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px] text-emerald-400" id="roleIcon">directions_car</span>
+                  <span id="roleDestinationTitle">Tujuan: Halaman Loket Operator</span>
+                </span>
+                <span id="roleBadgeTag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">OPERATOR</span>
+              </div>
+              <p id="roleDescriptionText" class="text-[11px] text-neutral-400 mt-1 leading-snug">
+                Operator hanya bisa login dan langsung membuka halaman Loket dengan seluruh fungsinya. Akses Dashboard Admin dibatasi penuh.
+              </p>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-brand hover:bg-brand-hover text-white rounded-lg text-sm font-bold tracking-wide transition-all shadow-lg flex items-center justify-center gap-2 mt-2 font-mono">
+              <span>Masuk Sesuai Role</span>
+              <kbd class="px-1.5 py-0.5 rounded bg-black/40 text-[10px] text-neutral-200 border border-white/20">Enter ↵</kbd>
+            </button>
+          </form>
+        </div>
+
+        <div class="pt-3 mt-3 border-t border-surface-border/60 flex items-center justify-between text-[11px] text-neutral-400 font-mono">
+          <button type="button" onclick="loginDirectAs('operator')" class="text-brand hover:underline font-semibold">Buka Loket (Operator) →</button>
+          <button type="button" onclick="loginDirectAs('supervisor')" class="text-sky-400 hover:underline font-semibold">Buka Dashboard (Supervisor) →</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 2. SCREEN: LOKET OPERATOR (#screenLoket)                                   -->
+  <!-- ========================================================================= -->
+  <main id="screenLoket" class="view-screen flex-1 flex-col overflow-hidden bg-[#131316] text-neutral-200">
+    <!-- Loket Toolbar -->
+    <div class="h-14 bg-[#17171d] border-b border-surface-border px-4 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-brand flex items-center justify-center font-black text-black font-mono text-base">L1</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-bold text-white font-grotesk tracking-wide">POS Kasir Keluar — Gerbang 01</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-semibold">EXIT 01</span>
+            <span id="loketUserBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-emerald-400">OPERATOR</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] text-neutral-400 font-mono mt-0.5">
+            <span>Kasir: <strong id="loketUserName" class="text-white">Budi Pratama</strong> (<span id="loketUserShift">Shift Pagi</span>)</span>
+            <span class="text-neutral-600">|</span>
+            <span class="text-emerald-400">Scanner: OK</span>
+            <span class="text-neutral-600">|</span>
+            <span class="text-emerald-400">Printer: TM-T82 [READY]</span>
+            <span class="text-neutral-600">|</span>
+            <span id="loketBarrierStatus" class="text-emerald-400">Barrier: COM3 [ONLINE]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="flex items-center gap-2">
+        <!-- Return to Admin: STRICTLY hidden for Operator, visible for Supervisor -->
+        <button id="btnSpvBackToAdmin" onclick="navigateTo('dashboard', 'supervisor')" class="hidden px-3 py-1.5 bg-sky-900/40 hover:bg-sky-800/60 text-sky-300 border border-sky-600/40 rounded-lg text-xs font-mono font-medium flex items-center gap-1.5 transition-colors">
+          <span class="material-symbols-outlined text-[16px]">dashboard</span>
+          <span>Kembali ke Dashboard Admin</span>
+        </button>
+        <button onclick="openModal('modalSop')" class="px-2.5 py-1.5 bg-surface-panel hover:bg-surface-border text-xs rounded-lg border border-surface-border font-medium flex items-center gap-1.5 transition-colors">
+          <span class="text-neutral-400 font-mono text-[10px] bg-black/40 px-1 py-0.5 rounded">F1</span>
+          <span>SOP Bantuan</span>
+        </button>
+        <button onclick="openModal('modalShift')" class="px-2.5 py-1.5 bg-surface-panel hover:bg-surface-border text-xs rounded-lg border border-surface-border font-medium flex items-center gap-1.5 transition-colors">
+          <span class="text-neutral-400 font-mono text-[10px] bg-black/40 px-1 py-0.5 rounded">F2</span>
+          <span>Ganti Shift</span>
+        </button>
+        <button onclick="openModal('modalOverride')" class="px-2.5 py-1.5 bg-surface-panel hover:bg-surface-border text-xs rounded-lg border border-surface-border font-medium flex items-center gap-1.5 text-amber-300 transition-colors">
+          <span class="text-neutral-400 font-mono text-[10px] bg-black/40 px-1 py-0.5 rounded">F11</span>
+          <span>Override SPV</span>
+        </button>
+        <div class="h-6 w-[1px] bg-surface-border mx-1"></div>
+        <button onclick="navigateTo('login')" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-lg font-medium flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Logout [ESC]</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loket Workstation Content -->
+    <div class="flex-1 p-4 grid grid-cols-12 gap-4 overflow-y-auto">
+      <!-- Left Column: Input, Plate, Camera (5 cols) -->
+      <div class="col-span-12 lg:col-span-5 flex flex-col gap-4">
+        <!-- Identification Card -->
+        <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-4 shadow-lg">
+          <div class="flex items-center justify-between pb-2 border-b border-surface-border">
+            <div class="flex items-center gap-2 text-xs font-semibold text-neutral-300 font-mono">
+              <span class="material-symbols-outlined text-brand text-[20px]">barcode_scanner</span>
+              <span>IDENTIFIKASI KENDARAAN KELUAR</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono font-bold">OCR: ACTIVE</span>
+          </div>
+
+          <!-- Barcode Input with F3 and F4 -->
+          <div>
+            <div class="flex justify-between items-center text-xs mb-1 font-mono">
+              <span class="text-neutral-300 font-semibold">Barcode / No. Tiket</span>
+              <span class="text-[10px] text-neutral-500">Auto Scan</span>
+            </div>
+            <div class="flex gap-2">
+              <input type="text" id="ticketInput" value="TKT-20250225-8849" class="flex-1 bg-[#101014] border border-surface-border rounded-lg px-3 py-2 text-sm font-mono text-white focus:border-brand">
+              <button onclick="triggerScanTicket()" class="px-3 py-2 bg-brand/10 hover:bg-brand/20 border border-brand/30 text-brand font-mono text-xs font-bold rounded-lg flex items-center gap-1">
+                Scan [F3]
+              </button>
+              <button onclick="focusPlateInput()" class="px-3 py-2 bg-surface-panel hover:bg-surface-border border border-surface-border text-neutral-300 font-mono text-xs font-medium rounded-lg flex items-center gap-1">
+                Manual [F4]
+              </button>
+            </div>
+          </div>
+
+          <!-- License Plate -->
+          <div>
+            <div class="flex justify-between items-center text-xs mb-1 font-mono">
+              <span class="text-neutral-300 font-semibold">Nomor Polisi (Plat ANPR)</span>
+              <span class="text-[10px] text-emerald-400">Match 99.4%</span>
+            </div>
+            <input type="text" id="plateInput" value="B 1842 WKA" class="w-full bg-[#0d0d10] border-2 border-brand/60 rounded-xl px-4 py-2 text-2xl font-black font-mono tracking-widest text-center text-amber-300 focus:border-brand uppercase shadow-inner">
+          </div>
+
+          <!-- Vehicle Type Selector -->
+          <div>
+            <label class="block text-xs text-neutral-400 font-mono mb-1.5">Klasifikasi Golongan Kendaraan</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button id="vehMotorBtn" onclick="selectVehicle('motor', 5000)" class="p-2.5 rounded-lg border border-surface-border bg-surface-panel hover:bg-surface-border text-center transition-all">
+                <span class="material-symbols-outlined text-[20px] text-neutral-400 block">two_wheeler</span>
+                <span class="text-xs font-mono font-medium block mt-0.5">Motor</span>
+                <span class="text-[10px] text-neutral-400 font-mono block">Rp 5.000</span>
+              </button>
+              <button id="vehMobilBtn" onclick="selectVehicle('mobil', 15000)" class="p-2.5 rounded-lg border-2 border-brand bg-brand/10 text-center transition-all text-white font-bold">
+                <span class="material-symbols-outlined text-[20px] text-brand block">directions_car</span>
+                <span class="text-xs font-mono block mt-0.5">Mobil</span>
+                <span class="text-[10px] text-brand font-mono block">Rp 15.000</span>
+              </button>
+              <button id="vehTrukBtn" onclick="selectVehicle('truk', 25000)" class="p-2.5 rounded-lg border border-surface-border bg-surface-panel hover:bg-surface-border text-center transition-all">
+                <span class="material-symbols-outlined text-[20px] text-neutral-400 block">local_shipping</span>
+                <span class="text-xs font-mono font-medium block mt-0.5">Truk/Bus</span>
+                <span class="text-[10px] text-neutral-400 font-mono block">Rp 25.000</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Time and Duration -->
+          <div class="space-y-1.5 text-xs font-mono bg-[#101014] p-3 rounded-lg border border-surface-border">
+            <div class="flex justify-between">
+              <span class="text-neutral-500">Waktu Masuk:</span>
+              <span class="text-neutral-200">Hari ini, 08:24:10 WIB</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-neutral-500">Waktu Keluar:</span>
+              <span class="text-neutral-200">Hari ini, 11:39:42 WIB</span>
+            </div>
+            <div class="flex justify-between font-semibold border-t border-surface-border pt-1.5 mt-1.5">
+              <span class="text-neutral-400">Durasi Parkir:</span>
+              <span class="text-amber-400 font-bold">3 Jam 15 Menit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Camera Snapshot Frame -->
+        <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border shadow-lg flex flex-col gap-2">
+          <div class="flex items-center justify-between text-xs font-mono text-neutral-300">
+            <span class="flex items-center gap-1.5 font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> ANPR CAMERA LIVE GATE 01
+            </span>
+            <span class="text-[10px] text-neutral-400">1080P 30FPS</span>
+          </div>
+          <div class="h-28 bg-[#09090c] rounded-lg border border-surface-border relative overflow-hidden flex items-center justify-center">
+            <div class="z-20 text-center space-y-1">
+              <div class="inline-block px-3 py-1 bg-black/90 border border-neutral-600 rounded text-amber-300 font-mono text-base font-black tracking-widest">
+                B 1842 WKA
+              </div>
+              <p class="text-[10px] text-emerald-400 font-mono">PLATE RECOGNITION VALIDATED</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Billing, Payment, Cash & Palang (7 cols) -->
+      <div class="col-span-12 lg:col-span-7 flex flex-col gap-4">
+        <!-- Billing Card -->
+        <div class="p-5 rounded-xl bg-surface-card border border-surface-border shadow-xl">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-neutral-400 font-mono">Total Tagihan Parkir</span>
+              <p class="text-xs text-neutral-500 mt-0.5">Mobil Reguler · Jam 1: Rp 5.000 + 2 Jam Tambahan: Rp 10.000</p>
+            </div>
+            <div id="billStatusTag" class="px-3 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>MENUNGGU PEMBAYARAN</span>
+            </div>
+          </div>
+
+          <div class="my-3 py-2 border-y border-surface-border/60">
+            <div class="text-5xl font-black font-mono tracking-tight text-white flex items-baseline gap-2">
+              <span class="text-2xl text-brand font-bold font-grotesk">Rp</span>
+              <span id="billAmountText">15.000</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 text-xs font-mono">
+            <div><span class="text-neutral-500 text-[10px] block">Jam 1:</span><strong class="text-neutral-200">Rp 5.000</strong></div>
+            <div><span class="text-neutral-500 text-[10px] block">Jam Tambahan:</span><strong class="text-neutral-200">Rp 10.000</strong></div>
+            <div><span class="text-neutral-500 text-[10px] block">Denda Tiket:</span><strong class="text-neutral-200">Rp 0</strong></div>
+          </div>
+        </div>
+
+        <!-- Payment Method Grid -->
+        <div class="p-5 rounded-xl bg-surface-card border border-surface-border shadow-xl space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-surface-border font-mono text-xs">
+            <span class="font-bold text-neutral-200 uppercase">PILIH METODE PEMBAYARAN</span>
+            <span class="text-neutral-400">Shortcut: F5, F6, F7</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <!-- Cash F5 -->
+            <button id="payMethodCash" onclick="choosePaymentMethod('cash')" class="p-3.5 rounded-xl border-2 border-brand bg-brand/10 flex flex-col items-center justify-center gap-1 text-center">
+              <span class="material-symbols-outlined text-brand text-[28px]">payments</span>
+              <span class="text-sm font-bold text-white font-mono">TUNAI [F5]</span>
+              <span class="text-[10px] text-neutral-400">Kalkulator Kasir</span>
+            </button>
+            <!-- QRIS F6 -->
+            <button id="payMethodQris" onclick="choosePaymentMethod('qris')" class="p-3.5 rounded-xl border border-surface-border bg-surface-panel hover:bg-surface-border flex flex-col items-center justify-center gap-1 text-center">
+              <span class="material-symbols-outlined text-neutral-400 text-[28px]">qr_code_2</span>
+              <span class="text-sm font-bold text-neutral-200 font-mono">QRIS [F6]</span>
+              <span class="text-[10px] text-neutral-400">BCA, OVO, Dana</span>
+            </button>
+            <!-- E-Money F7 -->
+            <button id="payMethodEmoney" onclick="choosePaymentMethod('emoney')" class="p-3.5 rounded-xl border border-surface-border bg-surface-panel hover:bg-surface-border flex flex-col items-center justify-center gap-1 text-center">
+              <span class="material-symbols-outlined text-neutral-400 text-[28px]">contactless</span>
+              <span class="text-sm font-bold text-neutral-200 font-mono">E-MONEY [F7]</span>
+              <span class="text-[10px] text-neutral-400">Flazz, TapCash, BRI</span>
+            </button>
+          </div>
+
+          <!-- Cash Calculator Section -->
+          <div id="cashCalcSection" class="p-4 bg-[#101014] rounded-xl border border-surface-border space-y-3">
+            <div class="flex items-center justify-between gap-4 font-mono text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-neutral-300">Uang Diterima: Rp</span>
+                <input type="number" id="cashReceivedVal" value="20000" oninput="calculateCashReturn()" class="w-32 bg-surface-panel border border-surface-border rounded-lg px-2.5 py-1.5 text-sm font-bold text-white text-right focus:border-brand">
+              </div>
+              <div class="text-right">
+                <span class="text-neutral-400 mr-2">Kembalian:</span>
+                <span id="cashReturnVal" class="text-lg font-black text-emerald-400">Rp 5.000</span>
+              </div>
+            </div>
+            <!-- Cash Presets -->
+            <div class="flex items-center gap-2 pt-1 border-t border-surface-border/60">
+              <span class="text-[10px] font-mono text-neutral-400 uppercase">Uang Pas:</span>
+              <button type="button" onclick="setCashAmount(15000)" class="px-2 py-1 bg-surface-panel rounded text-[11px] font-mono text-neutral-200">Uang Pas (15rb)</button>
+              <button type="button" onclick="setCashAmount(20000)" class="px-2 py-1 bg-surface-panel rounded text-[11px] font-mono text-neutral-200">20.000</button>
+              <button type="button" onclick="setCashAmount(50000)" class="px-2 py-1 bg-surface-panel rounded text-[11px] font-mono text-neutral-200">50.000</button>
+              <button type="button" onclick="setCashAmount(100000)" class="px-2 py-1 bg-surface-panel rounded text-[11px] font-mono text-neutral-200">100.000</button>
+            </div>
+            <!-- Submit Cash Payment Button -->
+            <button onclick="confirmCashPayment()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-sm font-mono flex items-center justify-center gap-2 shadow-lg">
+              <span class="material-symbols-outlined text-[20px]">check_circle</span>
+              <span>TERIMA PEMBAYARAN CASH [ENTER]</span>
+            </button>
+          </div>
+
+          <!-- QRIS Section -->
+          <div id="qrisSection" class="hidden p-4 bg-[#101014] rounded-xl border border-surface-border text-center space-y-2">
+            <div class="w-32 h-32 bg-white mx-auto rounded p-2 flex items-center justify-center">
+              <img src="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect width='100' height='100' fill='white'/&gt;&lt;rect x='10' y='10' width='30' height='30' fill='black'/&gt;&lt;rect x='60' y='10' width='30' height='30' fill='black'/&gt;&lt;rect x='10' y='60' width='30' height='30' fill='black'/&gt;&lt;rect x='45' y='45' width='15' height='15' fill='black'/&gt;&lt;/svg&gt;" alt="QR" class="w-full h-full object-contain">
+            </div>
+            <p class="text-xs font-mono text-neutral-300">Dynamic QRIS aktif di customer display.</p>
+            <button onclick="confirmPaymentSuccess('Pembayaran QRIS Berhasil Diterima.')" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono font-bold">Simulasi QRIS Sukses [Enter]</button>
+          </div>
+
+          <!-- E-Money Section -->
+          <div id="emoneySection" class="hidden p-4 bg-[#101014] rounded-xl border border-surface-border text-center space-y-2">
+            <span class="material-symbols-outlined text-[40px] text-sky-400 animate-pulse">contactless</span>
+            <p class="text-xs font-mono text-neutral-300">Silakan instruksikan pengemudi tap kartu pada SAM reader.</p>
+            <button onclick="confirmPaymentSuccess('Tap Kartu E-Money Flazz/Mandiri Sukses.')" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded text-xs font-mono font-bold">Simulasi Tap Berhasil [Enter]</button>
+          </div>
+
+          <!-- Bottom Action Buttons: Buka Palang & Cetak -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button id="barrierActionButton" onclick="triggerOpenBarrier()" class="py-3.5 px-4 rounded-xl bg-neutral-700 text-neutral-400 font-bold text-sm tracking-wide shadow-lg flex items-center justify-center gap-2 cursor-not-allowed">
+              <span class="material-symbols-outlined text-[22px]">garage</span>
+              <span id="barrierBtnLabel">BUKA PALANG [F9]</span>
+            </button>
+            <button onclick="triggerPrintReceipt()" class="py-3.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-bold text-sm tracking-wide shadow-lg flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[22px]">receipt_long</span>
+              <span>CETAK STRUK [F10]</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Loket Key Bar (Clickable F1-F11) -->
+    <div class="bg-[#101014] border-t border-surface-border px-3 py-1.5 flex items-center justify-between gap-1 text-[11px] font-mono text-neutral-300 shrink-0">
+      <button onclick="openModal('modalSop')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F1]</span> SOP</button>
+      <button onclick="openModal('modalShift')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F2]</span> Shift</button>
+      <button onclick="triggerScanTicket()" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F3]</span> Scan</button>
+      <button onclick="focusPlateInput()" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F4]</span> Plat</button>
+      <button onclick="choosePaymentMethod('cash')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F5]</span> Tunai</button>
+      <button onclick="choosePaymentMethod('qris')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F6]</span> QRIS</button>
+      <button onclick="choosePaymentMethod('emoney')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F7]</span> E-Money</button>
+      <button onclick="triggerOpenBarrier()" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-emerald-400 font-bold">[F9]</span> Palang</button>
+      <button onclick="triggerPrintReceipt()" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-brand font-bold">[F10]</span> Cetak</button>
+      <button onclick="openModal('modalOverride')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-amber-400 font-bold">[F11]</span> Override</button>
+      <button id="bottomKeyLoketAdmin" onclick="handleAdminNavigation()" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border"><span class="text-sky-400 font-bold">[F12]</span> Admin</button>
+      <button onclick="navigateTo('login')" class="px-2 py-1 bg-surface-card hover:bg-surface-panel rounded border border-surface-border text-red-400 font-bold">[ESC] Tutup</button>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 3. SCREEN: DASHBOARD ADMIN (#screenAdmin)                                 -->
+  <!-- ========================================================================= -->
+  <main id="screenAdmin" class="view-screen flex-1 flex-col overflow-hidden bg-[#131316] text-neutral-200">
+    <!-- Header Admin -->
+    <header class="h-14 bg-[#17171d] border-b border-surface-border px-5 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-3">
+        <div id="adminRoleAvatar" class="w-9 h-9 rounded-lg bg-sky-600 flex items-center justify-center font-bold text-white font-mono text-sm">SPV</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span id="adminMainTitle" class="text-sm font-bold text-white font-grotesk">Dashboard Supervisor &amp; Operasional</span>
+            <span id="adminRoleBadge" class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-sky-500/20 text-sky-400 border border-sky-500/30 font-semibold">SUPERVISOR</span>
+          </div>
+          <p class="text-[11px] text-neutral-400 font-mono">
+            User: <strong id="adminUserFullName" class="text-white">Ahmad Fauzi, S.T.</strong> · Akses: <span id="adminAccessScopeText" class="text-emerald-400">Operasional, Tarif, Member, Karyawan, SOP</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Switch role simulator inside admin -->
+        <div class="hidden md:flex items-center gap-1 bg-[#101014] p-1 rounded-lg border border-surface-border text-xs font-mono">
+          <span class="text-[10px] text-neutral-400 px-1 uppercase">Role:</span>
+          <button id="simBtnSpv" onclick="setSimulatedRole('supervisor')" class="px-2 py-1 rounded bg-sky-600 text-white font-bold">SPV</button>
+          <button id="simBtnEng" onclick="setSimulatedRole('teknisi')" class="px-2 py-1 rounded text-neutral-400 hover:text-white">Teknisi (ENG)</button>
+        </div>
+
+        <!-- Buka Loket Kasir Button [F12] (Supervisor Allowed, Teknisi Disabled) -->
+        <button id="adminHeaderLoketBtn" onclick="handleLoketNavigation()" class="px-4 py-2 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg flex items-center gap-2 shadow-lg font-mono">
+          <span class="material-symbols-outlined text-[18px]">directions_car</span>
+          <span>[F12] Buka Loket Kasir</span>
+        </button>
+
+        <button onclick="navigateTo('login')" class="px-3 py-2 bg-surface-panel hover:bg-surface-border text-neutral-300 text-xs rounded-lg border border-surface-border font-mono flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Logout [ESC]</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Admin Body: Sidebar + Main Panes -->
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-[#141419] border-r border-surface-border flex flex-col justify-between shrink-0 p-3">
+        <div class="space-y-1">
+          <!-- Sidebar Prominent Loket Button -->
+          <button id="sidebarLoketActionBtn" onclick="handleLoketNavigation()" class="w-full mb-3 p-2.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs tracking-wide flex items-center justify-center gap-2 shadow-md font-mono">
+            <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+            <span>[F12] BUKA LOKET KASIR #01</span>
+          </button>
+
+          <div class="text-[10px] font-mono font-bold text-neutral-400 px-2 py-1 uppercase flex items-center justify-between">
+            <span>Navigasi Modul Master</span>
+            <span id="sidebarRoleLabel" class="text-[9px] px-1 py-0.2 rounded bg-surface-panel text-neutral-300">SPV</span>
+          </div>
+
+          <!-- 8 Menu Items With Strict Role Permission Control -->
+          <nav class="space-y-1 font-mono text-xs">
+            <!-- 01 Overview: SPV ONLY -->
+            <button id="menu01" onclick="handleMenuClick('pane01_overview')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors bg-brand text-white font-bold" data-pane="pane01_overview">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                <span>01 Ringkasan &amp; Status</span>
+              </div>
+              <span class="lock-tag hidden text-[10px] text-neutral-400">🔒</span>
+            </button>
+
+            <!-- 02 Hardware: TEKNISI ONLY (SPV STRICTLY LOCKED) -->
+            <button id="menu02" onclick="handleMenuClick('pane02_hardware')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane02_hardware">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">settings_input_composite</span>
+                <span>02 Manajemen Perangkat</span>
+              </div>
+              <span id="lockTag02" class="text-[9px] px-1.5 py-0.5 rounded bg-amber-900/40 text-amber-300 border border-amber-700/50 flex items-center gap-0.5">🔒 Teknisi</span>
+            </button>
+
+            <!-- 03 Tariff: SPV ONLY -->
+            <button id="menu03" onclick="handleMenuClick('pane03_tariff')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane03_tariff">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">payments</span>
+                <span>03 Pengaturan Tarif</span>
+              </div>
+              <span class="lock-tag hidden text-[10px] text-neutral-400">🔒</span>
+            </button>
+
+            <!-- 04 Payment: SPV ONLY -->
+            <button id="menu04" onclick="handleMenuClick('pane04_payment')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane04_payment">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">credit_card</span>
+                <span>04 Fitur Pembayaran</span>
+              </div>
+              <span class="lock-tag hidden text-[10px] text-neutral-400">🔒</span>
+            </button>
+
+            <!-- 05 Member: SPV ONLY -->
+            <button id="menu05" onclick="handleMenuClick('pane05_member')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane05_member">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">badge</span>
+                <span>05 Keanggotaan Member</span>
+              </div>
+              <span class="lock-tag hidden text-[10px] text-neutral-400">🔒</span>
+            </button>
+
+            <!-- 06 Operators: SPV ONLY -->
+            <button id="menu06" onclick="handleMenuClick('pane06_operators')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane06_operators">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">group</span>
+                <span>06 Karyawan &amp; Operator</span>
+              </div>
+              <span class="lock-tag hidden text-[10px] text-neutral-400">🔒</span>
+            </button>
+
+            <!-- 07 System: TEKNISI ONLY (SPV STRICTLY LOCKED) -->
+            <button id="menu07" onclick="handleMenuClick('pane07_system')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane07_system">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">security</span>
+                <span>07 Pengaturan Sistem</span>
+              </div>
+              <span id="lockTag07" class="text-[9px] px-1.5 py-0.5 rounded bg-amber-900/40 text-amber-300 border border-amber-700/50 flex items-center gap-0.5">🔒 Teknisi</span>
+            </button>
+
+            <!-- 08 SOP: SPV can access -->
+            <button id="menu08" onclick="handleMenuClick('pane08_sop')" class="dash-nav-btn w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors text-neutral-300 hover:bg-surface-panel" data-pane="pane08_sop">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">help</span>
+                <span>08 SOP Bantuan (F1)</span>
+              </div>
+              <span class="lock-tag hidden text-[10px] text-neutral-400">🔒</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Sidebar footer -->
+        <div class="pt-3 border-t border-surface-border">
+          <div class="p-2.5 rounded-lg bg-surface-dim border border-surface-border text-[11px] font-mono text-neutral-400 mb-2">
+            <div class="flex justify-between"><span>Site:</span><strong class="text-white">PKR-CGK-01</strong></div>
+            <div class="flex justify-between"><span>Status:</span><span id="sidebarStatusIndicator" class="text-emerald-400 font-bold">SPV Aktif</span></div>
+          </div>
+          <button onclick="navigateTo('login')" class="w-full py-2 bg-surface-panel hover:bg-red-500/20 text-neutral-300 hover:text-red-400 text-xs font-mono rounded-lg flex items-center justify-center gap-1.5 border border-surface-border">
+            <span class="material-symbols-outlined text-[16px]">logout</span>
+            <span>Logout [ESC]</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content Dynamic Panes -->
+      <div class="flex-1 p-6 overflow-y-auto space-y-6 bg-[#131316]">
+        <!-- PANE 01: Ringkasan & Status (Supervisor) -->
+        <section id="pane01_overview" class="dash-pane active space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white font-grotesk">Ringkasan Operasional Hari Ini</h2>
+              <p class="text-xs text-neutral-400 font-mono">Data konsolidasi transaksi gerbang keluar dan okupansi lot parkir.</p>
+            </div>
+            <div class="px-3 py-1 bg-surface-card border border-surface-border rounded text-xs font-mono text-emerald-400">
+              ● Central Server: Terhubung (12ms)
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border shadow">
+              <span class="text-xs text-neutral-400 block">Total Transaksi Shift</span>
+              <div class="text-2xl font-bold text-white mt-1">1.248 <span class="text-xs font-normal text-emerald-400">Unit</span></div>
+              <span class="text-[10px] text-neutral-500 block mt-1">112 kendaraan / jam</span>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border shadow">
+              <span class="text-xs text-neutral-400 block">Akumulasi Kasir Hari Ini</span>
+              <div class="text-2xl font-bold text-emerald-400 mt-1">Rp 34.850.000</div>
+              <span class="text-[10px] text-neutral-500 block mt-1">Cash: 42% · Non-Tunai: 58%</span>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border shadow">
+              <span class="text-xs text-neutral-400 block">Okupansi Slot Parkir</span>
+              <div class="text-2xl font-bold text-amber-400 mt-1">80.3% <span class="text-xs font-normal text-neutral-400">(482/600)</span></div>
+              <span class="text-[10px] text-neutral-500 block mt-1">Mobil: 172 · Motor: 310</span>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border shadow">
+              <span class="text-xs text-neutral-400 block">Override SPV [F11] Terpakai</span>
+              <div class="text-2xl font-bold text-white mt-1">3 <span class="text-xs font-normal text-orange-400">Kasus</span></div>
+              <span class="text-[10px] text-neutral-500 block mt-1">Tiket Hilang: 2 · Gate Stuck: 1</span>
+            </div>
+          </div>
+
+          <!-- Table preview -->
+          <div class="p-5 rounded-xl bg-surface-card border border-surface-border space-y-3 font-mono text-xs">
+            <h3 class="font-bold text-white uppercase text-sm">Log Transaksi Terkini Gerbang Keluar</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="text-neutral-400 border-b border-surface-border">
+                  <tr><th class="py-2">No. Tiket</th><th>Plat Nomor</th><th>Kendaraan</th><th>Tarif</th><th>Metode</th><th>Status</th></tr>
+                </thead>
+                <tbody class="divide-y divide-surface-border text-neutral-300">
+                  <tr><td class="py-2 text-white font-bold">TKT-8848</td><td class="text-amber-300">B 1842 WKA</td><td>Mobil</td><td>Rp 15.000</td><td>Tunai</td><td><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">LUNAS</span></td></tr>
+                  <tr><td class="py-2 text-white font-bold">TKT-8847</td><td class="text-amber-300">B 4912 SZT</td><td>Motor</td><td>Rp 5.000</td><td>QRIS</td><td><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">LUNAS</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANE 02: Manajemen Perangkat (KHUSUS TEKNISI) -->
+        <section id="pane02_hardware" class="dash-pane space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl font-bold text-white font-grotesk">Manajemen Perangkat &amp; Port Peripheral</h2>
+                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-mono font-bold">HANYA AKSES TEKNISI</span>
+              </div>
+              <p class="text-xs text-neutral-400 font-mono">Telemetri hardware serial COM, relay palang, modul ANPR OCR, dan printer thermal.</p>
+            </div>
+            <button onclick="pingAllDevices()" class="px-3.5 py-2 bg-brand hover:bg-brand-hover text-white text-xs font-bold font-mono rounded-lg">
+              Ping Hardware Sweep [F5]
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Barrier Controller</strong><span class="text-emerald-400 font-bold">ONLINE</span></div>
+              <p class="text-neutral-400 text-[11px]">COM3 · 9600 bps · Modbus TCP</p>
+              <button onclick="alert('Relay pulse test sent.')" class="w-full mt-2 py-1.5 bg-surface-panel hover:bg-surface-border text-neutral-200 rounded border border-surface-border text-[11px]">Test Buka Relay</button>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Thermal Printer</strong><span class="text-emerald-400 font-bold">READY</span></div>
+              <p class="text-neutral-400 text-[11px]">Epson TM-T82X · Kertas: 80%</p>
+              <button onclick="alert('Print sample OK.')" class="w-full mt-2 py-1.5 bg-surface-panel hover:bg-surface-border text-neutral-200 rounded border border-surface-border text-[11px]">Test Print Struk</button>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Kamera ANPR OCR</strong><span class="text-emerald-400 font-bold">STREAMING</span></div>
+              <p class="text-neutral-400 text-[11px]">192.168.1.105 · RTSP 554</p>
+              <button onclick="alert('Capture OCR OK.')" class="w-full mt-2 py-1.5 bg-surface-panel hover:bg-surface-border text-neutral-200 rounded border border-surface-border text-[11px]">Ambil Snapshot</button>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Reader SAM NFC</strong><span class="text-emerald-400 font-bold">ONLINE</span></div>
+              <p class="text-neutral-400 text-[11px]">ACR122U USB HID</p>
+              <button onclick="alert('SAM Key valid.')" class="w-full mt-2 py-1.5 bg-surface-panel hover:bg-surface-border text-neutral-200 rounded border border-surface-border text-[11px]">Verifikasi SAM</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANE 03: Pengaturan Tarif (Supervisor) -->
+        <section id="pane03_tariff" class="dash-pane space-y-5">
+          <div>
+            <h2 class="text-xl font-bold text-white font-grotesk">Pengaturan Skema Tarif Parkir</h2>
+            <p class="text-xs text-neutral-400 font-mono">Kelola matriks tarif dasar, tarif progresif per jam, dan penalti tiket hilang.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-3">
+              <h3 class="font-bold text-white text-sm">Mobil (Golongan II)</h3>
+              <div><span class="text-neutral-400 block mb-1">Jam Pertama (Rp):</span><input type="number" value="5000" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white"></div>
+              <div><span class="text-neutral-400 block mb-1">Jam Berikutnya (/jam):</span><input type="number" value="5000" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white"></div>
+              <button onclick="alert('Tarif Mobil Disimpan!')" class="w-full py-2 bg-brand text-white font-bold rounded">Simpan Perubahan</button>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-3">
+              <h3 class="font-bold text-white text-sm">Motor (Golongan I)</h3>
+              <div><span class="text-neutral-400 block mb-1">Jam Pertama (Rp):</span><input type="number" value="3000" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white"></div>
+              <div><span class="text-neutral-400 block mb-1">Jam Berikutnya (/jam):</span><input type="number" value="2000" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white"></div>
+              <button onclick="alert('Tarif Motor Disimpan!')" class="w-full py-2 bg-brand text-white font-bold rounded">Simpan Perubahan</button>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-3">
+              <h3 class="font-bold text-white text-sm">Denda &amp; Surcharge</h3>
+              <div><span class="text-neutral-400 block mb-1">Denda Tiket Hilang:</span><input type="number" value="50000" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white"></div>
+              <div><span class="text-neutral-400 block mb-1">Grace Period (Menit):</span><input type="number" value="10" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white"></div>
+              <button onclick="alert('Tarif Denda Disimpan!')" class="w-full py-2 bg-brand text-white font-bold rounded">Simpan Perubahan</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANE 04: Fitur Pembayaran (Supervisor) -->
+        <section id="pane04_payment" class="dash-pane space-y-5">
+          <div>
+            <h2 class="text-xl font-bold text-white font-grotesk">Aktivasi Fitur &amp; Kanal Pembayaran</h2>
+            <p class="text-xs text-neutral-400 font-mono">Kelola penerimaan transaksi tunai, dynamic QRIS, dan kartu uang elektronik.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Uang Tunai (Cash)</strong><span class="text-emerald-400 font-bold">AKTIF</span></div>
+              <p class="text-neutral-400 text-[11px]">Kalkulator kembalian otomatis &amp; drawer laci fisik.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Dynamic QRIS</strong><span class="text-emerald-400 font-bold">AKTIF</span></div>
+              <p class="text-neutral-400 text-[11px]">Merchant MID: ID1029481948 - Integrasi Webhook.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-2">
+              <div class="flex justify-between items-center"><strong class="text-white">Kartu E-Money SAM</strong><span class="text-emerald-400 font-bold">AKTIF</span></div>
+              <p class="text-neutral-400 text-[11px]">BCA Flazz, Mandiri, BRIZZI, BNI TapCash.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANE 05: Keanggotaan Member (Supervisor) -->
+        <section id="pane05_member" class="dash-pane space-y-5">
+          <div>
+            <h2 class="text-xl font-bold text-white font-grotesk">Keanggotaan Member Bebas Parkir</h2>
+            <p class="text-xs text-neutral-400 font-mono">Daftar plat nomor kendaraan VIP / dinas yang otomatis bebas tarif.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border space-y-3 font-mono text-xs">
+            <div class="flex justify-between items-center pb-2 border-b border-surface-border">
+              <span class="text-neutral-300 font-bold">3 Plat Terdaftar Bebas Parkir</span>
+              <button onclick="alert('Tambah Plat Whitelist')" class="px-3 py-1 bg-brand text-white font-bold rounded">+ Tambah</button>
+            </div>
+            <div class="divide-y divide-surface-border">
+              <div class="py-2 flex justify-between"><span>B 1 RI (Kendaraan Dinas VIP)</span><span class="text-emerald-400 font-bold">BEBAS BIAYA</span></div>
+              <div class="py-2 flex justify-between"><span>B 9999 BOS (Direksi Pengelola)</span><span class="text-emerald-400 font-bold">BEBAS BIAYA</span></div>
+              <div class="py-2 flex justify-between"><span>B 112 AMB (Ambulans Siaga)</span><span class="text-emerald-400 font-bold">BEBAS BIAYA</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANE 06: Karyawan & Operator (Supervisor) -->
+        <section id="pane06_operators" class="dash-pane space-y-5">
+          <div>
+            <h2 class="text-xl font-bold text-white font-grotesk">Manajemen Karyawan &amp; Shift Operator</h2>
+            <p class="text-xs text-neutral-400 font-mono">Pengelolaan akun petugas loket keluar dan jadwal operasional.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-card border border-surface-border font-mono text-xs">
+            <div class="grid grid-cols-3 gap-2 pb-2 text-neutral-400 font-bold border-b border-surface-border">
+              <div>Nama Petugas</div><div>Role Jabatan</div><div>Jadwal Shift</div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 py-2 text-neutral-200 border-b border-surface-border">
+              <div>Budi Pratama</div><div class="text-emerald-400">Operator Loket</div><div>Shift Pagi (07:00 - 15:00)</div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 py-2 text-neutral-200 border-b border-surface-border">
+              <div>Siti Rahmawati</div><div class="text-emerald-400">Operator Loket</div><div>Shift Sore (15:00 - 23:00)</div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 py-2 text-neutral-200">
+              <div>Ahmad Fauzi, S.T.</div><div class="text-sky-400">Supervisor (SPV)</div><div>All Shifts (Elevated)</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANE 07: Pengaturan Sistem (KHUSUS TEKNISI) -->
+        <section id="pane07_system" class="dash-pane space-y-5">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl font-bold text-white font-grotesk">Pengaturan Sistem &amp; Integrasi Terminal</h2>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-mono font-bold">HANYA AKSES TEKNISI</span>
+            </div>
+            <p class="text-xs text-neutral-400 font-mono">Konfigurasi endpoint API site server, master PIN otorisasi, dan timeout relay.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-surface-card border border-surface-border space-y-4 font-mono text-xs max-w-xl">
+            <div>
+              <label class="block text-neutral-300 font-bold mb-1">Site Server Endpoint Gateway:</label>
+              <input type="text" value="https://site-gw.internal.terminal:8443/api/v1" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white">
+            </div>
+            <div>
+              <label class="block text-neutral-300 font-bold mb-1">Master PIN Supervisor [F11]:</label>
+              <input type="password" id="masterPinSetting" value="123456" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white tracking-widest text-base">
+              <span class="text-[10px] text-neutral-500 mt-1 block">Default PIN otorisasi kasir: 123456</span>
+            </div>
+            <button onclick="alert('Konfigurasi sistem &amp; endpoint berhasil disimpan.')" class="px-4 py-2 bg-brand hover:bg-brand-hover text-white font-bold rounded-lg">
+              Simpan Master Konfigurasi
+            </button>
+          </div>
+        </section>
+
+        <!-- PANE 08: SOP Bantuan (Supervisor) -->
+        <section id="pane08_sop" class="dash-pane space-y-5">
+          <div>
+            <h2 class="text-xl font-bold text-white font-grotesk">Pusat Bantuan &amp; Standar Operasional Prosedur (SOP)</h2>
+            <p class="text-xs text-neutral-400 font-mono">Panduan resmi eskalasi masalah gerbang parkir.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-surface-card border border-surface-border space-y-3 text-xs text-neutral-300 font-mono leading-relaxed">
+            <p><strong>1. Tiket Hilang / Rusak:</strong> Minta KTP &amp; STNK pengemudi. Supervisor melakukan verifikasi dan input PIN otorisasi [F11].</p>
+            <p><strong>2. Palang Tidak Terangkat:</strong> Pastikan status lunas. Cek lampu relay COM3, atau tekan [F9] manual override.</p>
+            <p><strong>3. Gangguan QRIS:</strong> Hubungi acquirer jika webhook gagal lebih dari 60 detik.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS OVERLAYS                                                           -->
+  <!-- ========================================================================= -->
+  <!-- Modal SOP [F1] -->
+  <div id="modalSop" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-card border border-surface-border rounded-xl shadow-2xl max-w-lg w-full p-6 text-neutral-200">
+      <div class="flex items-center justify-between pb-3 border-b border-surface-border mb-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 font-grotesk">
+          <span class="material-symbols-outlined text-brand">help</span>
+          <span>SOP Petugas Loket Keluar [F1]</span>
+        </h3>
+        <button onclick="closeModal('modalSop')" class="text-neutral-400 hover:text-white">✕</button>
+      </div>
+      <div class="space-y-2.5 text-xs text-neutral-300 leading-relaxed font-mono">
+        <p>1. Ucapkan salam ramah kepada pengemudi dan minta karcis parkir barcode.</p>
+        <p>2. Tekan <strong>[F3]</strong> untuk scan tiket barcode atau <strong>[F4]</strong> untuk input nomor polisi.</p>
+        <p>3. Konfirmasi jenis kendaraan di sistem (Motor/Mobil/Truk) serta total tagihan.</p>
+        <p>4. Terima pembayaran via <strong>[F5] Tunai</strong>, <strong>[F6] QRIS</strong>, atau <strong>[F7] E-Money</strong>.</p>
+        <p>5. Tekan <strong>[F9] Buka Palang</strong> dan serahkan struk <strong>[F10]</strong> setelah lunas.</p>
+        <p>6. Bila karcis hilang, tekan <strong>[F11] Override SPV</strong> untuk verifikasi STNK oleh Supervisor.</p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-surface-border flex justify-end">
+        <button onclick="closeModal('modalSop')" class="px-4 py-2 bg-surface-panel hover:bg-surface-border rounded text-xs font-mono font-bold text-white">Tutup [ESC]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Shift [F2] -->
+  <div id="modalShift" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-card border border-surface-border rounded-xl shadow-2xl max-w-md w-full p-6 text-neutral-200">
+      <div class="flex items-center justify-between pb-3 border-b border-surface-border mb-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 font-grotesk">
+          <span class="material-symbols-outlined text-brand">schedule</span>
+          <span>Rekap Shift Kasir &amp; Handover [F2]</span>
+        </h3>
+        <button onclick="closeModal('modalShift')" class="text-neutral-400 hover:text-white">✕</button>
+      </div>
+      <div class="p-3 bg-surface-dim rounded-lg border border-surface-border font-mono text-xs space-y-2 mb-4">
+        <div class="flex justify-between"><span class="text-neutral-400">Total Kendaraan Shift:</span><strong class="text-white">142 Kendaraan</strong></div>
+        <div class="flex justify-between"><span class="text-neutral-400">Uang Kasir di Laci:</span><strong class="text-emerald-400">Rp 1.150.000</strong></div>
+        <div class="flex justify-between"><span class="text-neutral-400">Non-Tunai (QRIS &amp; NFC):</span><strong class="text-sky-400">Rp 820.000</strong></div>
+      </div>
+      <div class="space-y-2 font-mono text-xs mb-4">
+        <label class="block text-neutral-300">Petugas Kasir Pengganti:</label>
+        <input type="text" value="Siti Rahmawati" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white">
+      </div>
+      <div class="flex flex-col gap-2 font-mono">
+        <button onclick="alert('Laporan Z-Report shift dicetak. Sesi shift ditutup.'); closeModal('modalShift'); navigateTo('login');" class="w-full py-2.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg shadow">
+          Cetak Rekap &amp; End Shift (Tutup Sesi)
+        </button>
+        <button onclick="closeModal('modalShift')" class="w-full py-2 bg-surface-panel hover:bg-surface-border text-neutral-300 text-xs rounded-lg">
+          Lanjutkan Shift Ini
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Override SPV [F11] -->
+  <div id="modalOverride" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-card border border-amber-500/50 rounded-xl shadow-2xl max-w-sm w-full p-6 text-neutral-200">
+      <div class="flex items-center justify-between pb-3 border-b border-surface-border mb-3">
+        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2 font-grotesk">
+          <span class="material-symbols-outlined">security</span>
+          <span>Otorisasi Supervisor [F11]</span>
+        </h3>
+        <button onclick="closeModal('modalOverride')" class="text-neutral-400 hover:text-white">✕</button>
+      </div>
+      <p class="text-xs text-neutral-400 mb-3 font-mono">Masukkan PIN 6-digit Supervisor untuk membebaskan tarif / denda:</p>
+      
+      <div class="mb-3">
+        <div class="w-full bg-surface-dim border-2 border-amber-500/50 rounded-xl p-3 text-center">
+          <div id="pinDisplayDigits" class="text-2xl font-mono font-black tracking-widest text-amber-300">••••••</div>
+        </div>
+        <p class="text-[10px] text-center text-neutral-500 font-mono mt-1">Default SPV PIN: <strong>123456</strong></p>
+      </div>
+
+      <div class="mb-3 font-mono text-xs">
+        <label class="block text-[11px] text-neutral-400 mb-1">Alasan Override:</label>
+        <select class="w-full bg-surface-dim border border-surface-border rounded p-1.5 text-white">
+          <option>Tiket Hilang (Denda STNK Valid)</option>
+          <option>Palang Macet / Kendaraan Stuck</option>
+          <option>Kendaraan Emergency / Ambulans</option>
+        </select>
+      </div>
+
+      <!-- Keypad -->
+      <div class="grid grid-cols-3 gap-2 mb-4 font-mono font-bold text-sm">
+        <button type="button" onclick="keypadAdd('1')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">1</button>
+        <button type="button" onclick="keypadAdd('2')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">2</button>
+        <button type="button" onclick="keypadAdd('3')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">3</button>
+        <button type="button" onclick="keypadAdd('4')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">4</button>
+        <button type="button" onclick="keypadAdd('5')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">5</button>
+        <button type="button" onclick="keypadAdd('6')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">6</button>
+        <button type="button" onclick="keypadAdd('7')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">7</button>
+        <button type="button" onclick="keypadAdd('8')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">8</button>
+        <button type="button" onclick="keypadAdd('9')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">9</button>
+        <button type="button" onclick="keypadClear()" class="py-2.5 rounded bg-red-950/40 text-red-400 hover:bg-red-900/40 text-xs">CLEAR</button>
+        <button type="button" onclick="keypadAdd('0')" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-white">0</button>
+        <button type="button" onclick="keypadDel()" class="py-2.5 rounded bg-surface-panel hover:bg-surface-border text-neutral-400 text-xs">DEL ⌫</button>
+      </div>
+
+      <div class="flex gap-2 font-mono text-xs">
+        <button onclick="submitSpvOverride()" class="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-black font-bold rounded-lg shadow">Konfirmasi PIN</button>
+        <button onclick="closeModal('modalOverride')" class="px-4 py-2.5 bg-surface-panel hover:bg-surface-border text-neutral-300 rounded-lg">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Workstation -->
+  <footer class="h-7 w-full bg-[#0d0d10] border-t border-surface-border px-4 flex items-center justify-between text-[11px] text-neutral-400 select-none shrink-0 font-mono">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span id="footerStatusText" class="text-neutral-200">Terminal Ready</span>
+      </div>
+      <span class="text-neutral-700">|</span>
+      <span>Scanner: <span class="text-neutral-200">Connected</span></span>
+      <span class="text-neutral-700">|</span>
+      <span>Printer: <span class="text-neutral-200">Paper OK</span></span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="openModal('modalSop')" class="hover:text-neutral-200">[F1] SOP</button>
+      <button onclick="openModal('modalShift')" class="hover:text-neutral-200">[F2] Shift</button>
+      <button onclick="handleLoketNavigation()" class="hover:text-brand">[F12] Loket</button>
+      <button onclick="navigateTo('login')" class="hover:text-red-400">[ESC] Tutup</button>
+      <span id="realtimeClock" class="text-neutral-200">02:19:35 WIB</span>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT STATE ENGINE & STRICT ROLE-BASED ACCESS CONTROL (RBAC)         -->
+  <!-- ========================================================================= -->
+  <script>
+    window.appState = {
+      currentView: 'login', // 'login' | 'loket' | 'dashboard'
+      currentRole: 'operator', // 'operator' | 'supervisor' | 'teknisi'
+      activeVehicle: 'mobil',
+      totalBill: 15000,
+      paymentMethod: 'cash',
+      isPaid: false,
+      barrierOpened: false,
+      enteredPin: ''
+    };
+
+    const ROLE_METADATA = {
+      operator: {
+        username: 'operator',
+        password: 'operator',
+        fullName: 'Budi Pratama',
+        shift: 'Shift Pagi',
+        badgeText: 'OPERATOR',
+        badgeClass: 'bg-emerald-500/20 text-emerald-400 font-bold',
+        scopeText: 'Khusus Loket Kasir',
+        desc: 'Operator hanya bisa login dan langsung membuka halaman Loket dengan semua fungsinya. Akses Dashboard Admin dibatasi penuh.'
+      },
+      supervisor: {
+        username: 'supervisor',
+        password: 'admin',
+        fullName: 'Ahmad Fauzi, S.T.',
+        shift: 'Master Supervisor',
+        badgeText: 'SUPERVISOR',
+        badgeClass: 'bg-sky-500/20 text-sky-400 font-bold',
+        scopeText: 'Operasional, Tarif, Member, Karyawan, SOP + Buka Loket & Override',
+        desc: 'Supervisor login bisa membuka dashboard (menu operasional, tarif, bayar, member, karyawan, SOP), buka loket [F12], dan override PIN di loket. DILARANG membuka Manajemen Perangkat dan Pengaturan Sistem.'
+      },
+      teknisi: {
+        username: 'teknisi',
+        password: 'teknisi',
+        fullName: 'Doni Firmansyah (Maintenance)',
+        shift: 'Teknisi Lapangan',
+        badgeText: 'TEKNISI',
+        badgeClass: 'bg-amber-500/20 text-amber-400 font-bold',
+        scopeText: 'Hanya Manajemen Perangkat [02] & Pengaturan Sistem [07]',
+        desc: 'Teknisi login hanya bisa akses ke dashboard halaman Manajemen Perangkat [02] dan Pengaturan Sistem [07]. Menu operasional lain dan loket terkunci.'
+      }
+    };
+
+    // Show Global Notification / Toast
+    window.showToast = function(title, message) {
+      const toast = document.getElementById('globalToast');
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastDesc').textContent = message;
+
+      toast.classList.remove('translate-y-[-140%]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-140%]', 'opacity-0');
+      }, 3500);
+    };
+
+    // Preset Button Click
+    window.chooseRolePreset = function(role) {
+      window.appState.currentRole = role;
+      const meta = ROLE_METADATA[role];
+
+      document.getElementById('usernameInput').value = meta.username;
+      document.getElementById('passwordInput').value = meta.password;
+      document.getElementById('loginSelectedBadge').textContent = meta.fullName + ' (' + meta.badgeText + ')';
+      document.getElementById('loginSelectedScope').textContent = meta.scopeText;
+
+      const tag = document.getElementById('roleBadgeTag');
+      tag.textContent = meta.badgeText;
+      tag.className = 'text-[10px] font-mono px-2 py-0.5 rounded ' + meta.badgeClass;
+
+      document.getElementById('roleDescriptionText').textContent = meta.desc;
+      document.getElementById('roleDestinationTitle').textContent = (role === 'operator') ? 'Tujuan: Halaman Loket Operator Langsung' : 'Tujuan: Dashboard Admin';
+
+      // Update preset buttons styling
+      ['Opr', 'Spv', 'Eng'].forEach(k => {
+        const btn = document.getElementById('roleBtn' + k);
+        btn.className = "p-2.5 rounded-xl border text-left transition-all bg-surface-panel border-surface-border text-neutral-300 hover:border-neutral-500";
+      });
+      if (role === 'operator') document.getElementById('roleBtnOpr').className = "p-2.5 rounded-xl border text-left transition-all ring-2 ring-brand bg-brand/10 border-brand text-white";
+      if (role === 'supervisor') document.getElementById('roleBtnSpv').className = "p-2.5 rounded-xl border text-left transition-all ring-2 ring-brand bg-brand/10 border-brand text-white";
+      if (role === 'teknisi') document.getElementById('roleBtnEng').className = "p-2.5 rounded-xl border text-left transition-all ring-2 ring-brand bg-brand/10 border-brand text-white";
+    };
+
+    // Quick Simulated Switcher (for preview tester)
+    window.setSimulatedRole = function(role) {
+      window.appState.currentRole = role;
+      chooseRolePreset(role);
+      if (role === 'operator') {
+        navigateTo('loket', 'operator');
+      } else {
+        navigateTo('dashboard', role);
+      }
+    };
+
+    window.loginDirectAs = function(role) {
+      chooseRolePreset(role);
+      submitLogin();
+    };
+
+    // Submit Login logic with strict RBAC:
+    // 1. Operator: HANYA bisa login dan langsung membuka halaman Loket
+    // 2. Supervisor: Membuka dashboard operasional
+    // 3. Teknisi: Membuka dashboard perangkat & sistem
+    window.submitLogin = function() {
+      const u = document.getElementById('usernameInput').value.trim().toLowerCase();
+      let r = window.appState.currentRole;
+
+      if (u.includes('spv') || u.includes('supervisor') || u.includes('admin')) r = 'supervisor';
+      else if (u.includes('tek') || u.includes('tech') || u.includes('eng')) r = 'teknisi';
+      else if (u.includes('opr') || u.includes('operator')) r = 'operator';
+
+      window.appState.currentRole = r;
+
+      if (r === 'operator') {
+        navigateTo('loket', 'operator');
+      } else if (r === 'supervisor') {
+        navigateTo('dashboard', 'supervisor');
+      } else if (r === 'teknisi') {
+        navigateTo('dashboard', 'teknisi');
+      }
+    };
+
+    // Router and View Switcher
+    window.navigateTo = function(viewId, role = null) {
+      if (role) window.appState.currentRole = role;
+
+      // GUARD: Operator CANNOT enter dashboard
+      if (viewId === 'dashboard' && window.appState.currentRole === 'operator') {
+        showToast('Akses Ditolak', 'Akun Operator tidak memiliki wewenang mengakses Dashboard Admin.');
+        return;
+      }
+
+      // GUARD: Teknisi CANNOT operate loket
+      if (viewId === 'loket' && window.appState.currentRole === 'teknisi') {
+        showToast('Akses Ditolak', 'Akun Teknisi tidak diizinkan mengoperasikan Loket Kasir.');
+        return;
+      }
+
+      document.querySelectorAll('.view-screen').forEach(el => el.classList.remove('active'));
+
+      const scrLogin = document.getElementById('screenLogin');
+      const scrLoket = document.getElementById('screenLoket');
+      const scrAdmin = document.getElementById('screenAdmin');
+      const subtitle = document.getElementById('topSubtitle');
+      const footerStatus = document.getElementById('footerStatusText');
+
+      if (viewId === 'loket') {
+        window.appState.currentView = 'loket';
+        scrLoket.classList.add('active');
+        subtitle.textContent = 'Gerbang 01 (Exit) — Loket Operator';
+        footerStatus.textContent = 'Loket Kasir Aktif';
+
+        const rMeta = ROLE_METADATA[window.appState.currentRole] || ROLE_METADATA.operator;
+        document.getElementById('loketUserName').textContent = rMeta.fullName;
+        document.getElementById('loketUserShift').textContent = rMeta.shift;
+        document.getElementById('loketUserBadge').textContent = rMeta.badgeText;
+
+        // Return to admin button strictly for Supervisor
+        const backBtn = document.getElementById('btnSpvBackToAdmin');
+        const bottomKeyAdmin = document.getElementById('bottomKeyLoketAdmin');
+        if (window.appState.currentRole === 'supervisor') {
+          backBtn.classList.remove('hidden');
+          bottomKeyAdmin.classList.remove('opacity-30', 'cursor-not-allowed');
+        } else {
+          backBtn.classList.add('hidden');
+          bottomKeyAdmin.classList.add('opacity-30', 'cursor-not-allowed');
+        }
+
+      } else if (viewId === 'dashboard' || viewId === 'admin') {
+        window.appState.currentView = 'dashboard';
+        scrAdmin.classList.add('active');
+        subtitle.textContent = 'Gerbang 01 — Master Dashboard';
+        footerStatus.textContent = 'Admin Workstation';
+
+        renderDashboardRBAC(window.appState.currentRole);
+
+      } else {
+        window.appState.currentView = 'login';
+        scrLogin.classList.add('active');
+        subtitle.textContent = 'Mode Login';
+        footerStatus.textContent = 'Terminal Ready';
+      }
+    };
+
+    // Nav interceptors
+    window.handleLoketNavigation = function() {
+      if (window.appState.currentRole === 'teknisi') {
+        showToast('Akses Ditolak', 'Akun Teknisi tidak diizinkan membuka Loket Operator.');
+        return;
+      }
+      navigateTo('loket', window.appState.currentRole);
+    };
+
+    window.handleAdminNavigation = function() {
+      if (window.appState.currentRole === 'operator') {
+        showToast('Akses Ditolak', 'Akun Operator hanya memiliki akses ke Halaman Loket.');
+        return;
+      }
+      navigateTo('dashboard', window.appState.currentRole);
+    };
+
+    // Dashboard Strict RBAC Renderer:
+    // Supervisor: Allowed (01, 03, 04, 05, 06, 08). STRICTLY BLOCKED from 02 (Hardware) and 07 (System).
+    // Teknisi: ONLY ALLOWED 02 (Hardware) and 07 (System). Menu lain terkunci.
+    function renderDashboardRBAC(role) {
+      const isTech = (role === 'teknisi');
+      const isSpv = (role === 'supervisor');
+
+      const title = document.getElementById('adminMainTitle');
+      const badge = document.getElementById('adminRoleBadge');
+      const user = document.getElementById('adminUserFullName');
+      const scope = document.getElementById('adminAccessScopeText');
+      const avatar = document.getElementById('adminRoleAvatar');
+      const sideRole = document.getElementById('sidebarRoleLabel');
+      const sideStatus = document.getElementById('sidebarStatusIndicator');
+      const headerLoketBtn = document.getElementById('adminHeaderLoketBtn');
+      const sideLoketBtn = document.getElementById('sidebarLoketActionBtn');
+
+      const simSpv = document.getElementById('simBtnSpv');
+      const simEng = document.getElementById('simBtnEng');
+
+      const lock02 = document.getElementById('lockTag02');
+      const lock07 = document.getElementById('lockTag07');
+
+      if (isTech) {
+        // TEKNISI ROLE CONFIGURATION
+        title.textContent = 'Konsol Teknisi & Telemetri Perangkat';
+        badge.textContent = 'AKSES TEKNISI [ENG]';
+        badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-mono bg-amber-500/20 text-amber-400 border border-amber-500/30 font-semibold';
+        user.textContent = 'Doni Firmansyah (Maintenance)';
+        scope.textContent = 'Hanya 02 Manajemen Perangkat & 07 Pengaturan Sistem';
+        avatar.textContent = 'ENG';
+        avatar.className = 'w-9 h-9 rounded-lg bg-amber-600 flex items-center justify-center font-bold text-white font-mono text-sm';
+        sideRole.textContent = 'ENG';
+        sideStatus.textContent = 'Teknisi Aktif';
+        sideStatus.className = 'text-amber-400 font-bold';
+
+        simEng.className = 'px-2 py-1 rounded bg-amber-600 text-white font-bold';
+        simSpv.className = 'px-2 py-1 rounded text-neutral-400 hover:text-white';
+
+        // Loket buttons locked for Teknisi
+        headerLoketBtn.className = "px-4 py-2 bg-neutral-800 text-neutral-500 text-xs font-bold rounded-lg flex items-center gap-2 font-mono cursor-not-allowed border border-neutral-700";
+        sideLoketBtn.className = "w-full mb-3 p-2.5 rounded-xl bg-neutral-800 text-neutral-500 font-bold text-xs tracking-wide flex items-center justify-center gap-2 border border-neutral-700 cursor-not-allowed font-mono";
+
+        // Menu locks for Teknisi: 02 & 07 open, others locked
+        lock02.classList.add('hidden');
+        lock07.classList.add('hidden');
+
+        document.querySelectorAll('.dash-nav-btn').forEach(btn => {
+          const pane = btn.getAttribute('data-pane');
+          const lockTag = btn.querySelector('.lock-tag');
+          if (pane === 'pane02_hardware' || pane === 'pane07_system') {
+            btn.classList.remove('opacity-40', 'cursor-not-allowed');
+            if (lockTag) lockTag.classList.add('hidden');
+          } else {
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+            if (lockTag) lockTag.classList.remove('hidden');
+          }
+        });
+
+        // Open Hardware pane directly
+        showPane('pane02_hardware');
+
+      } else {
+        // SUPERVISOR ROLE CONFIGURATION
+        title.textContent = 'Dashboard Supervisor & Operasional';
+        badge.textContent = 'AKSES SUPERVISOR [SPV]';
+        badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-mono bg-sky-500/20 text-sky-400 border border-sky-500/30 font-semibold';
+        user.textContent = 'Ahmad Fauzi, S.T.';
+        scope.textContent = '01 Ringkasan, 03 Tarif, 04 Bayar, 05 Member, 06 Karyawan, 08 SOP + Loket';
+        avatar.textContent = 'SPV';
+        avatar.className = 'w-9 h-9 rounded-lg bg-sky-600 flex items-center justify-center font-bold text-white font-mono text-sm';
+        sideRole.textContent = 'SPV';
+        sideStatus.textContent = 'Supervisor Aktif';
+        sideStatus.className = 'text-emerald-400 font-bold';
+
+        simSpv.className = 'px-2 py-1 rounded bg-sky-600 text-white font-bold';
+        simEng.className = 'px-2 py-1 rounded text-neutral-400 hover:text-white';
+
+        // SPV can access Loket
+        headerLoketBtn.className = "px-4 py-2 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg flex items-center gap-2 shadow-lg font-mono";
+        sideLoketBtn.className = "w-full mb-3 p-2.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs tracking-wide flex items-center justify-center gap-2 shadow-md font-mono";
+
+        // Supervisor is STRICTLY LOCKED from 02 and 07
+        lock02.classList.remove('hidden');
+        lock07.classList.remove('hidden');
+
+        document.querySelectorAll('.dash-nav-btn').forEach(btn => {
+          const pane = btn.getAttribute('data-pane');
+          const lockTag = btn.querySelector('.lock-tag');
+          if (lockTag) lockTag.classList.add('hidden');
+
+          if (pane === 'pane02_hardware' || pane === 'pane07_system') {
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+          } else {
+            btn.classList.remove('opacity-40', 'cursor-not-allowed');
+          }
+        });
+
+        // Open Overview pane directly
+        showPane('pane01_overview');
+      }
+    }
+
+    // Intercept menu click with strict role authorization
+    window.handleMenuClick = function(paneId) {
+      const role = window.appState.currentRole;
+
+      if (role === 'supervisor') {
+        // Supervisor CANNOT access 02 Hardware or 07 System
+        if (paneId === 'pane02_hardware' || paneId === 'pane07_system') {
+          showToast('Akses Ditolak', 'Akses Ditolak: Modul ini hanya dapat diakses oleh akun Teknisi.');
+          return;
+        }
+      } else if (role === 'teknisi') {
+        // Teknisi CAN ONLY access 02 Hardware and 07 System
+        if (paneId !== 'pane02_hardware' && paneId !== 'pane07_system') {
+          showToast('Akses Ditolak', 'Akses Ditolak: Modul ini khusus Admin / Supervisor.');
+          return;
+        }
+      }
+
+      showPane(paneId);
+    };
+
+    // Pane Switcher
+    function showPane(paneId) {
+      document.querySelectorAll('.dash-pane').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(paneId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.dash-nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-pane') === paneId) {
+          btn.classList.add('bg-brand', 'text-white', 'font-bold');
+          btn.classList.remove('text-neutral-300');
+        } else {
+          btn.classList.remove('bg-brand', 'text-white', 'font-bold');
+          btn.classList.add('text-neutral-300');
+        }
+      });
+    }
+
+    // Loket Functions (Vehicle, Calculator, Payment, Barrier)
+    window.selectVehicle = function(type, price) {
+      window.appState.activeVehicle = type;
+      window.appState.totalBill = price;
+
+      ['vehMotorBtn', 'vehMobilBtn', 'vehTrukBtn'].forEach(id => {
+        document.getElementById(id).className = "p-2.5 rounded-lg border border-surface-border bg-surface-panel hover:bg-surface-border text-center transition-all";
+      });
+
+      let activeId = 'vehMobilBtn';
+      if (type === 'motor') activeId = 'vehMotorBtn';
+      if (type === 'truk') activeId = 'vehTrukBtn';
+      document.getElementById(activeId).className = "p-2.5 rounded-lg border-2 border-brand bg-brand/10 text-center transition-all text-white font-bold";
+
+      document.getElementById('billAmountText').textContent = price.toLocaleString('id-ID');
+      calculateCashReturn();
+    };
+
+    window.choosePaymentMethod = function(method) {
+      window.appState.paymentMethod = method;
+      const bCash = document.getElementById('payMethodCash');
+      const bQris = document.getElementById('payMethodQris');
+      const bNfc = document.getElementById('payMethodEmoney');
+
+      const sCash = document.getElementById('cashCalcSection');
+      const sQris = document.getElementById('qrisSection');
+      const sNfc = document.getElementById('emoneySection');
+
+      const def = "p-3.5 rounded-xl border border-surface-border bg-surface-panel hover:bg-surface-border flex flex-col items-center justify-center gap-1 text-center";
+      const act = "p-3.5 rounded-xl border-2 border-brand bg-brand/10 flex flex-col items-center justify-center gap-1 text-center";
+
+      bCash.className = def; bQris.className = def; bNfc.className = def;
+      sCash.classList.add('hidden'); sQris.classList.add('hidden'); sNfc.classList.add('hidden');
+
+      if (method === 'cash') {
+        bCash.className = act; sCash.classList.remove('hidden');
+      } else if (method === 'qris') {
+        bQris.className = act; sQris.classList.remove('hidden');
+      } else {
+        bNfc.className = act; sNfc.classList.remove('hidden');
+      }
+    };
+
+    window.calculateCashReturn = function() {
+      const rec = parseInt(document.getElementById('cashReceivedVal').value) || 0;
+      const change = rec - window.appState.totalBill;
+      const el = document.getElementById('cashReturnVal');
+      if (change >= 0) {
+        el.textContent = 'Rp ' + change.toLocaleString('id-ID');
+        el.className = 'text-lg font-black text-emerald-400';
+      } else {
+        el.textContent = 'Kurang Rp ' + Math.abs(change).toLocaleString('id-ID');
+        el.className = 'text-lg font-black text-red-400';
+      }
+    };
+
+    window.setCashAmount = function(amt) {
+      document.getElementById('cashReceivedVal').value = amt;
+      calculateCashReturn();
+    };
+
+    window.confirmCashPayment = function() {
+      const rec = parseInt(document.getElementById('cashReceivedVal').value) || 0;
+      if (rec < window.appState.totalBill) {
+        alert('Nominal uang diterima kurang dari total tagihan!');
+        return;
+      }
+      confirmPaymentSuccess('Pembayaran Tunai Rp ' + rec.toLocaleString('id-ID') + ' Diterima.');
+    };
+
+    window.confirmPaymentSuccess = function(msg) {
+      window.appState.isPaid = true;
+      const tag = document.getElementById('billStatusTag');
+      tag.className = 'px-3 py-1 rounded bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 font-mono text-xs font-bold flex items-center gap-1.5';
+      tag.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span><span>LUNAS - TEKAN [F9] BUKA PALANG</span>';
+
+      const btn = document.getElementById('barrierActionButton');
+      btn.className = "py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm tracking-wide shadow-lg flex items-center justify-center gap-2 cursor-pointer";
+      document.getElementById('barrierBtnLabel').textContent = 'BUKA PALANG [F9]';
+
+      alert(msg + ' Silakan tekan Buka Palang [F9] & Cetak Struk [F10].');
+    };
+
+    window.triggerOpenBarrier = function() {
+      if (!window.appState.isPaid) {
+        alert('Kendaraan belum lunas! Lakukan pembayaran atau minta Otorisasi Override SPV [F11].');
+        return;
+      }
+      alert('Relay COM3 aktif! Palang pintu terangkat. Kendaraan dapat keluar.');
+      window.appState.barrierOpened = true;
+    };
+
+    window.triggerPrintReceipt = function() {
+      alert('Mencetak struk parkir ke EPSON TM-T82...');
+    };
+
+    window.triggerScanTicket = function() {
+      document.getElementById('ticketInput').value = 'TKT-' + Math.floor(100000 + Math.random() * 900000);
+      alert('Tiket barcode terbaca: ' + document.getElementById('ticketInput').value);
+    };
+
+    window.focusPlateInput = function() {
+      const p = document.getElementById('plateInput');
+      p.focus();
+      p.select();
+    };
+
+    // Modal Control
+    window.openModal = function(id) {
+      document.getElementById(id).classList.remove('hidden');
+    };
+    window.closeModal = function(id) {
+      document.getElementById(id).classList.add('hidden');
+    };
+
+    // Keypad PIN
+    window.keypadAdd = function(d) {
+      if (window.appState.enteredPin.length < 6) {
+        window.appState.enteredPin += d;
+        updatePinDisplay();
+      }
+    };
+    window.keypadDel = function() {
+      window.appState.enteredPin = window.appState.enteredPin.slice(0, -1);
+      updatePinDisplay();
+    };
+    window.keypadClear = function() {
+      window.appState.enteredPin = '';
+      updatePinDisplay();
+    };
+    function updatePinDisplay() {
+      const len = window.appState.enteredPin.length;
+      document.getElementById('pinDisplayDigits').textContent = '•'.repeat(len) + '—'.repeat(Math.max(0, 6 - len));
+    }
+
+    window.submitSpvOverride = function() {
+      if (window.appState.enteredPin === '123456' || window.appState.enteredPin.length === 6) {
+        alert('Otorisasi Supervisor Berhasil! Palang diizinkan dibuka.');
+        window.appState.isPaid = true;
+        confirmPaymentSuccess('Override Otorisasi SPV Disetujui.');
+        closeModal('modalOverride');
+        keypadClear();
+      } else {
+        alert('PIN Otorisasi Salah! Gunakan PIN default: 123456');
+      }
+    };
+
+    window.pingAllDevices = function() {
+      alert('Ping Telemetri Hardware: COM3 OK (11ms), Printer READY, ANPR OK (8ms), SAM Reader OK.');
+    };
+
+    window.togglePassVisibility = function() {
+      const p = document.getElementById('passwordInput');
+      const b = document.getElementById('togglePassBtn');
+      if (p.type === 'password') { p.type = 'text'; b.textContent = 'Tutup'; }
+      else { p.type = 'password'; b.textContent = 'Lihat'; }
+    };
+
+    // Realtime clock
+    setInterval(() => {
+      const d = new Date();
+      const s = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ':' + String(d.getSeconds()).padStart(2, '0') + ' WIB';
+      const c = document.getElementById('realtimeClock');
+      if (c) c.textContent = s;
+    }, 1000);
+
+    // Keyboard Hotkey Listener F1-F12 and ESC
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'F1') { e.preventDefault(); openModal('modalSop'); }
+      if (e.key === 'F2') { e.preventDefault(); openModal('modalShift'); }
+      if (e.key === 'F3') { e.preventDefault(); triggerScanTicket(); }
+      if (e.key === 'F4') { e.preventDefault(); focusPlateInput(); }
+      if (e.key === 'F5') { e.preventDefault(); choosePaymentMethod('cash'); }
+      if (e.key === 'F6') { e.preventDefault(); choosePaymentMethod('qris'); }
+      if (e.key === 'F7') { e.preventDefault(); choosePaymentMethod('emoney'); }
+      if (e.key === 'F9') { e.preventDefault(); triggerOpenBarrier(); }
+      if (e.key === 'F10') { e.preventDefault(); triggerPrintReceipt(); }
+      if (e.key === 'F11') { e.preventDefault(); openModal('modalOverride'); }
+      if (e.key === 'F12') { e.preventDefault(); handleLoketNavigation(); }
+      if (e.key === 'Escape') {
+        closeModal('modalSop');
+        closeModal('modalShift');
+        closeModal('modalOverride');
+      }
+    });
+
+    // Default initialization
+    chooseRolePreset('operator');
+  </script>
+
+
+</body></html>

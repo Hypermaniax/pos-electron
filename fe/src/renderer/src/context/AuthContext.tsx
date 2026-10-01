@@ -16,7 +16,11 @@ interface AuthContextValue {
   status: AuthStatus
   error: string | null
   endReason: string | null
-  login: (username: string, password: string) => Promise<{ ok: boolean; error?: string }>
+  login: (username: string, password: string) => Promise<{
+    ok: boolean
+    error?: string
+    session?: SessionState
+  }>
   logout: () => Promise<void>
   expireSession: (reason: string) => Promise<void>
   clearEndReason: () => void
@@ -43,13 +47,16 @@ export function AuthProvider({ children }: { children: ReactNode }): React.JSX.E
   }, [])
 
   const login = useCallback(
-    async (username: string, password: string): Promise<{ ok: boolean; error?: string }> => {
+    async (
+      username: string,
+      password: string
+    ): Promise<{ ok: boolean; error?: string; session?: SessionState }> => {
       setError(null)
       const result = await loginRequest(username, password)
       if (result.ok) {
         setSession(result.data)
         setEndReason(null)
-        return { ok: true }
+        return { ok: true, session: result.data }
       }
       setError(result.error.message)
       return { ok: false, error: result.error.message }

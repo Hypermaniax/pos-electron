@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="id"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html class="dark" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>PARK-POS • Loket Exit 01</title>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
     tailwind.config = {
@@ -65,38 +63,6 @@
 <div class="fixed top-12 right-4 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
 <!-- ================= TOP WINDOW BAR (Electron Chrome Header) ================= -->
 <header class="w-full bg-surface-secondary border-b border-surface-border flex-none z-40">
-<!-- Top System Title Bar -->
-<div class="h-8 px-3 bg-surface-tertiary border-b border-surface-border-subtle flex items-center justify-between text-xs font-mono">
-<div class="flex items-center gap-2">
-<span class="w-2.5 h-2.5 rounded-sm bg-cta-primary flex items-center justify-center text-[9px] font-bold text-black">P</span>
-<span class="text-text-high-contrast font-semibold tracking-wide">PARK-POS v2.4.1</span>
-<span class="text-surface-border">/</span>
-<span class="text-text-muted">Electron Desktop Workstation</span>
-</div>
-<div class="flex items-center gap-4 text-[11px]">
-<span class="flex items-center gap-1.5 text-text-muted">
-<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
-          Site Server: <span class="text-status-success font-semibold">Online 10ms</span>
-</span>
-<span class="flex items-center gap-1.5 text-text-muted">
-<span class="w-2 h-2 rounded-full bg-status-success"></span>
-          Central: <span class="text-status-success font-semibold">Sync OK</span>
-</span>
-<span class="text-surface-border">|</span>
-<span class="text-accent-cyan">Gate: Exit Barat 01</span>
-</div>
-<div class="flex items-center">
-<button class="h-8 px-3 text-text-muted hover:text-white hover:bg-surface-card transition-colors flex items-center justify-center cursor-pointer active:scale-95" title="Minimize">
-<span class="material-symbols-outlined text-[14px]">remove</span>
-</button>
-<button class="h-8 px-3 text-text-muted hover:text-white hover:bg-surface-card transition-colors flex items-center justify-center cursor-pointer active:scale-95" title="Maximize">
-<span class="material-symbols-outlined text-[13px]">crop_square</span>
-</button>
-<button class="h-8 px-3 text-text-muted hover:text-white hover:bg-status-error transition-colors flex items-center justify-center cursor-pointer active:scale-95" onclick="resetTransaction()" title="Tutup / Keluar">
-<span class="material-symbols-outlined text-[15px]">close</span>
-</button>
-</div>
-</div>
 <!-- Main Navigation & Peripheral Bar -->
 <div class="h-14 px-4 flex items-center justify-between">
 <!-- Left: Logo & Gate info -->
@@ -147,7 +113,7 @@
 </button>
 <div class="h-8 w-px bg-surface-border hidden sm:block"></div>
 <div class="text-right font-mono hidden sm:block">
-<div class="text-sm font-bold text-text-high-contrast" id="live-clock">14:23:45 <span class="text-xs text-accent-cyan">WIB</span></div>
+<div class="text-sm font-bold text-text-high-contrast" id="live-clock">02:19:35 <span class="text-xs text-accent-cyan">WIB</span></div>
 <div class="text-[11px] text-text-muted">24 OKT 2024</div>
 </div>
 </div>
@@ -178,14 +144,14 @@
 <!-- Scan Input Box -->
 <div class="relative flex items-center" id="panel-scan">
 <span class="absolute left-3 text-accent-cyan material-symbols-outlined text-[20px]">barcode_reader</span>
-<input autofocus="" class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-sm pl-10 pr-28 py-2 rounded border border-surface-border focus:border-accent-cyan focus:outline-none transition-colors" id="barcode-input" placeholder="Tembak barcode scanner atau input nomor tiket..." type="text" value="TKT-20250520-00892"/>
+<input autofocus="" class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-sm pl-10 pr-28 py-2 rounded border border-surface-border focus:border-accent-cyan focus:outline-none transition-colors" id="barcode-input" placeholder="Tembak barcode scanner atau input nomor tiket..." type="text" value="TKT-20250520-00892">
 <button class="absolute right-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface-card-subtle text-accent-cyan border border-surface-border hover:bg-selection-blue/40 cursor-pointer active:scale-95 transition-all" onclick="document.getElementById('barcode-input').focus(); showToast('Scanner fokus siap input!', 'info');">AUTO-FOCUS</button>
 </div>
 <!-- Manual Input Box (Toggled) -->
 <div class="hidden grid-cols-2 gap-2 pt-1 font-mono" id="panel-manual">
 <div>
 <label class="block text-[11px] text-text-muted uppercase mb-1">Nomor Plat Polisi [Manual]</label>
-<input class="w-full bg-surface-tertiary text-text-high-contrast font-mono uppercase text-sm px-3 py-1.5 rounded border border-surface-border focus:outline-none focus:border-accent-cyan tracking-wider font-bold" id="manual-plate-input" type="text" value="B 1842 WKA"/>
+<input class="w-full bg-surface-tertiary text-text-high-contrast font-mono uppercase text-sm px-3 py-1.5 rounded border border-surface-border focus:outline-none focus:border-accent-cyan tracking-wider font-bold" id="manual-plate-input" type="text" value="B 1842 WKA">
 </div>
 <div>
 <label class="block text-[11px] text-text-muted uppercase mb-1">Klasifikasi Golongan</label>
@@ -212,7 +178,7 @@
 <div class="grid grid-cols-12 gap-3 items-center">
 <!-- Image Box -->
 <div class="col-span-5 sm:col-span-4 relative rounded-md overflow-hidden bg-surface-tertiary border border-surface-border h-28 flex items-center justify-center">
-<img alt="ANPR Snapshot Gerbang Masuk" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIBdV_cQ0L8nesnxi3mcvcJlh5Mz0X7Uizixh6slYE7lYACzYCljqnMsbXJmXugofB6Y2Eq5rRM4n7OZpeRlca0fFr5f8TFhP1hDFcx_5neCbmoM5mFYEn6rnvcHk6mGdosSeH8JqfWYyvbmOHeBKuqLWAJfdfW9uqxr71En6c3HBzkLDG-n-Uf6JtIiCbkdG1wCQVHQjp_ZS5HiN9kFEd-HXHRAzHstMMjfMpXbd9sxJADCivmB-p"/>
+<img alt="ANPR Snapshot Gerbang Masuk" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIBdV_cQ0L8nesnxi3mcvcJlh5Mz0X7Uizixh6slYE7lYACzYCljqnMsbXJmXugofB6Y2Eq5rRM4n7OZpeRlca0fFr5f8TFhP1hDFcx_5neCbmoM5mFYEn6rnvcHk6mGdosSeH8JqfWYyvbmOHeBKuqLWAJfdfW9uqxr71En6c3HBzkLDG-n-Uf6JtIiCbkdG1wCQVHQjp_ZS5HiN9kFEd-HXHRAzHstMMjfMpXbd9sxJADCivmB-p">
 <div class="absolute bottom-1 left-1 bg-surface-tertiary/80 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-mono text-text-high-contrast">
               CAM-IN-BARAT
             </div>
@@ -353,7 +319,7 @@
 </div>
 <div class="relative">
 <span class="absolute left-3 top-2.5 font-mono text-lg font-bold text-text-muted">Rp</span>
-<input class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-2xl font-bold pl-12 pr-3 py-2 rounded border border-surface-border focus:border-accent-cyan focus:outline-none" id="cash-input" oninput="calculateChange()" type="number" value="20000"/>
+<input class="w-full bg-surface-tertiary text-text-high-contrast font-mono text-2xl font-bold pl-12 pr-3 py-2 rounded border border-surface-border focus:border-accent-cyan focus:outline-none" id="cash-input" oninput="calculateChange()" type="number" value="20000">
 </div>
 </div>
 <!-- Preset Buttons -->
@@ -393,7 +359,7 @@
 </div>
 <!-- QR Dummy -->
 <div class="w-36 h-36 bg-white p-2 rounded flex items-center justify-center shadow-inner">
-<svg class="w-full h-full text-black" fill="currentColor" viewbox="0 0 100 100">
+<svg class="w-full h-full text-black" fill="currentColor" viewBox="0 0 100 100">
 <rect fill="none" height="26" stroke="currentColor" stroke-width="4" width="26" x="5" y="5"></rect>
 <rect height="14" width="14" x="11" y="11"></rect>
 <rect fill="none" height="26" stroke="currentColor" stroke-width="4" width="26" x="69" y="5"></rect>
@@ -645,16 +611,16 @@
 <div class="space-y-2.5 text-xs" id="shift-panel-operasional">
 <div>
 <label class="block text-text-muted uppercase text-[10px] mb-1">NIP Operator Pengganti</label>
-<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono focus:border-accent-cyan focus:outline-none" id="shift-next-nip" placeholder="Contoh: OP-8820 (Agus W)" value="OP-8820 (Agus W)"/>
+<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono focus:border-accent-cyan focus:outline-none" id="shift-next-nip" placeholder="Contoh: OP-8820 (Agus W)" value="OP-8820 (Agus W)">
 </div>
 <div class="grid grid-cols-2 gap-2">
 <div>
 <label class="block text-text-muted uppercase text-[10px] mb-1">PIN Pengganti (4 Digit)</label>
-<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono text-center tracking-widest focus:border-accent-cyan focus:outline-none" maxlength="4" placeholder="****" type="password" value="1234"/>
+<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono text-center tracking-widest focus:border-accent-cyan focus:outline-none" maxlength="4" placeholder="****" type="password" value="1234">
 </div>
 <div>
 <label class="block text-text-muted uppercase text-[10px] mb-1">Modal Awal Laci Kas</label>
-<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono focus:border-accent-cyan focus:outline-none" value="Rp 200.000"/>
+<input class="w-full bg-surface-tertiary border border-surface-border text-text-high-contrast px-3 py-1.5 rounded font-mono focus:border-accent-cyan focus:outline-none" value="Rp 200.000">
 </div>
 </div>
 <button class="w-full py-2.5 bg-cta-primary hover:bg-cta-hover text-white font-mono font-bold text-xs rounded transition-all active:scale-95 cursor-pointer shadow flex items-center justify-center gap-1.5" onclick="executeHandoverShift()">
@@ -704,7 +670,7 @@
 <span>PIN Supervisor (6 Digit)</span>
 <button class="text-status-warning hover:underline text-[10px] cursor-pointer" onclick="clearSupervisorPin()">Clear</button>
 </div>
-<input class="bg-surface-tertiary border border-surface-border text-text-high-contrast text-center text-lg tracking-widest py-1.5 rounded focus:outline-none focus:border-accent-cyan font-mono" id="supervisor-pin-input" maxlength="6" placeholder="******" type="password" value="889900"/>
+<input class="bg-surface-tertiary border border-surface-border text-text-high-contrast text-center text-lg tracking-widest py-1.5 rounded focus:outline-none focus:border-accent-cyan font-mono" id="supervisor-pin-input" maxlength="6" placeholder="******" type="password" value="889900">
 </div>
 <!-- Clickable Numpad for Touch/Mouse -->
 <div class="grid grid-cols-3 gap-1 text-xs font-mono font-bold pt-1">

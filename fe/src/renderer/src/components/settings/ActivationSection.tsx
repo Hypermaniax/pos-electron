@@ -244,7 +244,7 @@ export function ActivationSection(): React.JSX.Element {
             className="border-border bg-card font-mono text-[11px] uppercase hover:bg-background"
             onClick={() =>
               toast(
-                'Audit log transaksi belum tersedia — lihat HomeScreen untuk ringkasan.',
+                'Audit log transaksi belum tersedia — lihat Dashboard untuk ringkasan.',
                 'info'
               )
             }

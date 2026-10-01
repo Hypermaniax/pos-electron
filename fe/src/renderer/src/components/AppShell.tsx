@@ -1,17 +1,20 @@
 import type React from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import {
   ArrowDownToLineIcon,
+  CircleDollarSignIcon,
   ClockIcon,
   CreditCardIcon,
+  HeadsetIcon,
   HistoryIcon,
   HouseIcon,
+  LayoutDashboardIcon,
   LogOutIcon,
   SettingsIcon,
   TicketIcon,
   UsersIcon
 } from 'lucide-react'
-import { can, Permissions } from '../lib/permissions'
+import { can, isOperator, Permissions } from '../lib/permissions'
 import { useAuth } from '../context/AuthContext'
 import { useConfig } from '../context/ConfigContext'
 import { useShift } from '../context/ShiftContext'
@@ -30,6 +33,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { to: '/', label: 'Beranda', icon: HouseIcon },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboardIcon, permission: Permissions.SessionView },
   { to: '/loket', label: 'Loket Bayar', icon: CreditCardIcon, permission: Permissions.SessionView },
   { to: '/masuk', label: 'Gate Masuk', icon: TicketIcon, permission: Permissions.SessionView },
   { to: '/shift', label: 'Shift', icon: ArrowDownToLineIcon, permission: Permissions.ShiftManage },
@@ -45,6 +49,18 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Personel & Member',
     icon: UsersIcon,
     permission: Permissions.PersonelView
+  },
+  {
+    to: '/tarif',
+    label: 'Tarif Parkir',
+    icon: CircleDollarSignIcon,
+    permission: Permissions.SettingsManage
+  },
+  {
+    to: '/bantuan',
+    label: 'Pusat Bantuan',
+    icon: HeadsetIcon,
+    permission: Permissions.SettingsManage
   }
 ]
 
@@ -65,6 +81,11 @@ export function AppShell(): React.JSX.Element {
   const handleLogout = async (): Promise<void> => {
     await logout()
     navigate('/login', { replace: true })
+  }
+
+  // Operator hanya boleh membuka loket; semua layar admin dialihkan ke loket.
+  if (isOperator(session)) {
+    return <Navigate to="/loket" replace />
   }
 
   const items2 = NAV_ITEMS.filter((item) => !item.permission || can(session, item.permission as never))
